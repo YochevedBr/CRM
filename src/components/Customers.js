@@ -1,6 +1,8 @@
 
 import React from "react"
 import CustomersTable from "./CustomersTable"
+// import { useHistory } from 'react-router-dom';
+
 
 class Customers extends React.Component{
     componentDidMount(){
@@ -13,13 +15,17 @@ class Customers extends React.Component{
                 <CustomersTable />
                 <br></br>
                 <div>
-                    <button id="btnAdd">Add</button>
-                    <button id="btnDelete">Delete</button>
+                    <button id="btnAdd" onClick={() => this.props.history.push('/customers_reports')} >+</button>
                 </div>
             </div>
         )
     }
 }
+
+
+// const handlerAdd=() => {
+//     console.log("Add Customer")
+// }
    
 
 export default Customers

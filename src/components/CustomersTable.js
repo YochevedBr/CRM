@@ -1,5 +1,5 @@
 import React from "react"
-import { useTable, useFilters, useSortBy } from 'react-table';
+import { useTable, useFilters, useSortBy} from 'react-table';
 // import './customersTable.css'
 
 function CustomersTable() {
@@ -41,15 +41,27 @@ function CustomersTable() {
             accessor: 'email',
             sortType: 'alphanumeric',
         },
+        {
+            Header: 'Actions',
+            // accessor: 'actions',
+            id: 'click-me-button',
+            Cell: ({row}) => (
+                <div>
+                    <button onClick={() => handleEdit(row.original.email)}>🖊️</button>
+                    <button onClick={() => handleDelete(row.original.email)}>🗑️</button>
+                </div>
+            )
+          }
         ],
         []
         )  
-
+        
         const defaultColumn = React.useMemo(() => ({
               Filter: TextFilter,
         }),
         []
         )
+        
         
         const {
             getTableProps,
@@ -74,33 +86,48 @@ function CustomersTable() {
                                 <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                                     {column.render('Header')}
                                     <span>
+                                        {/* Render the columns sort UI */}
                                         {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : '  '}
                                     </span>
                                     
+                                    {/* Render the columns filter UI */}
                                     <div>{column.canFilter ? column.render('Filter') : null}</div>
                                 </th>
                             ))}
                         </tr>
                     ))}
                 </thead>
-
                 <tbody {...getTableBodyProps()}>
                     {rows.map(row => {
                         prepareRow(row)
                         return (
                             <tr {...row.getRowProps()}>
                                 {row.cells.map(cell => {
-                                    return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                                return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+
                                 })}
                             </tr>
                         )
                     })}
                 </tbody>
             </table>
-      
         )
 }
-   
+
+const handleDelete = (data) => {
+    console.log('this is:', data);
+    // const r = this.state.rows.map((row) => data===row.original.email? {...row, show: !row.show}: row)
+    // this.setState({
+    //   rows: r
+    // })
+    
+  }
+
+const handleEdit = (data) => {
+    console.log('this is:', data);
+  }
+
+
 function TextFilter({
     column: { filterValue, preFilteredRows, setFilter },
    }) {
