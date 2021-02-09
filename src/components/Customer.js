@@ -1,7 +1,7 @@
 import React from "react"
 
 
-class AddCustomer extends React.Component{
+class Customer extends React.Component{
     componentDidMount(){
         
     }
@@ -59,4 +59,4 @@ class AddCustomer extends React.Component{
 }
    
 
-export default AddCustomer
+export default Customer

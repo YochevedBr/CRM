@@ -5,7 +5,7 @@ import Reports from './components/Reports'
 import Purchases from './components/Purchases'
 import CustomersReports from './components/CustomersReports'
 import CustomersDetails from './components/CustomersDetails'
-import AddCustomer from './components/AddCustomer'
+import Customer from './components/Customer'
 import { BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
 import React, { Component } from "react";
 
@@ -16,7 +16,7 @@ function App()
   return (
     <div className="App">
       {/* <Customers /> */}
-      {/* <AddCustomer /> */}
+      {/* <Customer /> */}
 
       <Router>
         <div>
