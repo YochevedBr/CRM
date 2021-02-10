@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -10,15 +10,20 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
 
+  // Keep the value of the TextField
+  const [name, setName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [email, setEmail] = useState('');
+
   const handleClickOpen = () => {
     setOpen(true);
   };
   
   const handleClose = () => {
     setOpen(false);
-    console.log('Saving user');
-    // console.log(this.myRefs.username.value);
-    // console.log(this.refs.myFieldName.input.value)
+    console.log(name);
+    console.log(phoneNumber);
+    console.log(email);
   };
 
   return (
@@ -39,9 +44,7 @@ export default function FormDialog() {
             label="Full Name"
             type="text"
             fullWidth
-            // defaultValue="hhhhh"
-            // ref="myFieldName"
-            // inputRef={(c) => {this.myRefs.username = c}}
+            onChange={(event) => setName(event.target.value)}
           />
           <TextField
             margin="dense"
@@ -49,6 +52,7 @@ export default function FormDialog() {
             label="Phone Number"
             type="phone"
             fullWidth
+            onChange={(event) => setPhoneNumber(event.target.value)}
           />
           <TextField
             margin="dense"
@@ -56,6 +60,7 @@ export default function FormDialog() {
             label="Email Address"
             type="email"
             fullWidth
+            onChange={(event) => setEmail(event.target.value)}
           />
         </DialogContent>
         <DialogActions>
