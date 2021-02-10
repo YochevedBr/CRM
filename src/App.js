@@ -1,25 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+
+import { BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
 import Customers from './components/Customers'
 import Reports from './components/Reports'
 import Purchases from './components/Purchases'
 import CustomersReports from './components/CustomersReports'
 import CustomersDetails from './components/CustomersDetails'
-import Customer from './components/Customer'
-import { BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
 import React, { Component } from "react";
 import Login from './components/Login'
 import Routes from './components/Routes'
-
 
 
 function App() 
 {
   return (
     <div className="App">
-      {/* <Routes/> */}
-      {/* <Customers /> */}
-      {/* <Customer /> */}
 
       {/* <Router>
         <div> */}
@@ -36,10 +30,14 @@ function App()
           <button id="btnPurchases"> 
               <Link to="/purchases">Purchases</Link>
           </button>
+          <button id="btnReports"> 
+              <Link to="/reports">Reports</Link>
+          </button>
          
           <Switch>
             <Route path="/" component={Home} exact />
             <Route path="/customers" component={Customers} />
+            <Route path="/update_customer" component={UpdateCustomer} />
             <Route path="/reports" component={Reports} />
             <Route path="/purchases" component={Purchases} />
             <Route path="/customers_reports" component={CustomersReports} />

@@ -1,5 +1,7 @@
 
 import React from "react"
+import CustomersTableReports from "./CustomersTableReports"
+
 
 class CustomersReports extends React.Component{
     componentDidMount(){
@@ -9,6 +11,7 @@ class CustomersReports extends React.Component{
         return(
             <div>
                 <h3>CustomersReports</h3>
+                <CustomersTableReports />
             </div>
         )
     }

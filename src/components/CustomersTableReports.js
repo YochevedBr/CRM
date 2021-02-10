@@ -53,10 +53,7 @@ function CustomersTable(props) {
             id: 'click-me-button',
             Cell: ({row}) => (
                 <div>
-                    {/* <button onClick={() => handleEdit(row.original.email)}>🖊️</button> */}
-                    <Button variant="outlined" color="primary" onClick={() => {history.push({pathname:  "/update_customer"})}}>Edit</Button>{' '}
-
-                    <Button variant="outlined" color="primary" onClick={() => handleDelete(row.original.email)}>Delete</Button>
+                    <Button variant="outlined" color="primary" onClick={() => handleDelete(row.original.email)}>Print</Button>
                 </div>
             )
           }
@@ -137,12 +134,6 @@ const handleDelete = (data) => {
     // })
     
   }
-
-const handleEdit = (data) => {
-    // console.log('this is:', data);
-    // this.props.history.push('/customers_reports')
-  }
-
 
 function TextFilter({
     column: { filterValue, preFilteredRows, setFilter },
