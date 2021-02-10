@@ -3,7 +3,7 @@ import React from "react"
 import { BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
 import Purchases from './Purchases'
 import CustomersReports from './CustomersReports'
-
+import { withRouter } from 'react-router-dom';
 
 class Reports extends React.Component{
     componentDidMount(){
@@ -16,17 +16,19 @@ class Reports extends React.Component{
                 <br></br>
                 <Router>
                     <div>
-                    <button id="btnCustomers"> 
-                        <Link to="/customers_reports">CustomersReports</Link>
+                    
+                    <button id="btnCustomers" onClick={() => {this.props.history.push('/customers_reports')}}>
+                        CustomersReports
                     </button>
-                    <button id="btnPurchases"> 
-                        <Link to="/purchases">Purchases</Link>
+                    
+                    <button id="btnPurchases" onClick={() => {this.props.history.push('/purchases')}}> 
+                        Purchases
                     </button>
-                        <Switch>
+                        {/* <Switch>
                             <Route exact path="/customers_reports" component={CustomersReports} />
                             <Route exact path="/purchases" component={Purchases} />
                             <Route exact component={Error} />
-                        </Switch>
+                        </Switch> */}
                     </div>
                 </Router>
             </div>
@@ -35,4 +37,4 @@ class Reports extends React.Component{
 }
    
 
-export default Reports
+export default withRouter(Reports);

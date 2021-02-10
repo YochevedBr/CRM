@@ -8,6 +8,8 @@ import CustomersDetails from './components/CustomersDetails'
 import Customer from './components/Customer'
 import { BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
 import React, { Component } from "react";
+import Login from './components/Login'
+import Routes from './components/Routes'
 
 
 
@@ -15,13 +17,14 @@ function App()
 {
   return (
     <div className="App">
+      {/* <Routes/> */}
       {/* <Customers /> */}
       {/* <Customer /> */}
 
-      <Router>
-        <div>
+      {/* <Router>
+        <div> */}
           {/* <Navigation /> */}
-          <button> 
+          {/* <button>
             <Link to="/">Home</Link>
           </button>
           <button> 
@@ -47,7 +50,9 @@ function App()
           </Switch>
 
         </div>
-      </Router>
+      </Router>} */}
+      {/* <Login></Login> */}
+      <Routes/>
       
     </div>
   );

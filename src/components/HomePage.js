@@ -1,5 +1,6 @@
 import React from "react"
-import Navbar from "./Navbar"
+import Navbar from "./BootstrapNavbar"
+import './HomePage.css';
 
 class HomaPage extends React.Component{
     componentDidMount(){
@@ -7,14 +8,9 @@ class HomaPage extends React.Component{
 
     render(){
         return(
-            <div>
-                {/* <Navbar /> */}
-                <h1>HELLO</h1>
-                <br></br>
-                <div>
-                    <button id="btnAdd">Add</button>
-                    <button id="btnDelete">Delete</button>
-                </div>
+            <div id='HomePage'>
+                HomePage
+                {/* <img src="../pictures/house-real-estate-logo.jpg" alt="Trulli" width="500" height="333">‏</img> */}
             </div>
         )
     }

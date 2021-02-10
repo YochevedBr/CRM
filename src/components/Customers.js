@@ -2,13 +2,14 @@
 import React from "react"
 import CustomersTable from "./CustomersTable"
 // import { useHistory } from 'react-router-dom';
-
+import { withRouter } from 'react-router-dom';
 
 class Customers extends React.Component{
     componentDidMount(){
     }
 
     render(){
+        console.log('Customers')
         return(
             <div>
                 <h3>Customers</h3>
@@ -28,4 +29,4 @@ class Customers extends React.Component{
 // }
    
 
-export default Customers
+export default withRouter(Customers) 
