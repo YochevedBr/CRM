@@ -1,17 +1,13 @@
 
-import React from "react";
 import { BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
 import Customers from './components/Customers'
 import Reports from './components/Reports'
 import Purchases from './components/Purchases'
 import CustomersReports from './components/CustomersReports'
 import CustomersDetails from './components/CustomersDetails'
-import UpdateCustomer from './components/UpdateCustomer'
-
-import './App.css';
-
-
-// import 'bootstrap/dist/css/bootstrap.min.css';//?
+import React, { Component } from "react";
+import Login from './components/Login'
+import Routes from './components/Routes'
 
 
 function App() 
@@ -19,10 +15,10 @@ function App()
   return (
     <div className="App">
 
-      <Router>
-        <div>
+      {/* <Router>
+        <div> */}
           {/* <Navigation /> */}
-          <button> 
+          {/* <button>
             <Link to="/">Home</Link>
           </button>
           <button> 
@@ -52,7 +48,9 @@ function App()
           </Switch>
 
         </div>
-      </Router>
+      </Router>} */}
+      {/* <Login></Login> */}
+      <Routes/>
       
     </div>
   );

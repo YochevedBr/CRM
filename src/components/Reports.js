@@ -3,6 +3,10 @@ import React from "react"
 import Button from '@material-ui/core/Button';
 
 
+import { BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
+import Purchases from './Purchases'
+import CustomersReports from './CustomersReports'
+import { withRouter } from 'react-router-dom';
 
 class Reports extends React.Component{
     componentDidMount(){
@@ -21,4 +25,4 @@ class Reports extends React.Component{
 }
    
 
-export default Reports
+export default withRouter(Reports);

@@ -16,6 +16,7 @@ class Customers extends React.Component{
                 <CustomersTable />
                 <AddCustomer />
                 <br></br>
+                
                 {/* <div>
                     <button id="btnAdd" onClick={() => this.props.history.push('/customers_reports')} >+</button>
                 </div> */}
