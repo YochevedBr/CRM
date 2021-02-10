@@ -16,6 +16,7 @@ import CallRecords from './CallRecords'
 import BootstrapNavbar from './BootstrapNavbar'
 import Login from './Login'
 import SignUp from './SignUp'
+import Image from './Image'
 
 function routing(){
     return(
@@ -29,7 +30,7 @@ function routing(){
             </Route> 
             </Route> */}
             <Switch>
-                <Route path="/" component={Login} exact />
+                <Route path="/" component={Image} exact />
                 
                 <Route path="/customers">
                     <BootstrapNavbar/>
