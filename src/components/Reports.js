@@ -1,8 +1,7 @@
 
 import React from "react"
-import { BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
-import Purchases from './Purchases'
-import CustomersReports from './CustomersReports'
+import Button from '@material-ui/core/Button';
+
 
 
 class Reports extends React.Component{
@@ -14,21 +13,8 @@ class Reports extends React.Component{
             <div>
                 <h3>Reports</h3>
                 <br></br>
-                <Router>
-                    <div>
-                    <button id="btnCustomers"> 
-                        <Link to="/customers_reports">CustomersReports</Link>
-                    </button>
-                    <button id="btnPurchases"> 
-                        <Link to="/purchases">Purchases</Link>
-                    </button>
-                        <Switch>
-                            <Route exact path="/customers_reports" component={CustomersReports} />
-                            <Route exact path="/purchases" component={Purchases} />
-                            <Route exact component={Error} />
-                        </Switch>
-                    </div>
-                </Router>
+                <Button variant="outlined" color="primary" onClick={() => this.props.history.push('/customers_reports')} >Customers Reports</Button>{' '}
+                <Button variant="outlined" color="primary" onClick={() => this.props.history.push('/purchases')} >Purchases</Button>
             </div>
         )
     }

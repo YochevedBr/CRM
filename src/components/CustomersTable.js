@@ -1,8 +1,15 @@
 import React from "react"
 import { useTable, useFilters, useSortBy} from 'react-table';
-// import './customersTable.css'
+import { useHistory } from "react-router";
+import { Container,Row,Col, Table, InputGroup, FormControl } from 'react-bootstrap';
+import Button from '@material-ui/core/Button';
 
-function CustomersTable() {
+
+
+function CustomersTable(props) {
+    
+        const history = useHistory();
+
         // build table
         const data = React.useMemo(() =>
         [{  
@@ -43,12 +50,13 @@ function CustomersTable() {
         },
         {
             Header: 'Actions',
-            // accessor: 'actions',
             id: 'click-me-button',
             Cell: ({row}) => (
                 <div>
-                    <button onClick={() => handleEdit(row.original.email)}>🖊️</button>
-                    <button onClick={() => handleDelete(row.original.email)}>🗑️</button>
+                    {/* <button onClick={() => handleEdit(row.original.email)}>🖊️</button> */}
+                    <Button variant="outlined" color="primary" onClick={() => {history.push({pathname:  "/update_customer"})}}>Edit</Button>{' '}
+
+                    <Button variant="outlined" color="primary" onClick={() => handleDelete(row.original.email)}>Delete</Button>
                 </div>
             )
           }
@@ -77,40 +85,47 @@ function CustomersTable() {
             )
 
         return(
-            
-            <table {...getTableProps()}>
-                <thead>
-                    {headerGroups.map(headerGroup => (
-                        <tr {...headerGroup.getHeaderGroupProps()}>
-                            {headerGroup.headers.map(column => (
-                                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                                    {column.render('Header')}
-                                    <span>
-                                        {/* Render the columns sort UI */}
-                                        {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : '  '}
-                                    </span>
-                                    
-                                    {/* Render the columns filter UI */}
-                                    <div>{column.canFilter ? column.render('Filter') : null}</div>
-                                </th>
+            <Container>
+                <Row>
+                    <Col>
+                    <Table  striped bordered hover responsive bsStyle="default" style={{borderRadius: '5px', overflow: 'hidden'}} {...getTableProps()}>
+                        <thead>
+                            {headerGroups.map(headerGroup => (
+                                <tr {...headerGroup.getHeaderGroupProps()}>
+                                    {headerGroup.headers.map(column => (
+                                        <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                                            {column.render('Header')}
+                                            <span>
+                                                {/* Render the columns sort UI */}
+                                                {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : '  '}
+                                            </span>
+                                            
+                                            {/* Render the columns filter UI */}
+                                            <div>{column.canFilter ? column.render('Filter') : null}
+                                            </div>
+                                        </th>
+                                    ))}
+                                </tr>
                             ))}
-                        </tr>
-                    ))}
-                </thead>
-                <tbody {...getTableBodyProps()}>
-                    {rows.map(row => {
-                        prepareRow(row)
-                        return (
-                            <tr {...row.getRowProps()}>
-                                {row.cells.map(cell => {
-                                return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                        </thead>
+                        <tbody {...getTableBodyProps()}>
+                            {rows.map(row => {
+                                prepareRow(row)
+                                return (
+                                    <tr {...row.getRowProps()}>
+                                        {row.cells.map(cell => {
+                                        return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
 
-                                })}
-                            </tr>
-                        )
-                    })}
-                </tbody>
-            </table>
+                                        })}
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </Table>
+                </Col>
+            </Row>
+        </Container>
+        
         )
 }
 
@@ -124,7 +139,8 @@ const handleDelete = (data) => {
   }
 
 const handleEdit = (data) => {
-    console.log('this is:', data);
+    // console.log('this is:', data);
+    // this.props.history.push('/customers_reports')
   }
 
 
@@ -133,13 +149,17 @@ function TextFilter({
    }) {
    
     return (
-      <input
-        value={filterValue || ''}
-        onChange={e => {
-          setFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
-        }}
-        placeholder={`Search...`}
-      />
+        <InputGroup className="mb-3">
+            <FormControl
+                placeholder="Search..."
+                value={filterValue || ''}
+                onChange={e => {
+                    setFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
+                }}
+                // aria-label="Username"
+                // aria-describedby="basic-addon1"
+            />
+        </InputGroup>
     )
    }
 
