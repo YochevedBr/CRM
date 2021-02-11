@@ -1,5 +1,4 @@
 import React from "react"
-import Navbar from "./BootstrapNavbar"
 import './HomePage.css';
 
 class HomaPage extends React.Component{

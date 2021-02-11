@@ -3,8 +3,7 @@ import { BrowserRouter as Router,
     Switch,
     Route,
     useParams,
-    Redirect,
-    Link } from "react-router-dom";
+    Redirect, } from "react-router-dom";
 import Customers from './Customers'
 import Reports from './Reports'
 import Purchases from './Purchases'
@@ -16,7 +15,6 @@ import CallRecords from './CallRecords'
 import BootstrapNavbar from './BootstrapNavbar'
 import Login from './Login'
 import SignUp from './SignUp'
-import Image from './Image'
 
 function routing(){
     return(
@@ -30,7 +28,7 @@ function routing(){
             </Route> 
             </Route> */}
             <Switch>
-                <Route path="/" component={Image} exact />
+                <Route path="/" component={Login} exact />
                 
                 <Route path="/customers">
                     <BootstrapNavbar/>
