@@ -14,44 +14,7 @@ function App()
 {
   return (
     <div className="App">
-
-      {/* <Router>
-        <div> */}
-          {/* <Navigation /> */}
-          {/* <button>
-            <Link to="/">Home</Link>
-          </button>
-          <button> 
-            <Link to="/customers">Customers</Link>
-          </button>
-          <button id="btnCustomers"> 
-              <Link to="/customers_reports">CustomersReports</Link>
-          </button>
-          <button id="btnPurchases"> 
-              <Link to="/purchases">Purchases</Link>
-          </button>
-          <button id="btnReports"> 
-              <Link to="/reports">Reports</Link>
-          </button>
-         
-          <Switch>
-            <Route path="/" component={Home} exact />
-            <Route path="/customers" component={Customers} />
-            <Route path="/update_customer" component={UpdateCustomer} />
-            <Route path="/reports" component={Reports} />
-            <Route path="/purchases" component={Purchases} />
-            <Route path="/customers_reports" component={CustomersReports} />
-            <Route path="/customers_reports" component={CustomersReports} />
-            <Route path="/purchases" component={Purchases} />
-            <Route path="/customers_details" component={CustomersDetails} />
-            <Route component={Error} />
-          </Switch>
-
-        </div>
-      </Router>} */}
-      {/* <Login></Login> */}
       <Routes/>
-      
     </div>
   );
 }

@@ -6,7 +6,7 @@ import AddCallRecord from "./AddCallRecord"
 // import DefaultUserPic from "../uploads/team-male.jpg";
 // const axios = require('axios');
 
-class Customer extends React.Component {
+class UpdateCustomer extends React.Component {
     constructor(props){
         super(props);
         this.state={
@@ -76,8 +76,9 @@ class Customer extends React.Component {
     return (
     <Container>
         <Row>
-            <Col>
-                <h1>Update Customer</h1>
+            <Col xs={6}>
+                <h1>Customer</h1>
+                <br></br>
                 <Form className="form">     
                     <p>{this.state.msg}</p>
                     <Form.Group controlId="formCategory1">
@@ -91,10 +92,6 @@ class Customer extends React.Component {
                     <Form.Group controlId="formCategory2">
                         <Form.Label>Email</Form.Label>
                         <Form.Control type="email" defaultValue={this.state.email} />          
-                    </Form.Group>
-                    <Form.Group controlId="formCategory4">
-                        <Form.Label>Profile Image</Form.Label>
-                        <Form.Control type="file" name="profileImage" onChange={this.changeProfileImage}/>
                     </Form.Group>
                     <Button variant="outlined" color="primary" onClick={this.UpdateProfileHandler}>Update</Button>
                     <AddCallRecord />
@@ -117,5 +114,5 @@ const mapStatetoProps=(state)=>{
    }
    
    
-   export default Customer
+   export default UpdateCustomer
 //    export default connect(mapStatetoProps)(UserProfile);

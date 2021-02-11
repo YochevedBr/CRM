@@ -5,10 +5,28 @@ import { Container,Row,Col, Table, InputGroup, FormControl } from 'react-bootstr
 import Button from '@material-ui/core/Button';
 
 
-
 function CustomersTable(props) {
+
+        const reports = props.reports;
     
         const history = useHistory();
+        
+        const Actions = (props) =>{
+            const reports = props.reports;
+            const row = props.row;
+            if(reports){
+                return <Button variant="outlined" color="primary" onClick={() => handleDelete(row.original.email)}>Print</Button>
+            }
+            else{
+                return(
+                    <div>
+                        <Button variant="outlined" color="primary" onClick={() => {history.push({pathname:  "/update_customer"})}}>Edit</Button>{' '}
+                        <Button variant="outlined" color="primary" onClick={() => handleDelete(row.original.email)}>Delete</Button>
+                    </div>
+                )
+            }  
+          }
+      
 
         // build table
         const data = React.useMemo(() =>
@@ -53,10 +71,11 @@ function CustomersTable(props) {
             id: 'click-me-button',
             Cell: ({row}) => (
                 <div>
-                    {/* <button onClick={() => handleEdit(row.original.email)}>🖊️</button> */}
+                    <Actions reports={reports} row={row} />
+                    {/* <button onClick={() => handleEdit(row.original.email)}>🖊️</button>
                     <Button variant="outlined" color="primary" onClick={() => {history.push({pathname:  "/update_customer"})}}>Edit</Button>{' '}
 
-                    <Button variant="outlined" color="primary" onClick={() => handleDelete(row.original.email)}>Delete</Button>
+                    <Button variant="outlined" color="primary" onClick={() => handleDelete(row.original.email)}>Delete</Button> */}
                 </div>
             )
           }
@@ -85,47 +104,41 @@ function CustomersTable(props) {
             )
 
         return(
-            <Container>
-                <Row>
-                    <Col>
-                    <Table  striped bordered hover responsive bsStyle="default" style={{borderRadius: '5px', overflow: 'hidden'}} {...getTableProps()}>
-                        <thead>
-                            {headerGroups.map(headerGroup => (
-                                <tr {...headerGroup.getHeaderGroupProps()}>
-                                    {headerGroup.headers.map(column => (
-                                        <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                                            {column.render('Header')}
-                                            <span>
-                                                {/* Render the columns sort UI */}
-                                                {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : '  '}
-                                            </span>
-                                            
-                                            {/* Render the columns filter UI */}
-                                            <div>{column.canFilter ? column.render('Filter') : null}
-                                            </div>
-                                        </th>
-                                    ))}
-                                </tr>
-                            ))}
-                        </thead>
-                        <tbody {...getTableBodyProps()}>
-                            {rows.map(row => {
-                                prepareRow(row)
-                                return (
-                                    <tr {...row.getRowProps()}>
-                                        {row.cells.map(cell => {
-                                        return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+          
+        <Table striped bordered responsive bsStyle="default" style={{borderRadius: '5px', overflow: 'hidden'}} {...getTableProps()}>
+            <thead>
+                {headerGroups.map(headerGroup => (
+                    <tr {...headerGroup.getHeaderGroupProps()}>
+                        {headerGroup.headers.map(column => (
+                            <th {...column.getHeaderProps()}>
+                                <div {...column.getSortByToggleProps()}>
+                                    {column.render('Header')}
+                                    <span>
+                                        {/* Render the columns sort UI */}
+                                        {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : '  '}
+                                    </span>
+                                </div>
+                                {/* Render the columns filter UI */}
+                                <div>{column.canFilter ? column.render('Filter') : null}</div>
+                            </th>
+                        ))}
+                    </tr>
+                ))}
+            </thead>
+            <tbody {...getTableBodyProps()}>
+                {rows.map(row => {
+                    prepareRow(row)
+                    return (
+                        <tr {...row.getRowProps()}>
+                            {row.cells.map(cell => {
+                            return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
 
-                                        })}
-                                    </tr>
-                                )
                             })}
-                        </tbody>
-                    </Table>
-                </Col>
-            </Row>
-        </Container>
-        
+                        </tr>
+                    )
+                })}
+            </tbody>
+        </Table>
         )
 }
 
@@ -142,6 +155,8 @@ const handleEdit = (data) => {
     // console.log('this is:', data);
     // this.props.history.push('/customers_reports')
   }
+
+  
 
 
 function TextFilter({

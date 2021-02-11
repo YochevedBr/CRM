@@ -13,6 +13,7 @@ import CustomersReports from './CustomersReports'
 import CustomersDetails from './CustomersDetails'
 import HomePage from './HomePage'
 import CallRecords from './CallRecords'
+import UpdateCustomer from './UpdateCustomer'
 import BootstrapNavbar from './BootstrapNavbar'
 import Login from './Login'
 import SignUp from './SignUp'
@@ -66,6 +67,10 @@ function routing(){
                 <Route path="/bootstrap_navbar">
                     <BootstrapNavbar/>
                     <HomePage/>
+                </Route>
+                <Route path="/update_customer">
+                    <BootstrapNavbar/>
+                    <UpdateCustomer/>
                 </Route>
                 <Route path="/login" component={Login} />
                 <Route path="/sign_up" component={SignUp} />

@@ -1,6 +1,9 @@
 
 import React from "react"
-import CustomersTableReports from "./CustomersTableReports"
+import CustomersTable from "./CustomersTable"
+import"../App.css"
+import {Container, Row, Col} from 'react-bootstrap';
+
 
 
 class CustomersReports extends React.Component{
@@ -10,8 +13,14 @@ class CustomersReports extends React.Component{
     render(){
         return(
             <div>
-                <h3>CustomersReports</h3>
-                <CustomersTableReports />
+                <Container>
+                    <h1 style={{margin:"0 auto"}}>Customers Report</h1>
+                    <Row className="spacing">
+                        <CustomersTable reports={true}/>
+                    </Row>
+                </Container>
+                
+               
             </div>
         )
     }
