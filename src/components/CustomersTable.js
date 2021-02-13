@@ -15,7 +15,7 @@ function CustomersTable(props) {
             const reports = props.reports;
             const row = props.row;
             if(reports){
-                return <Button variant="outlined" color="primary" onClick={() => handleDelete(row.original.email)}>Print</Button>
+                return <Button variant="outlined" color="primary" onClick={() =>  {history.push({pathname:  "/print_customer"})}}>Print</Button>
             }
             else{
                 return(
@@ -150,6 +150,12 @@ const handleDelete = (data) => {
     // })
     
   }
+
+//   const handlePrint = (data) => {
+//     console.log('this is:', data);
+//     {history.push({pathname:  "/print_customer"})}
+    
+//   }
 
 const handleEdit = (data) => {
     // console.log('this is:', data);

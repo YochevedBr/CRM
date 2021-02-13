@@ -3,19 +3,26 @@ import React from "react"
 import CustomersTable from "./CustomersTable"
 import"../App.css"
 import {Container, Row, Col} from 'react-bootstrap';
+import Button from '@material-ui/core/Button';
+import {withRouter} from 'react-router-dom';
 
 
 
 class CustomersReports extends React.Component{
-    componentDidMount(){
-    }
+    constructor(props) {
+        super(props);
+      }
 
     render(){
+
         return(
             <div>
                 <Container>
                     <h1 style={{margin:"0 auto"}}>Customers Report</h1>
                     <Row className="spacing">
+                        <div style={{marginBottom: "4px", justifyContent: 'flex-end', float: "right", display: "flex"}}>
+                            <Button variant="outlined" color="primary" onClick={() => this.props.history.push('/print_customer')}>Print</Button>
+                        </div>
                         <CustomersTable reports={true}/>
                     </Row>
                 </Container>
@@ -27,4 +34,6 @@ class CustomersReports extends React.Component{
 }
    
 
-export default CustomersReports
+// export default CustomersReports
+export default withRouter(CustomersReports);
+
