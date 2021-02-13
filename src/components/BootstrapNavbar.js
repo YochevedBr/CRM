@@ -12,7 +12,6 @@ import HomePage from './HomePage'
 class BootstrapNavbar extends React.Component{
 
     render(){
-        console.log('BootstrapNavbar')
         return(
             <div>
                 <div className="row">

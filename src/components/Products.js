@@ -1,23 +1,53 @@
 import React from "react"
-import ReactDOM from 'react-dom';
-import Image from "./Image"
-import Price from "./Price"
-import Location from "./Location"
+import Product from "./Product"
+
+import './Products.css'
+
+import img from '../pictures/house-real-estate-logo.jpg'
 
 
-class Products extends React.Component {
-    componentDidMount() {}
+function Products(){
+    // demo 
+    const data = React.useMemo(() =>
+    [{  
+        image: img,
+        sold: 'sold',
+        location: 'Jaffa, Jrusalem',
+        price: '1,500,000',
+        id: '0',
+    },
+    {  
+        image: img,
+        sold: '',
+        location: 'Agripas, Jrusalem',
+        price: '2,000,000',
+        id: '1',
+    },
+    {  
+        image: img,
+        sold: '',
+        location: 'Anilevich, Bnei Brak',
+        price: '1,800,000',
+        id: '2',
+    },
+    {  
+        image: img,
+        sold: 'sold',
+        location: 'Hatorim, Jerusalem',
+        price: '2,500,000',
+        id: '3',
+    },])
+    
 
-    render() {
-        return ( 
-            <div>
-                <h3> Products </h3> 
-                {/* <div>
-                    <button id="btnAddApartment" onClick={() => this.props.history.push('/customers_reports')} >+</button>
-                </div> */}
-            </div>
-        )
-    }
+    
+    return ( 
+        <div>
+            <h3> Products </h3>
+            <div className='wrapper'>
+                {data.map((product, i) => <Product key={i} product={product} />)}
+            </div>     
+        </div>
+    )
 }
 
 
