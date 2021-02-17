@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import firebase from './../firebase.js';
 
 function SignUp(props) {
   const [name, setName] = useState("");
@@ -15,7 +16,21 @@ function SignUp(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
+    
     // if the email doesn't exist
+    const agentsRef = firebase.database().ref('agents');
+    const agent = {
+      name: name,
+      email: email,
+      phone: phone_number,
+      password: password,
+    }
+
+    agentsRef.push(agent);
+    // this.setState({
+    //   currentItem: '',
+    //   username: ''
+    // });
     props.history.push('/bootstrap_navbar')
     // else:
     // props.history.push('/sign_up')
