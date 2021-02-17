@@ -17,23 +17,33 @@ function SignUp(props) {
   function handleSubmit(event) {
     event.preventDefault();
     
-    // if the email doesn't exist
+    // checking that the email doesn't exist
+    // retrieving the agents database
     const agentsRef = firebase.database().ref('agents');
-    const agent = {
-      name: name,
-      email: email,
-      phone: phone_number,
-      password: password,
-    }
-
-    agentsRef.push(agent);
-    // this.setState({
-    //   currentItem: '',
-    //   username: ''
-    // });
-    props.history.push('/bootstrap_navbar')
-    // else:
-    // props.history.push('/sign_up')
+    let exist = false
+    agentsRef.on('value', (snapshot) => {
+      const agents = snapshot.val()
+      for (let agent in agents){
+          // if email exists navigate to the login component
+          if (agents[agent].email == email){
+            exist = true
+            props.history.push('/login')
+            break
+          }
+      }
+      // if email doesn't exist, add new agent to the database
+      if (!exist){
+        const agent = {
+          name: name,
+          email: email,
+          phone: phone_number,
+          password: password,
+        }
+        agentsRef.push(agent);
+        
+        props.history.push('/bootstrap_navbar')
+      }
+    })
   }
   
   // sign up form
