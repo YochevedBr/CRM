@@ -1,7 +1,8 @@
 import React from 'react';
 import { Container,Row,Col,Form} from 'react-bootstrap';
 import Button from '@material-ui/core/Button';
-import AddCallRecord from "./AddCallRecord"
+import AddCallRecord from "./AddCallRecord";
+import './UpdateCustomer.css'
 // import {connect} from 'react-redux';
 // import DefaultUserPic from "../uploads/team-male.jpg";
 // const axios = require('axios');
@@ -78,19 +79,24 @@ class UpdateCustomer extends React.Component {
         <Row>
             <Col xs={6}>
                 <h1>Customer</h1>
-                <br></br>
-                <Form className="form">     
+                <Form>     
                     <p>{this.state.msg}</p>
                     <Form.Group controlId="formCategory1">
+                        <div className="label">
                         <Form.Label>Name</Form.Label>
+                        </div>
                         <Form.Control type="text" defaultValue={this.state.username}/> 
                     </Form.Group>
                     <Form.Group controlId="formCategory1">
+                        <div className="label">
                         <Form.Label>Phone Number</Form.Label>
+                        </div>
                         <Form.Control type="text" defaultValue={this.state.phonenumber}/> 
                     </Form.Group>
                     <Form.Group controlId="formCategory2">
+                        <div className="label">
                         <Form.Label>Email</Form.Label>
+                        </div>
                         <Form.Control type="email" defaultValue={this.state.email} />          
                     </Form.Group>
                     <Button variant="outlined" color="primary" onClick={this.UpdateProfileHandler}>Update</Button>

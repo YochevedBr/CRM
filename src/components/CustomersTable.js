@@ -3,6 +3,7 @@ import { useTable, useFilters, useSortBy} from 'react-table';
 import { useHistory } from "react-router";
 import { Container,Row,Col, Table, InputGroup, FormControl } from 'react-bootstrap';
 import Button from '@material-ui/core/Button';
+import './CustomersTable.css'
 
 
 function CustomersTable(props) {
@@ -115,7 +116,7 @@ function CustomersTable(props) {
                                     {column.render('Header')}
                                     <span>
                                         {/* Render the columns sort UI */}
-                                        {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : '  '}
+                                        {column.isSorted ? (column.isSortedDesc ? ' 🔻' : ' 🔺') : ' ➖'}
                                     </span>
                                 </div>
                                 {/* Render the columns filter UI */}
