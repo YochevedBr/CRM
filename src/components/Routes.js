@@ -15,6 +15,8 @@ import CallRecords from './CallRecords'
 import UpdateCustomer from './UpdateCustomer'
 import PrintCustomer from './PrintCustomer'
 import BootstrapNavbar from './BootstrapNavbar'
+import AptDetails from './AptDetails'
+import UpdateOrAddApt from './UpdateOrAddApt'
 import Login from './Login'
 import SignUp from './SignUp'
 
@@ -76,6 +78,23 @@ function routing(){
                     <BootstrapNavbar/>
                     <PrintCustomer/>
                 </Route>
+                <Route exact path="/apt_details">
+                    <BootstrapNavbar/>
+                    <AptDetails/>
+                </Route>
+                <Route path="/apt_details/:aptID">
+                    <BootstrapNavbar/>
+                    <AptDetails/>
+                </Route>
+                <Route path="/update_apt/:aptID">
+                    <BootstrapNavbar/>
+                    <UpdateOrAddApt/>
+                </Route>
+                <Route path="/add_apt">
+                    <BootstrapNavbar/>
+                    <UpdateOrAddApt/>
+                </Route>
+                
                 <Route path="/login" component={Login} />
                 <Route path="/sign_up" component={SignUp} />
                 
