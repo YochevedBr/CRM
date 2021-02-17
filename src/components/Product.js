@@ -10,7 +10,7 @@ import './Product.css'
 function Product(props){
     return(
         <div key={props.product.id} style={{'borderStyle': 'solid'}}>
-            <a class="link-unstyled" href={`/apt_details/${props.product.id}`}>
+            <a style={{textDecoration: 'none', color: 'black'}} href={`/apt_details/${props.product.id}`}>
                 <Image src={props.product.image} width={'320'} height={'320'}/>
                 <Location location={props.product.location}/>
                 <div className='flex-container' style={{'position': 'relative'}}>
