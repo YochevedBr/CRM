@@ -25,9 +25,7 @@ class CustomersReports extends React.Component{
                         </div>
                         <CustomersTable reports={true}/>
                     </Row>
-                </Container>
-                
-               
+                </Container>        
             </div>
         )
     }

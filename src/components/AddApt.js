@@ -6,8 +6,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import firebase from './../firebase.js';
-
 
 export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
@@ -20,41 +18,12 @@ export default function FormDialog() {
   const handleClickOpen = () => {
     setOpen(true);
   };
-
-  function validateForm() {
-
-    return email.length > 0 && phoneNumber.length > 0 && name.length > 0;
-  }
   
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    setOpen(false);
-
-    // if the email doesn't exist
-    const customersRef = firebase.database().ref('customers');
-    const customer = {
-      name: name,
-      phoneNumber: phoneNumber,
-      email: email,
-    }
-
-    customersRef.push(customer);
-    setName('');
-    setPhoneNumber('');
-    setEmail('');
-
-  };
-
-  const handleCancel = () => {
+  const handleClose = () => {
     setOpen(false);
     console.log(name);
     console.log(phoneNumber);
     console.log(email);
-    setName('');
-    setPhoneNumber('');
-    setEmail('');
-
   };
 
   return (
@@ -62,7 +31,7 @@ export default function FormDialog() {
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
         Add Customer
       </Button>
-      <Dialog open={open} onClose={handleSubmit} aria-labelledby="form-dialog-title">
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Customer Details</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -95,10 +64,10 @@ export default function FormDialog() {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleSubmit}  color="primary" disabled={!validateForm()}>
+          <Button onClick={handleClose}  color="primary">
             Submit
           </Button>
-          <Button onClick={handleCancel} color="primary">
+          <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
         </DialogActions>

@@ -3,7 +3,9 @@ import { useTable, useFilters, useSortBy} from 'react-table';
 import { useHistory } from "react-router";
 import { Container,Row,Col, Table, InputGroup, FormControl } from 'react-bootstrap';
 import Button from '@material-ui/core/Button';
-import './CustomersTable.css'
+import './CustomersTable.css';
+import firebase from './../firebase.js';
+
 
 
 function CustomersTable(props) {
@@ -11,7 +13,8 @@ function CustomersTable(props) {
         const reports = props.reports;
     
         const history = useHistory();
-        
+
+        // buttons for each row
         const Actions = (props) =>{
             const reports = props.reports;
             const row = props.row;
@@ -26,48 +29,59 @@ function CustomersTable(props) {
                     </div>
                 )
             }  
-          }
+        }
+          
+        const [data, setData] = React.useState([]);
       
+        React.useEffect(() => {
+            const customersRef = firebase.database().ref('customers');
+            customersRef.on('value', (snapshot) => {
+                customersData = Object.values(snapshot.val())
+                var customersData = [];
+                snapshot.forEach(snap => {
+                    customersData.push(snap.val());
+                });
+                setData(customersData);
+            });
+        }, []);
 
-        // build table
-        const data = React.useMemo(() =>
-        [{  
-            name: 'Ayaan',  
-            phone: 27,
-            email: 'd@gmail.com',
-            },{  
-            name: 'Yael',  
-            phone: 25,
-            email: 'b@gmail.com',
-            },{  
-            name: 'Yael',  
-            phone: 28,
-            email: 'c@gmail.com', 
-            },{  
-            name: 'Bracha',  
-            phone: 26,
-            email: 'a@gmail.com',
-            },
-            ],
-            []
-        )    
-
+        // const data = React.useMemo(() =>
+        // [{  
+        //     email: 'd@gmail.com',
+        //     name: 'Ayaan',  
+        //     phoneNumber: 27,
+        //     },{  
+        //     email: 'b@gmail.com',
+        //     name: 'Yael',  
+        //     phoneNumber: 25,
+        //     },{  
+        //     email: 'c@gmail.com', 
+        //     name: 'Yael',  
+        //     phoneNumber: 28,
+        //     },{ 
+        //     email: 'a@gmail.com', 
+        //     name: 'Bracha',  
+        //     phoneNumber: 26,
+        //     },
+        //     ],
+        //     []
+        // )   
+        
         const columns = React.useMemo(() =>
         [
         {  
+            Header: 'Email',  
+            accessor: 'email',
+            sortType: 'alphanumeric',
+        },{  
             Header: 'Name',  
             accessor: 'name',
             sortType: 'alphanumeric',
         },{  
             Header: 'Phone Number',  
-            accessor: 'phone', 
+            accessor: 'phoneNumber', 
             sortType: 'basic',
-        },{  
-            Header: 'Email',  
-            accessor: 'email',
-            sortType: 'alphanumeric',
-        },
-        {
+        },{
             Header: 'Actions',
             id: 'click-me-button',
             Cell: ({row}) => (
@@ -89,8 +103,7 @@ function CustomersTable(props) {
         }),
         []
         )
-        
-        
+            
         const {
             getTableProps,
             getTableBodyProps,
@@ -103,7 +116,8 @@ function CustomersTable(props) {
             useFilters,
             useSortBy,
             )
-
+        
+        console.log("#####################"+data)
         return(
           
         <Table striped bordered responsive bsStyle="default" style={{borderRadius: '5px', overflow: 'hidden'}} {...getTableProps()}>
