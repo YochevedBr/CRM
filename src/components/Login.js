@@ -1,28 +1,67 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import firebase from './../firebase.js';
 // import './Login.css';
 
 function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [wrongEmail, setWrongEmail] = useState(false)
+  const [wrongPassword, setWrongPassword] = useState(false)
 
   function validateForm() {
     return email.length > 0 && password.length > 0;
   }
 
+  function handleChange(event) {
+      setWrongEmail(false)
+      setWrongPassword(false)
+  }
+  
   function handleSubmit(event) {
     event.preventDefault();
-    // if the details are correct:
-    props.history.push('/bootstrap_navbar')
-    // else:
-    // props.history.push('/login')
-  }
+    
+    // checking that the user is in the system
+    // retrieving the agents database
+    const agentsRef = firebase.database().ref('agents');
+    let exist = false
+    let exist1 = false
+    let exist2 = false
 
-  function onSubmit(){
-    console.log('onSubmit')
-    return <h1>HELLO</h1>
-    }
+    agentsRef.on('value', (snapshot) => {
+      const agents = snapshot.val()
+      for (let agent in agents){
+          // if email exists navigate to the login component
+          if (agents[agent].email == email){
+            exist1 = true  
+          }
+          if (agents[agent].password == password){
+            exist2 = true  
+          }
+          exist = exist1 && exist2
+          if (exist){
+            props.history.push('/bootstrap_navbar')
+            break
+          }    
+      }
+      // if email or password doesn't exist, add new agent to the database
+      console.log(exist)
+      console.log(exist1)
+      console.log(exist2)
+
+      if (!exist){
+        setEmail('')
+        setPassword('')
+        if (!exist1){
+          setWrongEmail(true)
+        }
+        else if(!exist2){
+          setWrongPassword(true)
+        }
+      }
+    })
+  }
   
   // login form
   
@@ -31,7 +70,7 @@ function Login(props) {
     <div class="row h-100 justify-content-center align-items-center">
         <div class="col-10 col-md-8 col-lg-6">
         {/* <div className="Login"> */}
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit} onChange={handleChange}>
           <h1>Login</h1>
             <Form.Group size="lg" controlId="email">
               <Form.Label>Email</Form.Label>
@@ -42,6 +81,7 @@ function Login(props) {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </Form.Group>
+            <h6 style={{display: wrongEmail ? 'block' : 'none', color: 'red'}}>The email entered doesn’t match any account. <a href='/sign_up'>Sign up for an account.</a></h6>
             <Form.Group size="lg" controlId="password">
               <Form.Label>Password</Form.Label>
               <Form.Control
@@ -50,6 +90,7 @@ function Login(props) {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </Form.Group>
+            <h6 style={{display: wrongPassword ? 'block' : 'none', color: 'red'}}>The password you’ve entered is incorrect. Forgot Password?‏</h6>
             <Button block size="lg" type="submit" disabled={!validateForm()}>
               Login
             </Button>
