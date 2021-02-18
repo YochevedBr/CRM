@@ -37,7 +37,7 @@ function Login(props) {
             exist1 = true  
           }
           if (agents[agent].password == password){
-            exist2 = false  
+            exist2 = true  
           }
           exist = exist1 && exist2
           if (exist){
@@ -45,14 +45,18 @@ function Login(props) {
             break
           }    
       }
-      // if email doesn't exist, add new agent to the database
+      // if email or password doesn't exist, add new agent to the database
+      console.log(exist)
+      console.log(exist1)
+      console.log(exist2)
+
       if (!exist){
         setEmail('')
         setPassword('')
         if (!exist1){
           setWrongEmail(true)
         }
-        else{
+        else if(!exist2){
           setWrongPassword(true)
         }
       }
@@ -77,7 +81,7 @@ function Login(props) {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </Form.Group>
-            <h6 style={{display: wrongEmail ? 'block' : 'none', color: 'red'}}>The email entered doesn’t match any account. Sign up for an account.</h6>
+            <h6 style={{display: wrongEmail ? 'block' : 'none', color: 'red'}}>The email entered doesn’t match any account. <a href='/sign_up'>Sign up for an account.</a></h6>
             <Form.Group size="lg" controlId="password">
               <Form.Label>Password</Form.Label>
               <Form.Control

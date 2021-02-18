@@ -9,14 +9,19 @@ function SignUp(props) {
   const [phone_number, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [repeat_password, setRepeatPassword] = useState("");
+  const [wrongEmail, setWrongEmail] = useState(false)
+
 
   function validateForm() {
     return email.length > 0 && password.length > 0 && name.length > 0 && phone_number.length > 0 && repeat_password.length > 0;
   }
 
+  function handleChange(event) {
+    setWrongEmail(false)
+}
+
   function handleSubmit(event) {
     event.preventDefault();
-    
     // checking that the email doesn't exist
     // retrieving the agents database
     const agentsRef = firebase.database().ref('agents');
@@ -26,8 +31,9 @@ function SignUp(props) {
       for (let agent in agents){
           // if email exists navigate to the login component
           if (agents[agent].email == email){
+            setWrongEmail(true)
+            setEmail("")
             exist = true
-            props.history.push('/login')
             break
           }
       }
@@ -52,7 +58,7 @@ function SignUp(props) {
     <div class="row h-100 justify-content-center align-items-center">
         <div class="col-10 col-md-8 col-lg-6">
         {/* <div className="Login"> */}
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit} onChange={handleChange}>
           <h1>Sign Up</h1>
             <Form.Group size="lg" controlId="name">
                 <Form.Label>Name</Form.Label>
@@ -71,6 +77,7 @@ function SignUp(props) {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
+              <h6 style={{display: wrongEmail ? 'block' : 'none', color: 'red'}}>Please anter a valid email address.</h6>
             </Form.Group>
             <Form.Group size="lg" controlId="phone_number">
                 <Form.Label>Phone Number</Form.Label>
