@@ -12,7 +12,6 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import firebase from './../firebase.js';
 
-
 export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false);
 
