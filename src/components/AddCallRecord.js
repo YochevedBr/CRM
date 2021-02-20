@@ -10,9 +10,18 @@ import TextareaAutosize from '@material-ui/core/TextareaAutosize'
 import Switch from '@material-ui/core/Switch';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import firebase from './../firebase.js';
+
 
 export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false);
+
+  // Customer ID
+  const [customerId, setCustomerId] = useState(props.dataFromParent);
+  console.log("data: "+props.dataFromParent)
+
+  // Current Date
+  const [currentDate, setCurrentDate] = useState(new Date())
 
   // Keep the value of the TextField
   const [interest, setInterest] = useState('');
@@ -24,12 +33,33 @@ export default function FormDialog(props) {
     setOpen(true);
   };
   
-  const handleClose = () => {
+  const handleClose = (event) => {
+    event.preventDefault();
+
     setOpen(false);
+
     console.log(interest);
     console.log(purchased);
     console.log(support);
     console.log(checked)
+    console.log('currentDate: ' + currentDate)
+    let formatDate = currentDate.getDate() + '/' + currentDate.getMonth()+1 + '/' + currentDate.getFullYear()
+    console.log(formatDate)
+
+    const callRecordsRef = firebase.database().ref('call_records');
+    const call_record = {
+      customer_id: customerId,
+      date: formatDate,
+      interest: interest,
+      purchased: purchased,
+      support: support,
+      return: checked
+    }
+
+    callRecordsRef.push(call_record);
+    setInterest('');
+    setPurchased('');
+    setSupport('');
     setChecked(false)
   };
 
