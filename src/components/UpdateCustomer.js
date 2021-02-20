@@ -1,11 +1,8 @@
 import React from 'react';
 import { Container,Row,Col,Form} from 'react-bootstrap';
+import './UpdateCustomer.css'
 import Button from '@material-ui/core/Button';
 import AddCallRecord from "./AddCallRecord";
-import './UpdateCustomer.css'
-import { useHistory, useParams } from "react-router";
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
 // import {connect} from 'react-redux';
 // import DefaultUserPic from "../uploads/team-male.jpg";
 // const axios = require('axios');
@@ -14,17 +11,14 @@ class UpdateCustomer extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            username:this.props.username,
-            phonenumber:this.props.phonenumber,
-            email:this.props.email,
+            username:'gggg',//this.props.username,
+            phonenumber:'058',//this.props.phonenumber,
+            email:'yael@gmail.com',//this.props.email,
             profileImage:this.props.profileImage,
             msg:this.props.msg,
-            uploadedFile:null,
+            uploadedFile:null
         }
-        // this.state = this.props.location.rowDetails || {activeScreen: ""}; // In the ||, set default state.
-        // this.props.history.replace(this.props.location.pathname, this.state); // Update state of current entry in history stack.
     }
-
 
     // fetchUserDetails=(user_id)=>{
     //     //console.log(user_id);
@@ -70,7 +64,6 @@ class UpdateCustomer extends React.Component {
     //  this.fetchUserDetails(this.state.user_id);
     // }
 
-
     render(){
 
     // if(this.state.profileImage){
@@ -81,51 +74,51 @@ class UpdateCustomer extends React.Component {
     //      profilePic=DefaultUserPic;
     // }
 
-    return (
-    <Container>
-        <Row>
-            <Col xs={6}>
-                <h1>Customer</h1>
-                <Form>     
-                    <p>{this.state.msg}</p>
-                    <Form.Group controlId="formCategory1">
-                        <div className="label">
-                        <Form.Label>Name</Form.Label>
-                        </div>
-                        <Form.Control type="text" defaultValue={this.state.username}/> 
-                    </Form.Group>
-                    <Form.Group controlId="formCategory1">
-                        <div className="label">
-                        <Form.Label>Phone Number</Form.Label>
-                        </div>
-                        <Form.Control type="text" defaultValue={this.state.phonenumber}/> 
-                    </Form.Group>
-                    <Form.Group controlId="formCategory2">
-                        <div className="label">
-                        <Form.Label>Email</Form.Label>
-                        </div>
-                        <Form.Control type="email" defaultValue={this.state.email} />          
-                    </Form.Group>
-                    <Button variant="outlined" color="primary" onClick={this.UpdateProfileHandler}>Update</Button>
-                    <AddCallRecord />
-                </Form>
-            </Col>
-        </Row>
-    </Container>
-    )
-}
+        return (
+            <Container>
+                <Row>
+                    <Col xs={6}>
+                        <h1>Customer</h1>
+                        <Form>     
+                            <p>{this.state.msg}</p>
+                            <Form.Group controlId="formCategory1">
+                                <div className="label">
+                                <Form.Label>Name</Form.Label>
+                                </div>
+                                <Form.Control type="text" defaultValue={this.state.username}/> 
+                            </Form.Group>
+                            <Form.Group controlId="formCategory1">
+                                <div className="label">
+                                <Form.Label>Phone Number</Form.Label>
+                                </div>
+                                <Form.Control type="text" defaultValue={this.state.phonenumber}/> 
+                            </Form.Group>
+                            <Form.Group controlId="formCategory2">
+                                <div className="label">
+                                <Form.Label>Email</Form.Label>
+                                </div>
+                                <Form.Control type="email" defaultValue={this.state.email} />          
+                            </Form.Group>
+                            <Button variant="outlined" color="primary" onClick={this.UpdateProfileHandler}>Update</Button>
+                            {/* Pass Customer Id to child component - AddCallRecord */}
+                            <AddCallRecord dataFromParent = {this.state.email}/> 
+                        </Form>
+                    </Col>
+                </Row>
+            </Container>
+        )
+    }
 }
 
 const mapStatetoProps=(state)=>{
     return{
         user_id:state.user.userDetails.userid,
         username:state.user.userDetails.username,
-       email:state.user.email,
-       profileImage: state.user.profileImage,
-       msg:state.user.msg
+        email:state.user.email,
+        profileImage: state.user.profileImage,
+        msg:state.user.msg
     }
-   }
+}
    
-   
-   export default UpdateCustomer
+export default UpdateCustomer
 //    export default connect(mapStatetoProps)(UserProfile);
