@@ -1,11 +1,16 @@
 import React from "react"
 import { useTable, useFilters, useSortBy} from 'react-table';
 import { useHistory } from "react-router";
-import { Container,Row,Col, Table, InputGroup, FormControl } from 'react-bootstrap';
+import { Container,Row,Col, Table, InputGroup, FormControl} from 'react-bootstrap';
 import Button from '@material-ui/core/Button';
 import './CustomersTable.css';
 import firebase from './../firebase.js';
+import { keys } from "@material-ui/core/styles/createBreakpoints";
+import { withRouter } from 'react-router'
 
+
+import Modal from "react-bootstrap/Modal";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 
 function CustomersTable(props) {
@@ -13,6 +18,26 @@ function CustomersTable(props) {
         const reports = props.reports;
     
         const history = useHistory();
+        
+
+        const [showModal, setShow] = React.useState(false);
+        const [Row, setRow] = React.useState("");
+
+
+        const handleClose = () => setShow(false);
+        const handleShow = (data) => {
+            setShow(true);
+            setRow(data)
+        }
+        const handleDelete = () => {
+            setShow(false);
+            firebase.database().ref('customers').orderByChild('email').equalTo(Row.email).once("value").then(function(snapshot) {
+            snapshot.forEach(function(child) {
+            child.ref.remove();
+            })
+        });
+        }
+
 
         // buttons for each row
         const Actions = (props) =>{
@@ -24,21 +49,23 @@ function CustomersTable(props) {
             else{
                 return(
                     <div>
-                        <Button variant="outlined" color="primary" onClick={() => {history.push({pathname:  "/update_customer"})}}>Edit</Button>{' '}
-                        <Button variant="outlined" color="primary" onClick={() => handleDelete(row.original.email)}>Delete</Button>
+                        <Button variant="outlined" color="primary" 
+                        onClick={() => {history.push({pathname: "/update_customer", rowDetails : row.original })}}>Edit</Button>{' '}
+                        <Button variant="outlined" color="primary" 
+                        onClick={() => handleShow(row.original)}>Delete</Button>
                     </div>
                 )
             }  
         }
           
         const [data, setData] = React.useState([]);
-      
+
         React.useEffect(() => {
             const customersRef = firebase.database().ref('customers');
             customersRef.on('value', (snapshot) => {
-                customersData = Object.values(snapshot.val())
                 var customersData = [];
                 snapshot.forEach(snap => {
+                    // console.log("key "+snap.key);
                     customersData.push(snap.val());
                 });
                 setData(customersData);
@@ -117,9 +144,8 @@ function CustomersTable(props) {
             useSortBy,
             )
         
-        console.log("#####################"+data)
         return(
-          
+        <div>
         <Table striped bordered responsive bsStyle="default" style={{borderRadius: '5px', overflow: 'hidden'}} {...getTableProps()}>
             <thead>
                 {headerGroups.map(headerGroup => (
@@ -152,19 +178,31 @@ function CustomersTable(props) {
                         </tr>
                     )
                 })}
+
             </tbody>
         </Table>
+
+        <>
+        <Modal show={showModal} onHide={handleClose}>
+        <Modal.Header closeButton>
+            <Modal.Title>Delete</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>are you sure you want to delete {Row.name}?</Modal.Body>
+        <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+            Cancle
+            </Button>
+            <Button variant="primary" onClick={handleDelete}>
+            Yes
+            </Button>
+        </Modal.Footer>
+        </Modal>
+        </>
+        </div>
+
         )
 }
 
-const handleDelete = (data) => {
-    console.log('this is:', data);
-    // const r = this.state.rows.map((row) => data===row.original.email? {...row, show: !row.show}: row)
-    // this.setState({
-    //   rows: r
-    // })
-    
-  }
 
 //   const handlePrint = (data) => {
 //     console.log('this is:', data);
@@ -176,8 +214,6 @@ const handleEdit = (data) => {
     // console.log('this is:', data);
     // this.props.history.push('/customers_reports')
   }
-
-  
 
 
 function TextFilter({
@@ -199,4 +235,6 @@ function TextFilter({
     )
    }
 
-export default CustomersTable
+// export default CustomersTable
+
+export default withRouter(CustomersTable);
