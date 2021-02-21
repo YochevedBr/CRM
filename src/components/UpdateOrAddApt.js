@@ -5,11 +5,10 @@ import AddCallRecord from "./AddCallRecord"
 import Products from './Products'
 import { useHistory } from "react-router";
 
-
 import firebase from './../firebase.js';
 import img from '../pictures/house-real-estate-logo.jpg'
 import img1 from '../pictures/Purchases.jpg'
-// import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 // import {connect} from 'react-redux';
 // import DefaultUserPic from "../uploads/team-male.jpg";
 // const axios = require('axios');
@@ -18,84 +17,83 @@ import img1 from '../pictures/Purchases.jpg'
 function UpdateOrAddApt(){
 
     const[price, setPrice] = useState("");
-    const [Location, setLocation] = useState("");
-    const [Floor, setFloor] = useState("");
-    const [Floors, setFloors] = useState("");
-    const [Rooms, setRooms] = useState("");
-    const [Status, setStatus] = useState("")
+    const [location, setLocation] = useState("");
+    const [floor, setFloor] = useState("");
+    const [floors, setFloors] = useState("");
+    const [rooms, setRooms] = useState("");
+    const [status, setStatus] = useState("")
     // checkbox
-    const [Pool, setPool] = useState("")
-    const [Yard, setYard] = useState("")
-    const [Porch, setPorch] = useState("")
-    const [Private, setPrivate] = useState("")
-    const [Sold, setSold] = useState("")
+    // const [Pool, setPool] = useState("")
+    // const [Yard, setYard] = useState("")
+    // const [Porch, setPorch] = useState("")
+    // const [Private, setPrivate] = useState("")
+    // const [Sold, setSold] = useState("")
+
+    let pool = ''
+    let yard = ''
+    let porch = ''
+    let private_house = ''
+    let sold = ''
+
 
     const history = useHistory();
+    var db = firebase.firestore();
 
 
-    // let {aptID} = useParams()
-    let aptID = 0;
+    let {aptID} = useParams()
+    if (!aptID){
+        aptID = 0
+    }
+
+    let generateID = new Promise(function(myResolve, myReject){
+        let size = 0;
+        if (aptID == 0){
+            db.collection('products').get().then(snap => {
+                size = snap.size // will return the collection size
+                aptID = aptID + size + 1;
+             });
+        }
+    })
+
+    function addOrUpdateFirestore(){
+        aptID = aptID.toString() 
+        db.collection('products').doc(aptID).set({
+            id: aptID,
+            image: img1,
+            images: [img, img1, img, img1, img, img1, img],
+            sold: sold,
+            price: price,
+            location: location,
+            floor: floor,
+            floors: floors,
+            rooms: rooms,
+            status: status,
+            pool: pool,
+            yard: yard,
+            porch: porch,
+            private: private_house,
+        })
+        .then(() => {
+            history.push('/products')
+        })
+        .catch((error) => {
+            console.error("Error writing document: ", error);
+        });
+    } 
     
     function handleSubmit(event) {
         event.preventDefault();
-        const apartmentReff = firebase.database().ref('apartment');
-        const apartment = {
-            ID: aptID,
-            Image: img1,
-            Images: [img, img1, img, img1, img, img1, img],
-            Sold: Sold,
-            Price: price,
-            Location: Location,
-            Floor: Floor,
-            Floors: Floors,
-            Rooms: Rooms,
-            Status: Status,
-            Pool: Pool,
-            Yard: Yard,
-            Porch: Porch,
-            Private: Private,
-        }
-        apartmentReff.push(apartment);
-    
-        history.push('/products')
-
+        generateID.then(
+            addOrUpdateFirestore()
+        )
     }
 
     function isChecked(info){
         return info === 'Yes'
     }
 
-    function changeCheckBoxState(info)
-    { 
-    //   if(info == "Pool"){
-    //     if(isChecked(Pool))
-    //         setPool("No")
-    //     else setPool("Yes")
-    //   }
-    //   else if(info == "Yard"){
-    //     if(isChecked(Yard))
-    //         setYard("No")
-    //     else setYard("Yes")
-    //   }
-    //   else if(info == "Porch"){
-    //     if(isChecked(Porch))
-    //         setPorch("No")
-    //     else setPorch("Yes")
-    //   }
-    //   else if(info == "Private"){
-    //     if(isChecked(Private))
-    //         setPrivate("No")
-    //     else setPrivate("Yes")
-    //   }
-    //   else if(info == "Sold"){
-    //     if(isChecked(Sold))
-    //         setSold("No")
-    //     else setSold("Yes")
-    //   }    
-    }
-
     function validateForm() {
-        return price.length > 0 && Location.length > 0 && Floor.length > 0 && Floors.length > 0 && Rooms.length > 0 && Status.length > 0;
+        return price.length > 0 && location.length > 0 && floor.length > 0 && floors.length > 0 && rooms.length > 0 && status.length > 0;
      
     }
  
@@ -114,31 +112,31 @@ function UpdateOrAddApt(){
                     </Form.Group>
                     <Form.Group controlId="formCategory1">
                         <Form.Label>Location</Form.Label>
-                        <Form.Control type="text" defaultValue={Location}
+                        <Form.Control type="text" defaultValue={location}
                             onChange={(e) => setLocation(e.target.value)}
                         /> 
                     </Form.Group>
                     <Form.Group controlId="formCategory2">
                         <Form.Label>Floor</Form.Label>
-                        <Form.Control type="number" defaultValue={Floor} 
+                        <Form.Control type="number" defaultValue={floor} 
                             onChange={(e) => setFloor(e.target.value)}
                         />          
                     </Form.Group>
                     <Form.Group controlId="formCategory2">
                         <Form.Label>Number of Floors</Form.Label>
-                        <Form.Control type="number" defaultValue={Floors} 
+                        <Form.Control type="number" defaultValue={floors} 
                             onChange={(e) => setFloors(e.target.value)}
                         />          
                     </Form.Group>
                     <Form.Group controlId="formCategory2">
                         <Form.Label>Number of Rooms</Form.Label>
-                        <Form.Control type="number" defaultValue={Rooms} 
+                        <Form.Control type="number" defaultValue={rooms} 
                             onChange={(e) => setRooms(e.target.value)}
                         />          
                     </Form.Group>
                     <Form.Group controlId="formCategory2">
                         <Form.Label>Condition</Form.Label>
-                        <Form.Control type="text" defaultValue={Status}
+                        <Form.Control type="text" defaultValue={status}
                             onChange={(e) => setStatus(e.target.value)}
                         />          
                     </Form.Group>
@@ -150,40 +148,40 @@ function UpdateOrAddApt(){
                                 label="pool"
                                 name="formHorizontalRadios"
                                 id="formHorizontalRadios1"
-                                defaultChecked={isChecked(Pool) ? 'checked' : ''}
-                                onClick={changeCheckBoxState("Pool")}
+                                defaultChecked={isChecked(pool) ? 'checked' : ''}
+                                onClick={() => isChecked(pool) ? pool = '' : pool = 'Yes'}
                             />  
                             <Form.Check
                                 type="checkbox"
                                 label="yard"
                                 name="formHorizontalRadios"
                                 id="formHorizontalRadios1"
-                                defaultChecked={isChecked(Yard) ? 'checked' : ''}
-                                onClick={changeCheckBoxState('Yard')}
+                                defaultChecked={isChecked(yard) ? 'checked' : ''}
+                                onClick={() => isChecked(yard) ? yard = '' : yard = 'Yes'}
                             /> 
                             <Form.Check
                                 type="checkbox"
                                 label="porch"
                                 name="formHorizontalRadios"
                                 id="formHorizontalRadios1"
-                                defaultChecked={isChecked(Porch) ? 'checked' : ''}
-                                onClick={changeCheckBoxState('Porch')}
+                                defaultChecked={isChecked(porch) ? 'checked' : ''}
+                                onClick={() => isChecked(porch) ? porch = '' : porch = 'Yes'}
                             />  
                             <Form.Check
                                 type="checkbox"
                                 label="private"
                                 name="formHorizontalRadios"
                                 id="formHorizontalRadios1"
-                                defaultChecked={isChecked(Private) ? 'checked' : ''}
-                                onClick={changeCheckBoxState('Private')}
+                                defaultChecked={isChecked(private_house) ? 'checked' : ''}
+                                onClick={() => isChecked(private_house) ? private_house = '' : private_house = 'Yes'}
                             /> 
                             <Form.Check
                                 type="checkbox"
                                 label="sold"
                                 name="formHorizontalRadios"
                                 id="formHorizontalRadios1"
-                                defaultChecked={isChecked(Sold) ? 'checked' : ''}
-                                onClick={changeCheckBoxState('Sold')}
+                                defaultChecked={isChecked(sold) ? 'checked' : ''}
+                                onClick={() => isChecked(sold) ? sold = '' : sold = 'Yes'}
                             />    
                         </Col>     
                     </Form.Group>

@@ -14,64 +14,62 @@ import { useHistory } from "react-router";
 import './Product.css'
 
 import { Container, Row, Col } from 'react-bootstrap'
+import firebase from './../firebase.js';
+import { useState, useEffect } from "react";
+
 
 
 function AptDetails(){
-    const {aptID} = useParams()
-
+    let {aptID} = useParams()
     // retrieve the correct apartment by query
     
     const history = useHistory()
-    // demo 
-    let data = React.useMemo(() =>
-    [{  
-        image: img1,
-        images: [img, img1, img, img1, img, img1, img],
-        sold: 'sold',
-        location: 'Jaffa, Jrusalem',
-        price: '1,500,000',
-        id: '0',
-    },])
-
-    function image(){
-        return data[0].image
-    }
+    const [data, setData] = useState([]);
+    useEffect(() => {    
+        var db = firebase.firestore();
+        db.collection("products")
+        .doc(aptID)
+        .get()
+        .then((doc) => {
+            if (doc.exists){
+                setData(doc.data());
+            }
+            else{
+                console.log("document doesn't exist")
+            }
+        });
+    }, []);
 
     function replaceImage(src){
         console.log('replaceImage')
-        console.log(data[0].image)
-        data[0].image = src.target.src
-        console.log(data[0].image)
+        console.log(data.image)
+        data.image = src.target.src
+        console.log(data.image)
     }
 
-    console.log(data[0].id)
     return(
         <div>
-            {/* <div className='flex-container' style={{'position': 'relative'}}> */}
             <Container className='no-marginLR no-padding'>
                 <Row>
                     <Col xs={4}>
-                        <AptDescription class='flex-child' id={aptID}></AptDescription>
-                        <Button variant="outlined" color="primary" onClick={() => {history.push({pathname:  `/update_apt/${data[0].id}`})}}>Edit</Button>
+                        <AptDescription class='flex-child' description={data}></AptDescription>
+                        <Button variant="outlined" color="primary" onClick={() => {history.push({pathname:  `/update_apt/${data.id}`})}}>Edit</Button>
                     </Col>
-                    {/* <div style={{marginLeft:'15%', marginTop:'3%'}}> */}
                     <Col xs={8}>
                         <Container>
                             <Row>
                                 <Col>
-                                    <Image src={image()} width={'800'} height={'500'}></Image>
+                                    <Image src={data.image} width={'800'} height={'500'}></Image>
                                 </Col>
                             </Row>
                             <br></br>
                             <Row>
-                                <SmallImages replaceImage={replaceImage} images={data[0].images}></SmallImages>
+                                <SmallImages replaceImage={replaceImage} images={data.images}></SmallImages>
                             </Row>
                         </Container>
-                    {/* </div> */}
                     </Col>
                 </Row>
             </Container>
-            {/* </div> */}
         </div>
     )
 }
