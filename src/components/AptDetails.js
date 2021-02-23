@@ -42,7 +42,6 @@ function AptDetails(){
 
     // when small image is clicked the big image is change to the small image
     function replaceImage(src){
-        console.log('replaceImage:')
         let dataCopy = JSON.parse(JSON.stringify(data))
         dataCopy.image = src.target.src
         setData(dataCopy)
@@ -50,7 +49,6 @@ function AptDetails(){
 
     return(
         <div>
-            {console.log(data.image)}
             <Container className='no-marginLR no-padding'>
                 <Row>
                     <Col xs={4}>
@@ -66,7 +64,6 @@ function AptDetails(){
                             </Row>
                             <br></br>
                             <Row>
-                                {console.log('images: ' + data.images)}
                                 <SmallImages replaceImage={replaceImage} images={data.images}></SmallImages>
                             </Row>
                         </Container>

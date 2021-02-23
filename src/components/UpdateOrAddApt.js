@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Form, Button} from 'react-bootstrap';
 //import Button from '@material-ui/core/Button';
 import AddCallRecord from "./AddCallRecord"
@@ -22,32 +22,51 @@ function UpdateOrAddApt(){
     const [floors, setFloors] = useState("");
     const [rooms, setRooms] = useState("");
     const [status, setStatus] = useState("")
-    // checkbox
-    // const [Pool, setPool] = useState("")
-    // const [Yard, setYard] = useState("")
-    // const [Porch, setPorch] = useState("")
-    // const [Private, setPrivate] = useState("")
-    // const [Sold, setSold] = useState("")
+    const [pool, setPool] = useState("")
+    const [yard, setYard] = useState("")
+    const [porch, setPorch] = useState("")
+    const [private_house, setPrivate] = useState("")
+    const [sold, setSold] = useState("")
 
-    let pool = ''
-    let yard = ''
-    let porch = ''
-    let private_house = ''
-    let sold = ''
-
+    const [correctDetails, setCorrectDetails] = useState(true)
 
     const history = useHistory();
     var db = firebase.firestore();
-
-
     let {aptID} = useParams()
     if (!aptID){
         aptID = 0
     }
+    
+    useEffect(() => {    
+        console.log('useEffect')
+        if (aptID !== 0){
+            db.collection('products')
+            .doc(aptID)
+            .get()
+            .then((doc) => {
+                if (doc.exists){
+                    setPrice(doc.data().price)
+                    setLocation(doc.data().location)
+                    setFloor(doc.data().floor)
+                    setFloors(doc.data().floors)
+                    setRooms(doc.data().rooms)
+                    setStatus(doc.data().status)
+                    setPool(doc.data().pool)
+                    setYard(doc.data().yard)
+                    setPorch(doc.data().porch)
+                    setPrivate(doc.data().private)
+                    setSold(doc.data().sold)
+                }
+                else{
+                    console.log("document doesn't exist")
+                }
+            });
+        }
+    }, []);
 
     let generateID = new Promise(function(myResolve, myReject){
         let size = 0;
-        if (aptID == 0){
+        if (aptID === 0){
             db.collection('products').get().then(snap => {
                 size = snap.size // will return the collection size
                 aptID = aptID + size + 1;
@@ -56,7 +75,7 @@ function UpdateOrAddApt(){
     })
 
     function addOrUpdateFirestore(){
-        aptID = aptID.toString() 
+        aptID = aptID.toString()
         db.collection('products').doc(aptID).set({
             id: aptID,
             image: img1,
@@ -81,11 +100,47 @@ function UpdateOrAddApt(){
         });
     } 
     
+    function allFilled(){
+        if (isNaN(price) || price*1 > 0){
+            console.log(isNaN(price))
+            console.log(price*1)
+            console.log('price')
+            return false
+        }
+        if (typeof(location) !== String || location.length < 2){
+            console.log('location')
+            return false
+        }
+        if (isNaN(floor)){
+            console.log('floor')
+            return false
+        }
+        if (isNaN(floors) || floors*1 > 0){
+            console.log('floors')
+            return false
+        }
+        if (isNaN(rooms) || rooms*1 > 0){
+            console.log('price')
+            return false
+        }
+        if (typeof(status) !== String || status.length < 2){
+            console.log('status')
+            return false
+        }
+
+        return true
+    }
+
     function handleSubmit(event) {
         event.preventDefault();
-        generateID.then(
-            addOrUpdateFirestore()
-        )
+        if (allFilled()){
+            generateID.then(
+                addOrUpdateFirestore()
+            )
+        }
+        else{
+            setCorrectDetails(false)
+        }    
     }
 
     function isChecked(info){
@@ -93,9 +148,15 @@ function UpdateOrAddApt(){
     }
 
     function validateForm() {
-        return price.length > 0 && location.length > 0 && floor.length > 0 && floors.length > 0 && rooms.length > 0 && status.length > 0;
-     
+        return price.length > 0 && location.length > 0 && floor.length > 0 && floors.length > 0 && rooms.length > 0 && status.length > 0; 
     }
+
+    // function handleChange(e){
+    //     const re = /^[0-9\b]+$/;
+    //     if (!re.test(e.target.value)) {
+    //        this.setState({value: e.target.value})
+    //     }
+    //  }
  
     return (
     <Container>
@@ -106,7 +167,7 @@ function UpdateOrAddApt(){
                 <Form className="form" onSubmit={handleSubmit}> 
                     <Form.Group controlId="formCategory1">
                         <Form.Label>Price</Form.Label>
-                        <Form.Control type="text" defaultValue={price}
+                        <Form.Control type="number" defaultValue={price}
                             onChange={(e) => setPrice(e.target.value)}
                         /> 
                     </Form.Group>
@@ -149,7 +210,7 @@ function UpdateOrAddApt(){
                                 name="formHorizontalRadios"
                                 id="formHorizontalRadios1"
                                 defaultChecked={isChecked(pool) ? 'checked' : ''}
-                                onClick={() => isChecked(pool) ? pool = '' : pool = 'Yes'}
+                                onClick={() => isChecked(pool) ? setPool('') : setPool('Yes')}
                             />  
                             <Form.Check
                                 type="checkbox"
@@ -157,7 +218,7 @@ function UpdateOrAddApt(){
                                 name="formHorizontalRadios"
                                 id="formHorizontalRadios1"
                                 defaultChecked={isChecked(yard) ? 'checked' : ''}
-                                onClick={() => isChecked(yard) ? yard = '' : yard = 'Yes'}
+                                onClick={() => isChecked(yard) ? setYard('') : setYard('Yes')}
                             /> 
                             <Form.Check
                                 type="checkbox"
@@ -165,7 +226,7 @@ function UpdateOrAddApt(){
                                 name="formHorizontalRadios"
                                 id="formHorizontalRadios1"
                                 defaultChecked={isChecked(porch) ? 'checked' : ''}
-                                onClick={() => isChecked(porch) ? porch = '' : porch = 'Yes'}
+                                onClick={() => isChecked(porch) ? setPorch('') : setPorch('Yes')}
                             />  
                             <Form.Check
                                 type="checkbox"
@@ -173,7 +234,7 @@ function UpdateOrAddApt(){
                                 name="formHorizontalRadios"
                                 id="formHorizontalRadios1"
                                 defaultChecked={isChecked(private_house) ? 'checked' : ''}
-                                onClick={() => isChecked(private_house) ? private_house = '' : private_house = 'Yes'}
+                                onClick={() => isChecked(private_house) ? setPrivate('') : setPrivate('Yes')}
                             /> 
                             <Form.Check
                                 type="checkbox"
@@ -181,11 +242,12 @@ function UpdateOrAddApt(){
                                 name="formHorizontalRadios"
                                 id="formHorizontalRadios1"
                                 defaultChecked={isChecked(sold) ? 'checked' : ''}
-                                onClick={() => isChecked(sold) ? sold = '' : sold = 'Yes'}
+                                onClick={() => isChecked(sold) ? setSold('') : setSold('Yes')}
                             />    
                         </Col>     
                     </Form.Group>
                     </fieldset>
+                    <h6 style={{display: !correctDetails ? 'block' : 'none', color: 'red'}}>Please anter valid details.</h6>
                     <Button variant="outlined" type="submit" color="primary" disabled={!validateForm()}>{aptID ? 'Update' : 'Add' }</Button>
                 </Form>
             </Col>

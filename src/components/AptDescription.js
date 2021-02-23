@@ -12,7 +12,6 @@ import $ from 'jquery'
 class AptDescription extends React.Component {
     constructor(props) {
         super(props);
-        console.log('desc1: ' + props.description)
         // query based on the apartment id
         this.state = {
             description: props.description
@@ -30,7 +29,6 @@ class AptDescription extends React.Component {
     }
   
     render() { 
-        console.log('description: ' + this.props.description)
         const style = {
             color: "DodgerBlue",
             // backgroundColor: "DodgerBlue",
