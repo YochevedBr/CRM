@@ -5,19 +5,29 @@ import img from '../pictures/house-real-estate-logo.jpg'
 import img1 from '../pictures/Purchases.jpg'
 
 import { Col } from 'react-bootstrap'
+import { useState, useEffect, useRef } from "react";
 
 
 import './SmallImages.css'
 
-function SmallImages(props){
-    // demo 
-    return ( 
-        <Col class='col-md'>
-            <div className='wrapper1' width='700'>
-                {props.images.map((image, i) => <SmallImage replaceImage={props.replaceImage} key={i} src={image} />)}
-            </div>
-        </Col>     
-    )
+class SmallImages extends React.Component{
+
+    render(){
+
+        return ( 
+            <>
+            {this.props.images === undefined ? 
+            <h1>Loading...</h1> :  
+            <Col className='col-md' key={this.props.images}>
+
+                <div className='wrapper1' width='700'>
+                    {this.props.images.map((image, i) => <SmallImage replaceImage={this.props.replaceImage} key={i} src={image} />)}
+                </div>
+            </Col>  
+            }
+            </> 
+        )
+    }
 }
 
 

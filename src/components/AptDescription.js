@@ -14,19 +14,20 @@ class AptDescription extends React.Component {
         super(props);
         // query based on the apartment id
         this.state = {
-            ID: 0,
-            Location: '153 Jaff, Jerusalem',
-            Floor: '2',
-            Floors: '1',
-            Rooms: 5,
-            Status: 'renovated',
-            Pool: 'No',
-            Yard: 'Yes',
-            Porch: 'Yes',
-            Private: 'No',
+            description: props.description
         };
     }
-    
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.description !== this.props.description) {
+            this.state.description = nextProps.description
+        }
+    }
+
+    yesOrNo(state){
+        return state ? 'Yes' : 'No'
+    }
+  
     render() { 
         const style = {
             color: "DodgerBlue",
@@ -43,34 +44,34 @@ class AptDescription extends React.Component {
             <div style={{'border': 'dotted', borderRadius: '8px', marginLeft: '5%'}}>
                 <div style={{textAlign:'left',paddingLeft:'40px',paddingTop:'4%', fontSize:'30px',color:'black'}}>Apartment Details:</div>
                 <div style={{display:'flex',padding:'20px 20px 10px 50px '}} >
-                    <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>ID:</div><div style={{fontSize:'22px'}}>{this.state.ID}</div>
+                    <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>ID:</div><div style={{fontSize:'22px'}}>{this.state.description.id}</div>
                 </div>
                 <div style={{display:'flex',padding:'20px 20px 10px 50px '}} >
-                    <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Location:</div><div style={{fontSize:'22px'}}>{this.state.Location}</div>
+                    <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Location:</div><div style={{fontSize:'22px'}}>{this.state.description.location}</div>
                 </div>
                 <div style={{display:'flex' ,padding:'10px 20px 10px 50px '}}>
-                    <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Floor:</div><div style={{fontSize:'22px'}}>{this.state.Floor}</div>
+                    <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Floor:</div><div style={{fontSize:'22px'}}>{this.state.description.floor}</div>
                 </div >
                 <div style={{display:'flex',padding:'10px 20px 10px 50px '}}>
-                    <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Number of Floors:</div><div style={{fontSize:'22px'}}>{this.state.Floors}</div>
+                    <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Number of Floors:</div><div style={{fontSize:'22px'}}>{this.state.description.floors}</div>
                 </div>
                 <div style={{display:'flex',padding:'10px 20px 10px 50px '}}>
-                    <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Number of Rooms:</div><div style={{fontSize:'22px'}}>{this.state.Rooms}</div>
+                    <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Number of Rooms:</div><div style={{fontSize:'22px'}}>{this.state.description.rooms}</div>
                 </div>
                 <div style={{display:'flex',padding:'10px 20px 10px 50px '}}>
-                    <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Condition:</div><div style={{fontSize:'22px'}}>{this.state.Status}</div>
+                    <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Condition:</div><div style={{fontSize:'22px'}}>{this.state.description.status}</div>
                 </div>
                 <div style={{display:'flex',padding:'10px 20px 10px 50px '}}>
-                    <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Pool:</div><div style={{fontSize:'22px'}}>{this.state.Pool}</div>
+                    <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Pool:</div><div style={{fontSize:'22px'}}>{this.yesOrNo(this.state.description.pool) }</div>
                 </div>
                 <div style={{display:'flex',padding:'10px 20px 10px 50px '}}>
-                    <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Yard:</div><div style={{fontSize:'22px'}}>{this.state.Yard}</div>
+                    <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Yard:</div><div style={{fontSize:'22px'}}>{this.yesOrNo(this.state.description.yard)}</div>
                 </div>
                 <div style={{display:'flex',padding:'10px 20px 10px 50px '}}>
-                    <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Porch:</div><div style={{fontSize:'22px'}}>{this.state.Porch}</div>
+                    <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Porch:</div><div style={{fontSize:'22px'}}>{this.yesOrNo(this.state.description.porch)}</div>
                 </div>
                 <div style={{display:'flex',padding:'10px 20px 10px 50px '}}>
-                    <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Private:</div><div style={{fontSize:'22px'}}>{this.state.Private}</div>
+                    <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Private:</div><div style={{fontSize:'22px'}}>{this.yesOrNo(this.state.description.private)}</div>
                 </div>
                 
             </div>     
