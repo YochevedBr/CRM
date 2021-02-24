@@ -16,8 +16,10 @@ export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false);
 
   // Customer ID
-  const [customerId, setCustomerId] = useState(props.dataFromParent);
-  console.log("data: "+props.dataFromParent)
+  const [customerId, setCustomerId] = useState(props.dataFromParentId);
+  const [customerName, setCustomerName] = useState(props.dataFromParentName);
+  console.log("Customer Name: " + customerName)
+  const [agentId, setAgentId] = useState('');
 
   // Current Date
   const [currentDate, setCurrentDate] = useState(new Date())
@@ -34,28 +36,22 @@ export default function FormDialog(props) {
   
   const handleClose = (event) => {
     event.preventDefault();
-
     setOpen(false);
-
-    console.log(interest);
-    console.log(purchased);
-    console.log(support);
-    console.log(checked)
-    console.log('currentDate: ' + currentDate)
     let formatDate = currentDate.getDate() + '/' + currentDate.getMonth()+1 + '/' + currentDate.getFullYear()
-    console.log(formatDate)
 
-    const callRecordsRef = firebase.database().ref('call_records');
-    const call_record = {
+    // Create call_record Collection
+    var db = firebase.firestore();
+    db.collection("call_records").doc().set({
+      agent_id: agentId,
       customer_id: customerId,
+      customer_name: customerName,
       date: formatDate,
-      interest: interest,
+      interested: interest,
       purchased: purchased,
       support: support,
       return: checked
-    }
-
-    callRecordsRef.push(call_record);
+    })
+    
     setInterest('');
     setPurchased('');
     setSupport('');

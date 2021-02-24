@@ -1,80 +1,60 @@
 import React from 'react';
-import { Container,Row,Col,Form} from 'react-bootstrap';
+import { Container, Row, Col, Form } from 'react-bootstrap';
 import './UpdateCustomer.css'
 import Button from '@material-ui/core/Button';
 import AddCallRecord from "./AddCallRecord";
-// import {connect} from 'react-redux';
-// import DefaultUserPic from "../uploads/team-male.jpg";
-// const axios = require('axios');
+import firebase from './../firebase.js';
+import $ from 'jquery';  
 
 class UpdateCustomer extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            username:'gggg',//this.props.username,
-            phonenumber:'058',//this.props.phonenumber,
-            email:'yael@gmail.com',//this.props.email,
-            profileImage:this.props.profileImage,
-            msg:this.props.msg,
-            uploadedFile:null
+            currentId: window.location.pathname.substring(17),
+            username:'',
+            phonenumber:'',
+            email:'',
         }
+        this.updateState = this.updateState.bind(this);
     }
 
-    // fetchUserDetails=(user_id)=>{
-    //     //console.log(user_id);
-    //     axios.get("http://localhost:5000/userapi/getUserDetails/"+user_id,{
-    //         headers: {
-    //             "content-type": "application/json"
-    //           }
-    //     }).then(res=>{
-    //         console.log(res);
-    //         this.setState({email:res.data.results[0].email});
-    //         this.setState({profileImage:res.data.results[0].profileImage})
-    //     })
-    //     .catch(err=>console.log(err))
-    // }
+    updateState(){
+        var docRef = firebase.firestore().collection("customers").doc(this.state.currentId)
+        docRef.get().then((doc) => {
+            if (doc.exists) {
+                // Edit text field
+                // this.state.name = doc.data().name
+                // this.state.email = doc.data().email
+                // this.state.phonenumber = doc.data().phoneNumber
+                this.setState({
+                    currentId : this.state.currentId.substring(17),
+                    username : doc.data().name,
+                    email : doc.data().email,
+                    phonenumber : doc.data().phoneNumber
+                    }
+                )
+                // $(".txtUser").val(this.state.name)
+                // $(".txtNumber").val(this.state.phonenumber)
+                // $(".txtEmail").val(this.state.email)
+            } else {
+                console.log("No such document!");
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
 
-    // changeProfileImage=(event)=>{
-       
-    //     this.setState({uploadedFile:event.target.files[0]});
-    // }
+    }
 
-    // UpdateProfileHandler=(e)=>{
-    //     e.preventDefault();
-    //     //create object of form data
-    //     const formData=new FormData();
-    //     formData.append("profileImage",this.state.uploadedFile);
-    //     formData.append("user_id",this.state.user_id);
-
-    //     //update-profile
-    //     axios.post("http://localhost:5000/userapi/update-profile/",formData,{
-    //         headers: {
-    //             "content-type": "application/json"
-    //           }
-    //     }).then(res=>{
-    //         console.log(res);
-    //        this.setState({msg:res.data.message});
-    //        this.setState({profileImage:res.data.results.profileImage});
-    //     })
-    //     .catch(err=>console.log(err))
-    // }
-
-
-    // componentDidMount(){
-    //  this.fetchUserDetails(this.state.user_id);
-    // }
+    componentDidMount(){
+        // this.state.currentId = this.state.currentId.substring(17)
+        console.log('currentId')
+        console.log(this.state.currentId)
+        // Retrieve the contents of a single document 
+        this.updateState();       
+    }
 
     render(){
-
-    // if(this.state.profileImage){
-    //     var imagestr=this.state.profileImage;
-    //     imagestr = imagestr.replace("public/", "");
-    //     var profilePic="http://localhost:5000/"+imagestr;
-    // }else{
-    //      profilePic=DefaultUserPic;
-    // }
-
-        return (
+            return (
             <Container>
                 <Row>
                     <Col xs={6}>
@@ -85,23 +65,23 @@ class UpdateCustomer extends React.Component {
                                 <div className="label">
                                 <Form.Label>Name</Form.Label>
                                 </div>
-                                <Form.Control type="text" defaultValue={this.state.username}/> 
+                                <Form.Control className="txtUser" type="text" defaultValue={this.state.username}/> 
                             </Form.Group>
                             <Form.Group controlId="formCategory1">
                                 <div className="label">
                                 <Form.Label>Phone Number</Form.Label>
                                 </div>
-                                <Form.Control type="text" defaultValue={this.state.phonenumber}/> 
+                                <Form.Control className="txtNumber" type="text" defaultValue={this.state.phonenumber}/> 
                             </Form.Group>
                             <Form.Group controlId="formCategory2">
                                 <div className="label">
                                 <Form.Label>Email</Form.Label>
                                 </div>
-                                <Form.Control type="email" defaultValue={this.state.email} />          
+                                <Form.Control className="txtEmail" type="email" defaultValue={this.state.email} />          
                             </Form.Group>
                             <Button variant="outlined" color="primary" onClick={this.UpdateProfileHandler}>Update</Button>
                             {/* Pass Customer Id to child component - AddCallRecord */}
-                            <AddCallRecord dataFromParent = {this.state.email}/> 
+                            <AddCallRecord dataFromParentId = {this.state.currentId} dataFromParentName ={this.state.username}/> 
                         </Form>
                     </Col>
                 </Row>
@@ -109,16 +89,5 @@ class UpdateCustomer extends React.Component {
         )
     }
 }
-
-const mapStatetoProps=(state)=>{
-    return{
-        user_id:state.user.userDetails.userid,
-        username:state.user.userDetails.username,
-        email:state.user.email,
-        profileImage: state.user.profileImage,
-        msg:state.user.msg
-    }
-}
    
 export default UpdateCustomer
-//    export default connect(mapStatetoProps)(UserProfile);

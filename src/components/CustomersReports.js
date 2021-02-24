@@ -6,8 +6,6 @@ import {Container, Row, Col} from 'react-bootstrap';
 import Button from '@material-ui/core/Button';
 import {withRouter} from 'react-router-dom';
 
-
-
 class CustomersReports extends React.Component{
     constructor(props) {
         super(props);
