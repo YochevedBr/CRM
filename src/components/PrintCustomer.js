@@ -8,21 +8,52 @@ import { Form, Row, Col, Table, Container } from 'react-bootstrap';
 import { span } from 'bootstrap';
 import PropTypes from "prop-types";
 import $ from 'jquery'
+import firebase from './../firebase.js';
+
 
 class ComponentToPrint extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            fullName: 'Yael',
-            phoneNumber: '058-3267782',
-            email: 'yael@gmail.com',
+            currentId: window.location.pathname.substring(16),
+            fullName: '',
+            phoneNumber: '',
+            email: '',
             callRecord: ['10.02.20','14.05.19','17.08.18'],
             callRecordList: [['10.02.20','The customer intersted in ...', 'The product...','No'],
                             ['18.18.18','The customer intersted in ...', 'The product...','Yes'],
                             ['11.01.02','The customer intersted in ...', 'The product...','No']]
         };
+        this.updateState = this.updateState.bind(this)
     }
     
+    updateState(){
+        var docRef = firebase.firestore().collection("customers").doc(this.state.currentId)
+        docRef.get().then((doc) => {
+            if (doc.exists) {
+                this.setState({
+                    // currentId : this.state.currentId.substring(16),
+                    fullName : doc.data().name,
+                    email : doc.data().email,
+                    phoneNumber : doc.data().phoneNumber
+                    }
+                )
+            } else {
+                console.log("No such document!");
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
+    }
+
+    componentDidMount(){
+        // this.state.currentId = this.state.currentId.substring(16)
+        console.log('currentId')
+        console.log(this.state.currentId)
+        // Retrieve the contents of a single document 
+        this.updateState();       
+    }
+
     render() { 
         const style = {
             color: "DodgerBlue",
@@ -165,13 +196,13 @@ class Example extends React.Component {
         }
 
         return (
-            <div>
-                <ComponentToPrint ref={el => (this.componentRef = el)} />
+            <div>    
                 <ReactToPrint
                     // trigger={() => <a href="#">PRINT</a>}
                     trigger={() => <Button color="primary" onClick={handleClick}>PRINT</Button>} //style={buttonStyle}
                     content={() => this.componentRef}
-                />          
+                />   
+                <ComponentToPrint ref={el => (this.componentRef = el)} />       
             </div>
         );
     }

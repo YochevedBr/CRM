@@ -28,22 +28,18 @@ export default function FormDialog() {
   
   const handleSubmit = (event) => {
     event.preventDefault();
-
     setOpen(false);
 
-    // if the email doesn't exist
-    const customersRef = firebase.database().ref('customers');
-    const customer = {
+    var db = firebase.firestore();
+    db.collection("customers").doc().set({
       name: name,
       phoneNumber: phoneNumber,
       email: email,
-    }
-
-    customersRef.push(customer);
+    })
+      
     setName('');
     setPhoneNumber('');
     setEmail('');
-
   };
 
   const handleCancel = () => {
@@ -54,7 +50,6 @@ export default function FormDialog() {
     setName('');
     setPhoneNumber('');
     setEmail('');
-
   };
 
   return (
