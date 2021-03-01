@@ -21,46 +21,28 @@ function Login(props) {
   
   function handleSubmit(event) {
     event.preventDefault();
-    
-    // checking that the user is in the system
-    // retrieving the agents database
-    const agentsRef = firebase.database().ref('agents');
-    let exist = false
-    let exist1 = false
-    let exist2 = false
 
-    agentsRef.on('value', (snapshot) => {
-      const agents = snapshot.val()
-      for (let agent in agents){
-          // if email exists navigate to the login component
-          if (agents[agent].email == email){
-            exist1 = true  
-          }
-          if (agents[agent].password == password){
-            exist2 = true  
-          }
-          exist = exist1 && exist2
-          if (exist){
-            props.history.push('/bootstrap_navbar')
-            break
-          }    
-      }
-      // if email or password doesn't exist, add new agent to the database
-      console.log(exist)
-      console.log(exist1)
-      console.log(exist2)
-
-      if (!exist){
-        setEmail('')
-        setPassword('')
-        if (!exist1){
-          setWrongEmail(true)
+    var db = firebase.firestore();
+    db.collection("agents")
+    .doc(email)
+    .get()
+    .then((doc) => {
+      if (doc.exists){  
+        if (doc.data().password === password){
+          props.history.push('/bootstrap_navbar')
         }
-        else if(!exist2){
+        else{
+          setPassword('')
           setWrongPassword(true)
         }
       }
-    })
+      // if email doesn't exist, 
+      else{
+        setEmail('')
+        setPassword('')
+        setWrongEmail(true)
+      }
+    });
   }
   
   // login form
