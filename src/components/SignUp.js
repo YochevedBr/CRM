@@ -46,6 +46,7 @@ function SignUp(props) {
             password: password,
           })
           .then(() => {
+            localStorage.setItem('agent_id', email)
             props.history.push('/bootstrap_navbar')
           })
           .catch((error) => {

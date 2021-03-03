@@ -5,6 +5,9 @@ import firebase from './../firebase.js';
 // import './Login.css';
 
 function Login(props) {
+
+  localStorage.clear()
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [wrongEmail, setWrongEmail] = useState(false)
@@ -29,6 +32,7 @@ function Login(props) {
     .then((doc) => {
       if (doc.exists){  
         if (doc.data().password === password){
+          localStorage.setItem('agent_id', email)
           props.history.push('/bootstrap_navbar')
         }
         else{
