@@ -20,7 +20,6 @@ import UpdateOrAddApt from './UpdateOrAddApt'
 import CallDetails from './CallDetails'
 import Login from './Login'
 import SignUp from './SignUp'
-import Logout from './Logout'
 
 
 function routing(){
