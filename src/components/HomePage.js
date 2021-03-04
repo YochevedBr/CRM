@@ -1,6 +1,6 @@
 import React from "react"
 import './HomePage.css';
-import img from '../pictures/logo.jpg'
+import img from '../pictures/house-real-estate-logo.jpg'
 
 class HomaPage extends React.Component{
     componentDidMount(){
