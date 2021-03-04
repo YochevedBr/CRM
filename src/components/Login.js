@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import firebase from './../firebase.js';
+
+import { withRouter } from "react-router";
+
 // import './Login.css';
 
 function Login(props) {
@@ -95,4 +98,6 @@ function Login(props) {
   );
 }
 
-export default Login;
+
+export default withRouter(Login);
+//export default Login;
