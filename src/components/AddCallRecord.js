@@ -18,33 +18,39 @@ export default function FormDialog(props) {
   // Customer ID
   const [customerId, setCustomerId] = useState(props.dataFromParentId);
   const [customerName, setCustomerName] = useState(props.dataFromParentName);
-  console.log("Customer Name: " + customerName)
-  const [agentId, setAgentId] = useState('');
+  const [agentId, setAgentId] = useState(localStorage.getItem("agent_id"));
 
   // Current Date
   const [currentDate, setCurrentDate] = useState(new Date())
 
   // Keep the value of the TextField
   const [interest, setInterest] = useState('');
-  const [purchased, setPurchased] = useState('');
+  const [purchased, setPurchased] = useState([]);
   const [support, setSupport] = useState('');
 
   // Handle on click button
   const handleClickOpen = () => {
     setOpen(true);
   };
+
+  // Validate form
+  const [wrongPurchase, setWrongPurchase] = useState(false);
   
-  const handleClose = (event) => {
+  const handleCancel = (event) => {
     event.preventDefault();
     setOpen(false);
-    let formatDate = currentDate.getDate() + '/' + ""+(Number(currentDate.getMonth())+1) + '/' + currentDate.getFullYear()
+    setWrongPurchase(false)
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    let formatDate = currentDate.getFullYear() + '/' + ""+(Number(currentDate.getMonth())+1) + '/' + currentDate.getDate()
 
     // Create call_record Collection
     var db = firebase.firestore();
     db.collection("call_records").doc().set({
       agent_id: agentId,
       customer_id: customerId,
-      customer_name: customerName,
       date: formatDate,
       interested: interest,
       purchased: purchased,
@@ -53,10 +59,41 @@ export default function FormDialog(props) {
     })
     
     setInterest('');
-    setPurchased('');
+    setPurchased([]);
     setSupport('');
     setChecked(false)
+
+    // Check if the apartments exist
+    var flag = false
+    var count = 0
+    for(var i=0; i<purchased.length; i++){
+      db.collection("products")
+      .doc(purchased[i])
+      .get()
+      .then((doc) => {
+        // if apartment doesn't exist, 
+        count ++
+        if (!doc.exists){ 
+          setWrongPurchase(true)
+          flag = true
+        }
+        else{
+          // Checks if all the apartments exist => close dialog
+          if(count == purchased.length && !flag){
+            setOpen(false);
+          }
+        }
+      });
+    } 
   };
+
+  function validateForm() {
+    // return interest.length > 0 && /\s/.test(purchased) == false;
+    return !wrongPurchase && /\s/.test(purchased) == false;
+  }
+  function handleChange(event) {
+    setWrongPurchase(false)
+  }
 
   // For Switch
   const [checked, setChecked] = React.useState(false);
@@ -68,7 +105,7 @@ export default function FormDialog(props) {
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>Add Call Record</Button>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Dialog open={open} onClose={handleSubmit} onChange={handleChange} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Call Record Details</DialogTitle>
         <DialogContent>            
             {/* <TextareaAutosize
@@ -94,12 +131,21 @@ export default function FormDialog(props) {
             <TextField
                 margin="dense"
                 id="name"
-                label="Products purchased"
+                label="Products purchased (write each purchase in a new line)"
+                primary="Photos" 
+                secondary="Jan 9, 2014"
                 type="text"
                 fullWidth
                 multiline
-                onChange={(event) => setPurchased(event.target.value)}
+                onChange={(event) => {
+                  var res = event.target.value
+                  res = res.split("\n")
+                  setPurchased(res)}
+                }
             />
+            {/* In case of wrong not responsive  !!!!!!!!!!!!!!!! */}
+            <h6 style={{display: wrongPurchase ? 'block' : 'none', color: 'red', width: '500px'}}>The purchase entered doesn’t match any apartment id.</h6>
+
             <TextField
                 margin="dense"
                 id="name"
@@ -117,10 +163,10 @@ export default function FormDialog(props) {
             </FormGroup>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleSubmit} color="primary" disabled={!validateForm()}>
             Submit
           </Button>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleCancel} color="primary">
             Cancel
           </Button>
         </DialogActions>

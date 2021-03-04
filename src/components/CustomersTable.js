@@ -73,7 +73,7 @@ function CustomersTable(props) {
                 return(
                     <div>
                         <Button variant="outlined" color="primary" 
-                        onClick={() => {history.push({pathname: "/update_customer/" + currentC})}}>Edit</Button>{' '}
+                        onClick={() => {history.push({pathname: "/update_customer/" + currentC})}}>Details</Button>{' '}
                         <Button variant="outlined" color="primary" 
                         onClick={() => handleShow(row.original)}>Delete</Button>
                     </div>

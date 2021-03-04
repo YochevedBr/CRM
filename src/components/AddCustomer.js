@@ -22,7 +22,6 @@ export default function FormDialog() {
   };
 
   function validateForm() {
-
     return email.length > 0 && phoneNumber.length > 0 && name.length > 0;
   }
   
