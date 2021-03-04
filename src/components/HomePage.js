@@ -1,5 +1,6 @@
 import React from "react"
 import './HomePage.css';
+import img from '../pictures/logo.jpg'
 
 class HomaPage extends React.Component{
     componentDidMount(){
@@ -7,10 +8,9 @@ class HomaPage extends React.Component{
 
     render(){
         return(
-            <div id='HomePage'>
-                HomePage
-                {/* <img src="../pictures/house-real-estate-logo.jpg" alt="Trulli" width="500" height="333">‏</img> */}
-            </div>
+                <>
+                <img src={img} alt="Trulli" width="auto" height="auto"/>‏
+                </>
         )
     }
 }

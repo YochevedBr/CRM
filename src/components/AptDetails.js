@@ -59,7 +59,7 @@ function AptDetails(){
                         <Container>
                             <Row>
                                 <Col>
-                                    <Image src={data.image} width={'800'} height={'500'}></Image>
+                                    <Image src={data.images[0]} width={'800'} height={'500'}></Image>
                                 </Col>
                             </Row>
                             <br></br>

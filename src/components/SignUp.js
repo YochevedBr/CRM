@@ -10,6 +10,7 @@ function SignUp(props) {
   const [password, setPassword] = useState("");
   const [repeat_password, setRepeatPassword] = useState("");
   const [wrongEmail, setWrongEmail] = useState(false)
+  const [match, setMatch] = useState(true)
 
 
   function validateForm() {
@@ -22,34 +23,38 @@ function SignUp(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    // checking that the email doesn't exist
-    // retrieving the agents database
-    const agentsRef = firebase.database().ref('agents');
-    let exist = false
-    agentsRef.on('value', (snapshot) => {
-      const agents = snapshot.val()
-      for (let agent in agents){
-          // if email exists navigate to the login component
-          if (agents[agent].email == email){
-            setWrongEmail(true)
-            setEmail("")
-            exist = true
-            break
-          }
-      }
-      // if email doesn't exist, add new agent to the database
-      if (!exist){
-        const agent = {
-          name: name,
-          email: email,
-          phone: phone_number,
-          password: password,
+    if (password !== repeat_password){
+        setMatch(false)
+    }
+    else{
+      var db = firebase.firestore();
+      db.collection("agents")
+      .doc(email)
+      .get()
+      .then((doc) => {
+        if (doc.exists){
+          setWrongEmail(true)
+          setEmail("")
         }
-        agentsRef.push(agent);
-        
-        props.history.push('/bootstrap_navbar')
-      }
-    })
+        // if email doesn't exist, add new agent to the database
+        else{
+          db.collection('agents')
+          .doc(email)
+          .set({
+            name: name,
+            phone: phone_number,
+            password: password,
+          })
+          .then(() => {
+            localStorage.setItem('agent_id', email)
+            props.history.push('/bootstrap_navbar')
+          })
+          .catch((error) => {
+            console.error("Error writing document: ", error);
+          });
+        }
+      });
+    }
   }
   
   // sign up form
@@ -72,7 +77,6 @@ function SignUp(props) {
             <Form.Group size="lg" controlId="email">
               <Form.Label>Email</Form.Label>
               <Form.Control
-                autoFocus
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -80,13 +84,14 @@ function SignUp(props) {
               <h6 style={{display: wrongEmail ? 'block' : 'none', color: 'red'}}>Please anter a valid email address.</h6>
             </Form.Group>
             <Form.Group size="lg" controlId="phone_number">
-                <Form.Label>Phone Number</Form.Label>
-                <Form.Control
-                    autoFocus
-                    type="phone_number"
-                    value={phone_number}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                />
+              <Form.Label>Phone Number</Form.Label>
+              <Form.Control
+                type="tel"
+                placeholder="Format: 123-4567890 / 12-3456789"
+                pattern="[0-9]{2,3}-[0-9]{7}"
+                value={phone_number}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+              />
             </Form.Group>
             <Form.Group size="lg" controlId="password">
               <Form.Label>Password</Form.Label>
@@ -101,8 +106,12 @@ function SignUp(props) {
               <Form.Control
                 type="password"
                 value={repeat_password}
-                onChange={(e) => setRepeatPassword(e.target.value)}
+                onChange={(e) => {
+                  setMatch(true)
+                  setRepeatPassword(e.target.value)
+                }}
               />
+            <h6 style={{display: !match ? 'block' : 'none', color: 'red'}}>not matching</h6> 
             </Form.Group>
             <Button block size="lg" type="submit" disabled={!validateForm()}>
               Sign Up

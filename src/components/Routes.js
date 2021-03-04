@@ -21,6 +21,7 @@ import CallDetails from './CallDetails'
 import Login from './Login'
 import SignUp from './SignUp'
 
+
 function routing(){
     return(
         <Router>
@@ -34,7 +35,11 @@ function routing(){
             </Route> */}
             <Switch>
                 <Route path="/" component={Login} exact />
-                
+            
+                <Route path="/logout">
+                    <Login/>
+
+                </Route>
                 <Route path="/customers">
                     <BootstrapNavbar/>
                     <Customers/>
