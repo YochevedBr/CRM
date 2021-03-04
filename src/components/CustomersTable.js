@@ -9,7 +9,7 @@ import { keys } from "@material-ui/core/styles/createBreakpoints";
 import { withRouter } from 'react-router'
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import ReactToPrint from "react-to-print";
 
 function CustomersTable(props) {
         const reports = props.reports;    
@@ -215,6 +215,7 @@ function CustomersTable(props) {
                     </Modal.Footer>
                 </Modal>
                 </>
+
             </div>
         )
 }
@@ -252,3 +253,5 @@ function TextFilter({
 
 // export default CustomersTable
 export default withRouter(CustomersTable);
+
+

@@ -37,7 +37,7 @@ export default function FormDialog(props) {
   const handleClose = (event) => {
     event.preventDefault();
     setOpen(false);
-    let formatDate = currentDate.getDate() + '/' + currentDate.getMonth()+1 + '/' + currentDate.getFullYear()
+    let formatDate = currentDate.getDate() + '/' + ""+(Number(currentDate.getMonth())+1) + '/' + currentDate.getFullYear()
 
     // Create call_record Collection
     var db = firebase.firestore();
