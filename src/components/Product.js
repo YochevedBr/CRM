@@ -10,7 +10,7 @@ import { useState, useEffect } from "react";
 
 
 function Product(props){
-    const [product, setProduct] = useState({price:'', location:'',floor:'',floors:'',rooms:'',status:'',pool:'',yard:'', private_house:'', sold:'', images:[]})
+    const [product, setProduct] = useState({id:'', price:'', location:'',floor:'',floors:'',rooms:'',status:'',pool:'',yard:'', private_house:'', sold:'', images:[]})
 
     useEffect(() => {
         setProduct(props.product)

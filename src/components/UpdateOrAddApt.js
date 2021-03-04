@@ -131,8 +131,6 @@ function UpdateOrAddApt(){
             aptID = aptID.toString()
             db.collection('products').doc(aptID).set({
                 id: aptID,
-                // image: img1,
-                // images: [img, img1, img, img1, img, img1, img],
                 sold: sold,
                 price: price,
                 location: location,
@@ -144,12 +142,17 @@ function UpdateOrAddApt(){
                 yard: yard,
                 porch: porch,
                 private: private_house,
+                images: []
             })
             .then(() => {
                 if(imageAsFile === '' ) {  
                     console.error(`not an image, the image file is a ${typeof(imageAsFile)}`)
                 }
-                const uploadTask = storage.ref(`${aptID}/${imageAsFile.name}`).put(imageAsFile)
+                for (let i = 0; i < imageAsFile.length; i ++){
+                    storage.ref(`${aptID}/${imageAsFile[i].name}`).put(imageAsFile[i])
+                }
+                
+                // const uploadTask = storage.ref(`${aptID}/${imageAsFile.name}`).put(imageAsFile)
                 history.push('/products')
             })
             .catch((error) => {
@@ -225,7 +228,7 @@ function UpdateOrAddApt(){
     }
 
     const handleImageAsFile = (e) => {
-        const image = e.target.files[0]
+        const image = e.target.files//[0]
         setImageAsFile(imageAsFile => (image))
     }
  
