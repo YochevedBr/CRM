@@ -46,26 +46,33 @@ export default function FormDialog(props) {
     event.preventDefault();
     let formatDate = currentDate.getFullYear() + '/' + ""+(Number(currentDate.getMonth())+1) + '/' + currentDate.getDate()
 
-    // Create call_record Collection
-    var db = firebase.firestore();
-    db.collection("call_records").doc().set({
-      agent_id: agentId,
-      customer_id: customerId,
-      date: formatDate,
-      interested: interest,
-      purchased: purchased,
-      support: support,
-      return: checked
-    })
     
-    setInterest('');
-    setPurchased([]);
-    setSupport('');
-    setChecked(false)
-
+    var db = firebase.firestore();
+    
     // Check if the apartments exist
     var flag = false
     var count = 0
+
+    if(purchased.length == 0){
+      setOpen(false);
+
+      // Create call_record Collection
+      db.collection("call_records").doc().set({
+        agent_id: agentId,
+        customer_id: customerId,
+        date: formatDate,
+        interested: interest,
+        purchased: purchased,
+        support: support,
+        return: checked
+      })
+      
+      setInterest('');
+      setPurchased([]);
+      setSupport('');
+      setChecked(false)
+    }
+
     for(var i=0; i<purchased.length; i++){
       db.collection("products")
       .doc(purchased[i])
@@ -88,6 +95,22 @@ export default function FormDialog(props) {
               })
             }
             setOpen(false);
+
+            // Create call_record Collection
+            db.collection("call_records").doc().set({
+              agent_id: agentId,
+              customer_id: customerId,
+              date: formatDate,
+              interested: interest,
+              purchased: purchased,
+              support: support,
+              return: checked
+            })
+            
+            setInterest('');
+            setPurchased([]);
+            setSupport('');
+            setChecked(false)
           }
         }
       });
