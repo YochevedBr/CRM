@@ -21,6 +21,7 @@ import CallDetails from './CallDetails'
 import Login from './Login'
 import SignUp from './SignUp'
 import NumOfPurchases from './NumOfPurchases'
+import MonthlySales from './MonthlySales'
 
 
 function routing(){
@@ -108,6 +109,10 @@ function routing(){
                 <Route path="/num_of_purchases">
                     <BootstrapNavbar/>
                     <NumOfPurchases/>
+                </Route>
+                <Route path="/monthly_sales">
+                    <BootstrapNavbar/>
+                    <MonthlySales/>
                 </Route>
                 
                 <Route path="/login" component={Login} />
