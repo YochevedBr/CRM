@@ -25,7 +25,9 @@ function CallDetails(){
             .doc(call.customer_id)
             .get()
             .then((doc)=>{
-                setCustomerName(doc.data().name)
+                if (doc.exists){
+                    setCustomerName(doc.data().name)
+                }
             })
         )
         db.collection("agents")
