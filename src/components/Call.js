@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 
 
 function Call(props){
-    console.log(props.data)
     return(
         <div>
             <p style={{border:'2px solid #0044cc',borderRadius: '8px', marginLeft:'50px', marginRight:'50px', borderStyle: 'inset'}}>

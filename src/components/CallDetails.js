@@ -10,6 +10,7 @@ function CallDetails(){
     const {callID} = useParams()
     const [call, setCall] = useState([]);
     const [agent_name, setAgent_name] = useState("");
+    const [customerName, setCustomerName] = useState('')
     // retrieve from database call by id
 
     useEffect(() => {
@@ -19,21 +20,25 @@ function CallDetails(){
         .get()
         .then((doc)=>{
             setCall(doc.data())
-        });
+        }).then(
+            db.collection("customers")
+            .doc(call.customer_id)
+            .get()
+            .then((doc)=>{
+                setCustomerName(doc.data().name)
+            })
+        )
         db.collection("agents")
         .doc(localStorage.getItem("agent_id"))
         .get()
         .then((doc)=>{
             setAgent_name(doc.data().name)
         });
-
     },[]);
-
-    let agentName = 'H'
 
     return(
         <div>
-            <h2 style={{textAlign:'left', marginLeft: '52px'}}>{call.customer_name}</h2>
+            <h2 style={{textAlign:'left', marginLeft: '52px'}}>{customerName}</h2>
             <Call data={call}></Call>
             <h5 style={{textAlign:'left', marginLeft: '52px'}}>Agent: {agent_name}</h5>
         </div>

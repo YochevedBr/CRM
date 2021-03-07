@@ -45,14 +45,15 @@ function CallRecords() {
     // copyCalls.sort(custom_sort);
     // setCalls(copyCalls)
 
-    return ( <div>
+    return ( 
+        <div>
             <h3> CallRecords </h3> 
-            <div> {
-                calls.map((call, i) => < CallRecord key = { i }
-                    call = { call }
-                    />)} 
+            <div> 
+                {
+                    calls.map((call, i) => < CallRecord key = { i } call = { call }
+                />)} 
             </div> 
-            </div>
+        </div>
             )
     }
 
