@@ -38,6 +38,7 @@ function CustomersTable(props) {
                     // Delete                 
                     db.collection("customers").doc(currentId).delete().then(() => {
                         console.log("Document successfully deleted!");
+                        window.location.reload();
                     }).catch((error) => {
                         console.error("Error removing document: ", error);
                     });
