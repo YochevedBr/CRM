@@ -151,7 +151,7 @@ export default function FormDialog(props) {
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>Add Call Record</Button>
-      <Dialog open={open} onClose={handleSubmit} onChange={handleChange} aria-labelledby="form-dialog-title">
+      <Dialog open={open} onClose={handleCancel} onChange={handleChange} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Call Record Details</DialogTitle>
         <DialogContent>            
             {/* <TextareaAutosize
