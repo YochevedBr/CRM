@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import './Login.css'
+import img from '../pictures/Hero-Front.png'
 import firebase from './../firebase.js';
 
 import { withRouter } from "react-router";
 
-// import './Login.css';
 
 function Login(props) {
 
@@ -51,44 +52,54 @@ function Login(props) {
       }
     });
   }
-  
+
   // login form
-  
-  const login = 
-  <div class="container h-100 border border-primary">
-    <div class="row h-100 justify-content-center align-items-center">
-        <div class="col-10 col-md-8 col-lg-6">
-        {/* <div className="Login"> */}
-          <Form onSubmit={handleSubmit} onChange={handleChange}>
-          <h1>Login</h1>
-            <Form.Group size="lg" controlId="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                autoFocus
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </Form.Group>
-            <h6 style={{display: wrongEmail ? 'block' : 'none', color: 'red'}}>The email entered doesn’t match any account. <a href='/sign_up'>Sign up for an account.</a></h6>
-            <Form.Group size="lg" controlId="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </Form.Group>
-            <h6 style={{display: wrongPassword ? 'block' : 'none', color: 'red'}}>The password you’ve entered is incorrect. Forgot Password?‏</h6>
-            <Button block size="lg" type="submit" disabled={!validateForm()}>
-              Login
-            </Button>
-            <p class="copyright">Not a member?<a href='/sign_up'>sign up</a>.</p>
-          </Form>
-        {/* </div> */}
+
+  const login =
+        <div style= {{backgroundImage: `url(${img})`}}>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <h4 style={{color: '#000066'}}>Login</h4>
+
+        <div class="row justify-content-center align-items-center" style={{position: "absolute", width: "450px",	left:"35%", 	top: "150px",alignItems:"center", border: "5px solid rgba(70, 70, 70, 0.16)"}}>
+          <div class="col-lg-8">
+            <Form onSubmit={handleSubmit} onChange={handleChange}>
+              <br></br>
+              <Form.Group size="sm" controlId="email">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  autoFocus
+                  type="email"
+                  size="sm"
+                  borderColor="#000066"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </Form.Group>
+              <h6 style={{display: wrongEmail ? 'block' : 'none', color: 'red'}}>The email entered doesn’t match any account. <a href='/sign_up'>Sign up for an account.</a></h6>
+              <Form.Group size="sm" controlId="password">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  size="sm"
+                  type="password"
+                  borderColor="#000066"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </Form.Group>
+              <h6 style={{display: wrongPassword ? 'block' : 'none', color: 'red'}}>The password you’ve entered is incorrect. Forgot Password?‏</h6>
+              <br></br>
+              <Button block size="sm" type="submit" disabled={!validateForm()} style={{background:"#000066", borderColor: "#000066"}}>
+                Login
+              </Button>
+             
+              <p class="copyright" >Not a member?<a href='/sign_up'>sign up</a>.</p>
+            </Form>
+          </div>
         </div>
-        </div>
-        </div>  
+      </div>
 
   return (
     // display NavBar if submitted

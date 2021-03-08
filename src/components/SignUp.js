@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import firebase from './../firebase.js';
+import img from '../pictures/Hero-Front.png'
+import './SignUp.css'
+
+
 
 function SignUp(props) {
   const [name, setName] = useState("");
@@ -59,52 +63,64 @@ function SignUp(props) {
   
   // sign up form
   const signUp = 
-  <div class="container h-100 border border-primary">
-    <div class="row h-100 justify-content-center align-items-center">
-        <div class="col-10 col-md-8 col-lg-6">
-        {/* <div className="Login"> */}
+  <div style={{backgroundImage: `url(${img})`}}>
+  <br></br>
+  <br></br>
+  <h4 style={{color: '#000066'}}>Sign Up</h4>
+  <div class="row justify-content-center align-items-center" style={{position: "absolute", width: "450px",	left:"35%", 	top: "100px",alignItems:"center", border: "5px solid rgba(70, 70, 70, 0.16)"}}>
+    <div class="col-sm-8">
           <Form onSubmit={handleSubmit} onChange={handleChange}>
-          <h1>Sign Up</h1>
-            <Form.Group size="lg" controlId="name">
+          <br></br>
+            <Form.Group controlId="name">
                 <Form.Label>Name</Form.Label>
                 <Form.Control
                     autoFocus
                     type="name"
+                    size="sm"
+                    borderColor="#000066"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                 />
             </Form.Group>
-            <Form.Group size="lg" controlId="email">
+            <Form.Group controlId="email">
               <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
+                size="sm"
+                borderColor="#000066"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <h6 style={{display: wrongEmail ? 'block' : 'none', color: 'red'}}>Please anter a valid email address.</h6>
             </Form.Group>
-            <Form.Group size="lg" controlId="phone_number">
+            <Form.Group controlId="phone_number">
               <Form.Label>Phone Number</Form.Label>
               <Form.Control
                 type="tel"
                 placeholder="Format: 123-4567890 / 12-3456789"
                 pattern="[0-9]{2,3}-[0-9]{7}"
+                size="sm"
+                borderColor="#000066"
                 value={phone_number}
                 onChange={(e) => setPhoneNumber(e.target.value)}
               />
             </Form.Group>
-            <Form.Group size="lg" controlId="password">
+            <Form.Group controlId="password">
               <Form.Label>Password</Form.Label>
               <Form.Control
                 type="password"
+                size="sm"
+                borderColor="#000066"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </Form.Group>
-            <Form.Group size="lg" controlId="repeat_password">
+            <Form.Group controlId="repeat_password">
               <Form.Label>Repeat Password</Form.Label>
               <Form.Control
                 type="password"
+                size="sm"
+                borderColor="#000066"
                 value={repeat_password}
                 onChange={(e) => {
                   setMatch(true)
@@ -113,11 +129,13 @@ function SignUp(props) {
               />
             <h6 style={{display: !match ? 'block' : 'none', color: 'red'}}>not matching</h6> 
             </Form.Group>
-            <Button block size="lg" type="submit" disabled={!validateForm()}>
+            <br></br>
+            <Button block type="submit"  size="sm" disabled={!validateForm()}  style={{background:"#000066", borderColor: "#000066"}}>
               Sign Up
             </Button>
+            <br></br>
           </Form>
-        {/* </div> */}
+ 
         </div>
         </div>
         </div>  
