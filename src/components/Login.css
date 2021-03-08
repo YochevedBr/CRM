@@ -2,3 +2,21 @@
     border-color: #000066;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 0, 102, 0.6);
 }
+
+.container {
+    /* border: 1px solid #DDDDDD; */
+    width: 100%;
+    height: 100%;
+    /* position: relative; */
+ }
+ /* .tag {
+    float: left;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 1000;
+    background-color: #92AD40;
+    padding: 5px;
+    color: #FFFFFF;
+    font-weight: bold;
+ } */

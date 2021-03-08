@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import firebase from './../firebase.js';
-import img from '../pictures/house-real-estate-logo.jpg' //import img from '../pictures/Hero-Front.png'
+import {storage} from "./../firebase"
+
 import './SignUp.css'
+import './Login.css'
+
 
 
 
@@ -15,6 +18,18 @@ function SignUp(props) {
   const [repeat_password, setRepeatPassword] = useState("");
   const [wrongEmail, setWrongEmail] = useState(false)
   const [match, setMatch] = useState(true)
+
+  const [img, setImg] = useState('');
+
+    useEffect(() => {
+      storage
+      .ref('/image to design/Hero-Front.png')
+      .getDownloadURL()
+      .then((DownloadURL) => {
+          setImg(DownloadURL)
+      })
+    },[]);
+
 
 
   function validateForm() {
@@ -63,12 +78,13 @@ function SignUp(props) {
   
   // sign up form
   const signUp = 
-  <div style={{backgroundImage: `url(${img})`}}>
+  <div className='container'>
   <br></br>
   <br></br>
-  <h4 style={{color: '#000066'}}>Sign Up</h4>
-  <div class="row justify-content-center align-items-center" style={{position: "absolute", width: "450px",	left:"35%", 	top: "100px",alignItems:"center", border: "5px solid rgba(70, 70, 70, 0.16)"}}>
+  <img style={{'display': 'block', 'marginLeft': 'auto', 'marginRight': 'auto'}} src={img} alt='' width='110%'/>
+  <div class="row justify-content-center align-items-center" style={{position: "absolute", width: "450px",	left:"35%", 	top: "100px",alignItems:"center", border: "5px solid rgba(70, 70, 70, 0.16)", backgroundColor: 'white', opacity:'0.9'}}>
     <div class="col-sm-8">
+          <h4 style={{color: '#000066'}}>Sign Up</h4>
           <Form onSubmit={handleSubmit} onChange={handleChange}>
           <br></br>
             <Form.Group controlId="name">
