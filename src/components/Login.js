@@ -5,6 +5,7 @@ import './Login.css'
 import img from '../pictures/Hero-Front.png'
 import firebase from './../firebase.js';
 
+
 function Login(props) {
 
   localStorage.clear()
@@ -53,7 +54,7 @@ function Login(props) {
   // login form
 
   const login =
-        <div calss= {{backgroundImage: `url(${img})`, hight: "auto", width:"100%"}}>
+        <div style= {{backgroundImage: `url(${img})`}}>
         <br></br>
         <br></br>
         <br></br>
@@ -92,7 +93,7 @@ function Login(props) {
                 Login
               </Button>
              
-              <p class="copyright">Not a member?<a href='/sign_up'>sign up</a>.</p>
+              <p class="copyright" s>Not a member?<a href='/sign_up'>sign up</a>.</p>
             </Form>
           </div>
         </div>
