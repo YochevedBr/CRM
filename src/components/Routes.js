@@ -20,6 +20,9 @@ import UpdateOrAddApt from './UpdateOrAddApt'
 import CallDetails from './CallDetails'
 import Login from './Login'
 import SignUp from './SignUp'
+import PrintPurchases from './PrintPurchases'
+
+
 
 
 function routing(){
@@ -100,10 +103,15 @@ function routing(){
                     <BootstrapNavbar/>
                     <UpdateOrAddApt/>
                 </Route>
+                <Route path="/print_purchases">
+                    <BootstrapNavbar/>
+                    <PrintPurchases/>
+                </Route>
                 <Route path="/call_details/:callID">
                     <BootstrapNavbar/>
                     <CallDetails/>
                 </Route>
+                
                 
                 <Route path="/login" component={Login} />
                 <Route path="/sign_up" component={SignUp} />

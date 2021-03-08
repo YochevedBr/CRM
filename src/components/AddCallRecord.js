@@ -34,12 +34,15 @@ export default function FormDialog(props) {
   };
 
   // Validate form
-  const [wrongPurchase, setWrongPurchase] = useState(false);
+  const [PurchaseNotExist, setPurchaseNotExist] = useState(false);
+  const [PurchaseSold, setPurchaseSold] = useState(false);
+
   
   const handleCancel = (event) => {
     event.preventDefault();
     setOpen(false);
-    setWrongPurchase(false)
+    setPurchaseNotExist(false)
+    setPurchaseSold(false)
   }
 
   const handleSubmit = (event) => {
@@ -81,10 +84,20 @@ export default function FormDialog(props) {
         // if apartment doesn't exist, 
         count ++
         if (!doc.exists){ 
-          setWrongPurchase(true)
+          setPurchaseNotExist(true)
+          setPurchaseSold(false)
           flag = true
         }
+        
         else{
+
+          //if apartment is sold out
+          if (doc.data().sold){
+            setPurchaseSold(true)
+            setPurchaseNotExist(false)
+            flag = true
+          }
+
           // Checks if all the apartments exist => close dialog
           if(count == purchased.length && !flag){
             setOpen(false);
@@ -104,6 +117,8 @@ export default function FormDialog(props) {
             setPurchased([]);
             setSupport('');
             setChecked(false)
+            setPurchaseNotExist(false)
+            setPurchaseSold(false)
           }
         }
       });
@@ -112,10 +127,12 @@ export default function FormDialog(props) {
 
   function validateForm() {
     // return interest.length > 0 && /\s/.test(purchased) == false;
-    return !wrongPurchase && /\s/.test(purchased) == false;
+    return !PurchaseNotExist && /\s/.test(purchased) == false;
+    // return (!PurchaseNotExist && /\s/.test(purchased) == false) || (!PurchaseSold && /\s/.test(purchased) == false);
   }
   function handleChange(event) {
-    setWrongPurchase(false)
+    setPurchaseNotExist(false)
+    setPurchaseSold(false)
   }
 
   // For Switch
@@ -167,7 +184,9 @@ export default function FormDialog(props) {
                 }
             />
             {/* In case of wrong not responsive  !!!!!!!!!!!!!!!! */}
-            <h6 style={{display: wrongPurchase ? 'block' : 'none', color: 'red', width: '500px'}}>The purchase entered doesn’t match any apartment id.</h6>
+            <h6 style={{display: PurchaseNotExist ? 'block' : 'none', color: 'red', width: '500px'}}>The purchase entered doesn’t match any apartment id.</h6>
+            <h6 style={{display: PurchaseSold ? 'block' : 'none', color: 'red', width: '500px'}}>The purchase entered is sold out.</h6>
+
 
             <TextField
                 margin="dense"
