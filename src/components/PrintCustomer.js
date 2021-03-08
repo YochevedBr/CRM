@@ -1,15 +1,9 @@
 import React from "react";
 import ReactToPrint from "react-to-print";
 import Button from '@material-ui/core/Button';
-// import Form from 'react-bootstrap/Form'
-// import Row from 'react-bootstrap/Row'
-// import Col from 'react-bootstrap/Col'
-import { Form, Row, Col, Table, Container } from 'react-bootstrap';
-import { span } from 'bootstrap';
-import PropTypes from "prop-types";
 import $ from 'jquery'
 import firebase from './../firebase.js';
-
+import './PrintCustomer.css'
 
 class ComponentToPrint extends React.Component {
     constructor(props) {
@@ -19,12 +13,11 @@ class ComponentToPrint extends React.Component {
             fullName: '',
             phoneNumber: '',
             email: '',
-            callRecord: ['10.02.20','14.05.19','17.08.18'],
-            callRecordList: [['10.02.20','The customer intersted in ...', 'The product...','No'],
-                            ['18.18.18','The customer intersted in ...', 'The product...','Yes'],
-                            ['11.01.02','The customer intersted in ...', 'The product...','No']]
+            // callRecordsList: ''
         };
         this.updateState = this.updateState.bind(this)
+        this.updateCallRecords = this.updateCallRecords.bind(this)
+
     }
     
     updateState(){
@@ -32,7 +25,6 @@ class ComponentToPrint extends React.Component {
         docRef.get().then((doc) => {
             if (doc.exists) {
                 this.setState({
-                    // currentId : this.state.currentId.substring(16),
                     fullName : doc.data().name,
                     email : doc.data().email,
                     phoneNumber : doc.data().phoneNumber
@@ -46,73 +38,59 @@ class ComponentToPrint extends React.Component {
         });
     }
 
-    componentDidMount(){
-        // this.state.currentId = this.state.currentId.substring(16)
-        console.log('currentId')
-        console.log(this.state.currentId)
-        // Retrieve the contents of a single document 
-        this.updateState();       
+    updateCallRecords(){
+        var db = firebase.firestore()
+        let call_record = []
+        let call_records_list = []
+        let count = 0
+        db.collection("call_records").where("customer_id", "==", this.state.currentId)
+            .get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    // console.log(doc.id, " => ", doc.data());
+                    call_record[0] = doc.data().date
+                    call_record[1] = doc.data().interested
+                    call_record[2] = doc.data().purchased
+                    call_record[3] = doc.data().return
+                    call_records_list[count] = call_record
+
+                    $( ".callRecordsList" ).append("<p class = 'callRecord' id='"+count+"' style={{border:'2px solid #0044cc',borderRadius: '8px', marginLeft:'50px', marginRight:'50px', borderStyle: 'inset'}}></p>")
+                    $( "#" + count +"" ).append( "<div class='Details'><div class='key'>Date: </div><div class='value' style={{fontSize:'22px'}}>"+call_records_list[count][0]+"</div></div>" )
+                    $( "#" + count +"" ).append( "<div class='Details'><div class='key'>Interested: </div><div class='value' style={{fontSize:'22px'}}>"+call_records_list[count][1]+"</div></div>" );
+                    $( "#" + count +"" ).append( "<div class='Details'><div class='key'>Purchased: </div><div class='value' style={{fontSize:'22px'}}>"+call_records_list[count][2]+"</div></div>" );
+                    $( "#" + count +"" ).append( "<div class='Details'><div class='key'>Return: </div><div class='value' style={{fontSize:'22px'}}>"+call_records_list[count][3]+"</div></div>" );
+                    
+                    count = count + 1
+                });
+                // this.setState({
+                //     callRecordsList: call_records_list
+                //     }
+                // )
+
+                // var len =this.state.callRecordsList.length
+                // for(var i=0; i<len; i++){
+                //     console.log("#######i" + i)
+                //     $( ".try" ).append("<p class='"+i+"' style={{border:'2px solid #0044cc',borderRadius: '8px', marginLeft:'50px', marginRight:'50px', borderStyle: 'inset'}}></p>")
+                //     $( "." + i +"" ).append( "<div id='"+i*100+"'>Date: </div><div style={{fontSize:'22px'}}>"+this.state.callRecordsList[i][0]+"</div>" )
+                //     // $( "#" + i*100 +"" ).append( "<div id='"+i*100+"'>*********</div>" );
+                //     $( "." + i +"" ).append( "<div>Interested: </div><div style={{fontSize:'22px'}}>"+this.state.callRecordsList[i][1]+"</div>" );
+                //     $( "." + i +"" ).append( "<div>Purchased: </div><div style={{fontSize:'22px'}}>"+this.state.callRecordsList[i][2]+"</div>" );
+                //     $( "." + i +"" ).append( "<div>Return: </div><div style={{fontSize:'22px'}}>"+this.state.callRecordsList[i][3]+"</div>" );       
+                // }
+            })
+            .catch((error) => {
+                console.log("Error getting documents: ", error);
+            });
     }
 
-    render() { 
-        const style = {
-            color: "DodgerBlue",
-            // backgroundColor: "DodgerBlue",
-            padding: "10px",
-            paddingTop: "10px",
-            fontFamily: "Calibri",
-            textAlign: "left",
-            whiteSpace: "nowrap",
-            // display: "none"
-        }
-        //const {fullName, phoneNumber, email, callRecordList}=this.props
-        
-        // this.state = {
-        //     fullName: 'Yael',
-        //     phoneNumber: '058-3267782',
-        //     email: 'yael@gmail.com'
-        // };
-     
-        return (
-            //hidden
-            // <div style={style} >
-            //     <h3>Customer Details:</h3>
-            //     <h4>Name: </h4>Yael Neeman
-            //     <h4>Phone Number: </h4>058-3267782
-            //     <h4>Email: </h4>yaelneeman10@gmail.com
-            //     <h4>Call Record List: </h4>
-            //     <ul>
-            //         <li>14.02.18</li>
-            //         <li>02.07.20</li>
-            //         <li>01.01.21</li>
-            //     </ul>  
-            // </div> 
-            // <Form>
-            //     <Form.Group as={Row} controlId="formPlaintextEmail">
-            //         <Form.Label column sm="2" textAlign='right'>
-            //             Full Name:
-            //         </Form.Label>
-            //         <Col sm="10">
-            //             <Form.Control plaintext readOnly defaultValue="Yael Neeman"/>
-            //         </Col>
-            //     </Form.Group>
-            //     <Form.Group as={Row} controlId="formPlaintextEmail">
-            //         <Form.Label column sm="2">
-            //             Phone Number:
-            //         </Form.Label>
-            //         <Col sm="10">
-            //             <Form.Control plaintext readOnly defaultValue="058-3267782" />
-            //         </Col>
-            //     </Form.Group>
-            //     <Form.Group as={Row} controlId="formPlaintextEmail">
-            //         <Form.Label column sm="2">
-            //             Email
-            //         </Form.Label>
-            //         <Col sm="10">
-            //             <Form.Control plaintext readOnly defaultValue="yaelneeman10@gmail.com" />
-            //         </Col>
-            //     </Form.Group>
-            // </Form>
+    componentDidMount(){
+        // Retrieve the contents of a single document 
+        this.updateState(); 
+        this.updateCallRecords()    
+    }
+    
+    render() {       
+        return (        
             <div>
                 <div style={{textAlign:'left',paddingLeft:'40px',paddingTop:'50px', fontSize:'30px',color:'black'}}>Customer Details:</div>
                 <div style={{display:'flex',padding:'20px 20px 10px 50px '}} >
@@ -127,79 +105,20 @@ class ComponentToPrint extends React.Component {
                 <div style={{display:'flex',padding:'10px 20px 10px 50px '}}>
                     <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Call Record:</div><div style={{fontSize:'22px'}}></div>
                 </div>
-                <form class="form-floating">
-                    <p class="round2" style={{border:'2px solid #0044cc',borderRadius: '8px', marginLeft:'50px', marginRight:'50px', borderStyle: 'inset'}}>
-                        <div style={{display:'flex',padding:'10px 20px 10px 20px '}} >
-                            <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Date:</div><div style={{fontSize:'22px'}}>{this.state.callRecordList[0][0]}</div>
-                        </div>
-                        <div style={{display:'flex' ,padding:'10px 20px 10px 20px '}}>
-                            <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Interest in:</div><div style={{fontSize:'22px'}}>{this.state.callRecordList[0][1]}</div>
-                        </div >
-                        <div style={{display:'flex',padding:'10px 20px 10px 20px '}}>
-                            <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Products purchased:</div><div style={{fontSize:'22px'}}>{this.state.callRecordList[0][2]}</div>
-                        </div>
-                        <div style={{display:'flex',padding:'10px 20px 10px 20px '}}>
-                            <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Return:</div><div style={{fontSize:'22px'}}>{this.state.callRecordList[0][3]}</div>
-                        </div>
-                    </p>
-                    <p class="round2" style={{border:'2px solid #0044cc',borderRadius: '8px', marginLeft:'50px', marginRight:'50px', borderWidth: '1px', borderStyle:'dotted'}}>
-                        <div style={{display:'flex',padding:'10px 20px 10px 20px '}} >
-                            <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Date:</div><div style={{fontSize:'22px'}}>{this.state.callRecordList[1][0]}</div>
-                        </div>
-                        <div style={{display:'flex' ,padding:'10px 20px 10px 20px '}}>
-                            <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Interest in:</div><div style={{fontSize:'22px'}}>{this.state.callRecordList[1][1]}</div>
-                        </div >
-                        <div style={{display:'flex',padding:'10px 20px 10px 20px '}}>
-                            <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Products purchased:</div><div style={{fontSize:'22px'}}>{this.state.callRecordList[1][2]}</div>
-                        </div>
-                        <div style={{display:'flex',padding:'10px 20px 10px 20px '}}>
-                            <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Return:</div><div style={{fontSize:'22px'}}>{this.state.callRecordList[1][3]}</div>
-                        </div>
-                    </p>
-                    <p class="round2" style={{marginLeft:'50px', marginRight:'50px', borderWidth: '1px', borderBottom: '6px solid #0044cc', backgroundColor: 'lightgrey'}}>
-                        <div style={{display:'flex',padding:'10px 20px 10px 20px '}} >
-                            <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Date:</div><div style={{fontSize:'22px'}}>{this.state.callRecordList[2][0]}</div>
-                        </div>
-                        <div style={{display:'flex' ,padding:'10px 20px 10px 20px '}}>
-                            <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Interest in:</div><div style={{fontSize:'22px'}}>{this.state.callRecordList[2][1]}</div>
-                        </div >
-                        <div style={{display:'flex',padding:'10px 20px 10px 20px '}}>
-                            <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Products purchased:</div><div style={{fontSize:'22px'}}>{this.state.callRecordList[2][2]}</div>
-                        </div>
-                        <div style={{display:'flex',padding:'10px 20px 10px 20px '}}>
-                            <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Return:</div><div style={{fontSize:'22px'}}>{this.state.callRecordList[2][3]}</div>
-                        </div>
-                    </p>
-                </form>
+                <div class = 'callRecordsList'></div>
             </div>     
         );
     }
 }
 
 
-class Example extends React.Component {     
+class Print extends React.Component {     
     render() {
-        const handleClick = () => {
-            alert("click")
-            console.log("kkkkkkkkkkkkkkk")
-        };
-
-        const buttonStyle= {
-            color: "primary",
-            padding: "10px",
-            paddingTop: "10px",
-            fontFamily: "Calibri",
-            textAlign: "left",
-            whiteSpace: "nowrap",
-            marginTop: "30px"
-            // display: "none"
-        }
-
         return (
             <div>    
                 <ReactToPrint
                     // trigger={() => <a href="#">PRINT</a>}
-                    trigger={() => <Button color="primary" onClick={handleClick}>PRINT</Button>} //style={buttonStyle}
+                    trigger={() => <Button id="btnPrint" variant="outlined" color="primary">PRINT</Button>}
                     content={() => this.componentRef}
                 />   
                 <ComponentToPrint ref={el => (this.componentRef = el)} />       
@@ -208,4 +127,4 @@ class Example extends React.Component {
     }
 }
 
-export default Example;
+export default Print;

@@ -5,6 +5,8 @@ import './Login.css'
 import img from '../pictures/Hero-Front.png'
 import firebase from './../firebase.js';
 
+import { withRouter } from "react-router";
+
 
 function Login(props) {
 
@@ -107,4 +109,6 @@ function Login(props) {
   );
 }
 
-export default Login;
+
+export default withRouter(Login);
+//export default Login;

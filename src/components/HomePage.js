@@ -3,6 +3,7 @@ import './HomePage.css'
 import img from '../pictures/homepage2.JPG'
 import instegram from '../pictures/instegram.png'
 
+
 class HomaPage extends React.Component{
     componentDidMount(){
     }

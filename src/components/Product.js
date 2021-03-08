@@ -10,22 +10,15 @@ import { useState, useEffect } from "react";
 
 
 function Product(props){
-    const [product, setProduct] = useState({price:'', location:'',floor:'',floors:'',rooms:'',status:'',pool:'',yard:'', private_house:'', sold:'', images:[]})
+    const [product, setProduct] = useState({id:'', price:'', location:'',floor:'',floors:'',rooms:'',status:'',pool:'',yard:'', private_house:'', sold:'', images:[]})
 
     useEffect(() => {
-        console.log('in useEffect')
         setProduct(props.product)
     }, [props]);
-    // console.log('product component: ')
-    // console.log(props.product)
-    // console.log(props.product.images)
-    // console.log('done')
+    
     return(
         <>
-        {console.log(product)}
-        {console.log(product.location)}
-        {console.log(product.images)}
-        {
+        {   
             product.images ?
             <div key={product.id} style={{'borderStyle': 'solid', background: "#ffffff"}}>
             <a style={{textDecoration: 'none', color: 'black'}} href={`/apt_details/${product.id}`}>

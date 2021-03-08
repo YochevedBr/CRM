@@ -5,52 +5,108 @@ import Button from '@material-ui/core/Button';
 import AddCallRecord from "./AddCallRecord";
 import firebase from './../firebase.js';
 import $ from 'jquery';  
+import Modal from "react-bootstrap/Modal";
+import CallRecord from './CallRecord'
+
 
 class UpdateCustomer extends React.Component {
     constructor(props){
         super(props);
         this.state={
+            emptyName: false,
+            emptyPhone: false,
+            emptyEmail: false,
+            showModal: false,
             currentId: window.location.pathname.substring(17),
+            currentName: '',
             username:'',
             phonenumber:'',
             email:'',
+            calls:[],
         }
         this.updateState = this.updateState.bind(this);
+        this.updateHandler = this.updateHandler.bind(this);
+        this.handleClose = this.handleClose.bind(this);
     }
 
     updateState(){
         var docRef = firebase.firestore().collection("customers").doc(this.state.currentId)
         docRef.get().then((doc) => {
-            if (doc.exists) {
-                // Edit text field
-                // this.state.name = doc.data().name
-                // this.state.email = doc.data().email
-                // this.state.phonenumber = doc.data().phoneNumber
+            if (doc.exists) {  
                 this.setState({
-                    currentId : this.state.currentId.substring(17),
                     username : doc.data().name,
                     email : doc.data().email,
                     phonenumber : doc.data().phoneNumber
                     }
                 )
-                // $(".txtUser").val(this.state.name)
-                // $(".txtNumber").val(this.state.phonenumber)
-                // $(".txtEmail").val(this.state.email)
             } else {
                 console.log("No such document!");
             }
         }).catch((error) => {
             console.log("Error getting document:", error);
         });
+    }
 
+    handleClose(){
+        this.setState({showModal: false})
+    }
+
+    updateHandler(){
+        var db = firebase.firestore()
+
+        let update_name = $(".txtUser").val()
+        let update_phone = $(".txtNumber").val()
+        let update_email = $(".txtEmail").val()
+
+        // In case of an empty field, leave the previous values 
+        if( update_name == '' ) {
+            this.setState({emptyName: true})
+        }
+        if( update_phone == '' ) {
+            this.setState({emptyPhone: true})
+        }
+        if( update_email == '' ) {
+            this.setState({emptyEmail: true})
+        }
+
+        // All the fields not empty
+        if(update_name!='' && update_phone!='' && update_email!='' ){
+            // Update exist document in collection "customers"
+            db.collection("customers").doc(this.state.currentId).set({
+                email: update_email,
+                name: update_name,
+                phoneNumber: update_phone
+            })
+            .then(() => {
+                this.setState({showModal: true})
+                console.log("Document successfully update!");
+            })
+            .catch((error) => {
+                console.error("Error update document: ", error);
+            });
+        }
     }
 
     componentDidMount(){
-        // this.state.currentId = this.state.currentId.substring(17)
-        console.log('currentId')
-        console.log(this.state.currentId)
         // Retrieve the contents of a single document 
-        this.updateState();       
+        this.updateState(); 
+
+        // display the call-records of the customer
+        var db = firebase.firestore();
+        db.collection("call_records")
+        .where("customer_id", "==", this.state.currentId)
+        .get()
+        .then((snapshot)=>{
+            var callsData = [];
+            snapshot.forEach((doc) => {
+                let x = doc.data()
+                x.id = doc.id
+                callsData.push(x)
+
+            });
+            
+            this.setState({calls: callsData})
+        });
     }
 
     render(){
@@ -65,27 +121,52 @@ class UpdateCustomer extends React.Component {
                                 <div className="label">
                                 <Form.Label>Name</Form.Label>
                                 </div>
-                                <Form.Control className="txtUser" type="text" defaultValue={this.state.username}/> 
+                                <Form.Control onChange={(e) => this.setState({emptyName: false})} className="txtUser" type="text" defaultValue={this.state.username}/> 
                             </Form.Group>
+                            <h6 style={{display: this.state.emptyName ? 'block' : 'none', color: 'red'}}>Empty Field‏</h6>
                             <Form.Group controlId="formCategory1">
                                 <div className="label">
                                 <Form.Label>Phone Number</Form.Label>
                                 </div>
-                                <Form.Control className="txtNumber" type="text" defaultValue={this.state.phonenumber}/> 
+                                <Form.Control onChange={(e) => this.setState({emptyPhone: false})} className="txtNumber" type="text" defaultValue={this.state.phonenumber}/> 
                             </Form.Group>
+                            <h6 style={{display: this.state.emptyPhone ? 'block' : 'none', color: 'red'}}>Empty Field‏</h6>
                             <Form.Group controlId="formCategory2">
                                 <div className="label">
                                 <Form.Label>Email</Form.Label>
                                 </div>
-                                <Form.Control className="txtEmail" type="email" defaultValue={this.state.email} />          
+                                <Form.Control onChange={(e) => this.setState({emptyEmail: false})} className="txtEmail" type="email" defaultValue={this.state.email} />          
                             </Form.Group>
-                            <Button variant="outlined" color="primary" onClick={this.UpdateProfileHandler}>Update</Button>
+                            <h6 style={{display: this.state.emptyEmail ? 'block' : 'none', color: 'red'}}>Empty Field‏</h6>
+                            <Button variant="outlined" color="primary" onClick={this.updateHandler}>Update</Button>
                             {/* Pass Customer Id to child component - AddCallRecord */}
                             <AddCallRecord dataFromParentId = {this.state.currentId} dataFromParentName ={this.state.username}/> 
                         </Form>
                     </Col>
+                    <Col>
+                    <div>
+                        <br></br>
+                        <h5> CallRecords </h5> 
+                        <br></br>
+                        <div> {
+                            this.state.calls.map((call, i) => < CallRecord key = { i }
+                                call = { call }
+                                />)} 
+                        </div> 
+                    </div>  
+                    </Col>
                 </Row>
-            </Container>
+
+                <Modal show={this.state.showModal} onHide={this.handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Update</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Customer details have been updated</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="primary" onClick={this.handleClose}>Close</Button>                   
+                    </Modal.Footer>
+                </Modal>
+            </Container>   
         )
     }
 }

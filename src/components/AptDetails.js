@@ -15,6 +15,8 @@ import './Product.css'
 
 import { Container, Row, Col } from 'react-bootstrap'
 import firebase from './../firebase.js';
+import {storage} from "./../firebase"
+
 import { useState, useEffect } from "react";
 
 
@@ -25,18 +27,30 @@ function AptDetails(){
     
     const history = useHistory()
     const [data, setData] = useState([]);
-    useEffect(() => {    
+
+    useEffect(() => {  
         var db = firebase.firestore();
         db.collection("products")
         .doc(aptID)
         .get()
         .then((doc) => {
-            if (doc.exists){
-                setData(doc.data());
-            }
-            else{
-                console.log("document doesn't exist")
-            }
+            storage
+            .ref(aptID)
+            .listAll()
+            .then((list) => {
+                let fullDoc = doc.data()
+                list.items.forEach((imageRef) => {
+                    imageRef
+                    .getDownloadURL()
+                    .then((downloadURL) => {
+                        fullDoc.images.push(downloadURL)
+                        if (fullDoc.images.length === list.items.length){
+                            fullDoc.image = fullDoc.images[0]
+                            setData(fullDoc);
+                        } 
+                    })
+                })
+            })
         });
     }, []);
 
@@ -48,6 +62,9 @@ function AptDetails(){
     }
 
     return(
+        <>
+        {
+            !data.images ? <h1>Loading...</h1> :
         <div>
             <Container className='no-marginLR no-padding'>
                 <Row>
@@ -59,7 +76,7 @@ function AptDetails(){
                         <Container>
                             <Row>
                                 <Col>
-                                    <Image src={data.images[0]} width={'800'} height={'500'}></Image>
+                                    <Image src={data.image} width={'800'} height={'500'}></Image>
                                 </Col>
                             </Row>
                             <br></br>
@@ -71,6 +88,8 @@ function AptDetails(){
                 </Row>
             </Container>
         </div>
+        }
+        </>
     )
 }
 

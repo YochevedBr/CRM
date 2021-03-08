@@ -9,7 +9,7 @@ import { keys } from "@material-ui/core/styles/createBreakpoints";
 import { withRouter } from 'react-router'
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import ReactToPrint from "react-to-print";
 
 function CustomersTable(props) {
         const reports = props.reports;    
@@ -38,6 +38,7 @@ function CustomersTable(props) {
                     // Delete                 
                     db.collection("customers").doc(currentId).delete().then(() => {
                         console.log("Document successfully deleted!");
+                        window.location.reload();
                     }).catch((error) => {
                         console.error("Error removing document: ", error);
                     });
@@ -73,7 +74,7 @@ function CustomersTable(props) {
                 return(
                     <div>
                         <Button variant="outlined" color="primary" 
-                        onClick={() => {history.push({pathname: "/update_customer/" + currentC})}}>Edit</Button>{' '}
+                        onClick={() => {history.push({pathname: "/update_customer/" + currentC})}}>Details</Button>{' '}
                         <Button variant="outlined" color="primary" 
                         onClick={() => handleShow(row.original)}>Delete</Button>
                     </div>
@@ -215,6 +216,7 @@ function CustomersTable(props) {
                     </Modal.Footer>
                 </Modal>
                 </>
+
             </div>
         )
 }
@@ -252,3 +254,5 @@ function TextFilter({
 
 // export default CustomersTable
 export default withRouter(CustomersTable);
+
+
