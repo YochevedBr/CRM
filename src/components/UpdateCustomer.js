@@ -206,8 +206,10 @@ class UpdateCustomer extends React.Component {
                         </Form>
                     </Col>
                 </Row>
-                <Modal show={this.state.showModal} onHide={this.updateHandler}>
-                    <Modal.Header closeButton><Modal.Title>Update</Modal.Title></Modal.Header>
+                <Modal show={this.state.showModal} onHide={this.handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Update</Modal.Title>
+                    </Modal.Header>
                     <Modal.Body>Customer details have been updated</Modal.Body>
                     <Modal.Footer>
                         <Button variant="primary" onClick={this.handleClose}>Close</Button>                   
