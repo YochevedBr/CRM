@@ -126,6 +126,7 @@ export default function FormDialog(props) {
             setChecked(false)
             setPurchaseNotExist(false)
             setPurchaseSold(false)
+            window.location.reload();
           }
         }
       });
@@ -133,9 +134,7 @@ export default function FormDialog(props) {
   };
 
   function validateForm() {
-    // return interest.length > 0 && /\s/.test(purchased) == false;
-    return !PurchaseNotExist && /\s/.test(purchased) == false;
-    // return (!PurchaseNotExist && /\s/.test(purchased) == false) || (!PurchaseSold && /\s/.test(purchased) == false);
+    return !PurchaseNotExist && !PurchaseSold && /\s/.test(purchased) == false;
   }
   function handleChange(event) {
     setPurchaseNotExist(false)
