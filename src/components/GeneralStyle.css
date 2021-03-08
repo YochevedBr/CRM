@@ -1,0 +1,15 @@
+.font {
+    font-family: "Lucida Console", "Courier New", 'monospace';
+}
+
+.flex-container {
+    display: flex;
+}
+
+.flex-child {
+    flex: 1;
+}  
+
+a {
+    text-decoration: none;
+}

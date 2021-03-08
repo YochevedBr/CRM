@@ -10,16 +10,16 @@ class HomaPage extends React.Component{
 
     render(){
         return(
-          <div className="background">
-            <img src={img} alt="logo" height={530} width={1500}/>
-          <div className="social-container">
-            <h8>yptbrealestate@gmail.com</h8>
-            <br></br>
-            <a href=" https://www.instagram.com/yptb_real_estate" className="instagram social">
-              <img src={instegram} alt="instegram" height={30} width={30}/>
-            </a>
-          </div>
-          </div>
+			<div className="background">
+				<img src={img} alt="logo" height={530} width={1500}/>
+				<div className="social-container">
+					<h8>yptbrealestate@gmail.com</h8>
+					<br></br>
+					<a href=" https://www.instagram.com/yptb_real_estate" className="instagram social">
+					<img src={instegram} alt="instegram" height={30} width={30}/>
+					</a>
+				</div>
+			</div>
           
            
           

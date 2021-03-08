@@ -11,8 +11,6 @@ import Image from './Image'
 
 import { useHistory } from "react-router";
 
-import './Product.css'
-
 import { Container, Row, Col } from 'react-bootstrap'
 import firebase from './../firebase.js';
 import {storage} from "./../firebase"
