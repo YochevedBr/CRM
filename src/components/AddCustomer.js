@@ -34,6 +34,8 @@ export default function FormDialog() {
       name: name,
       phoneNumber: phoneNumber,
       email: email,
+    }).then(() => {
+      window.location.reload();
     })
       
     setName('');
