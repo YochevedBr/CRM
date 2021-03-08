@@ -12,11 +12,11 @@ function Call(props){
                 <div style={{display: props.data.interested ? 'flex' : 'none', padding:'10px 20px 10px 20px '}}>
                     <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Interested in:</div><div style={{fontSize:'22px'}}>{props.data.interested}</div>
                 </div >
-                <div style={{display: props.data.purchased ? 'flex' : 'none', padding:'10px 20px 10px 20px '}}>
+                <div style={{display: props.data.purchased == [] ? 'flex' : 'none', padding:'10px 20px 10px 20px '}}>
                     <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Purchases:</div><div style={{fontSize:'22px'}}>{props.data.purchased ? props.data.purchased.join(', ') : props.data.purchased}</div>
                 </div>
                 <div style={{display: props.data.return ? 'flex' : 'none', padding:'10px 20px 10px 20px '}}>
-                    <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Return:</div><div style={{fontSize:'22px'}}>{props.data.return}</div>
+                    <div style={{color:'#0044cc',paddingRight:'10px',fontSize:'22px'}}>Return:</div><div style={{fontSize:'22px'}}>Yes</div>
                 </div>
             </p>
         </div>

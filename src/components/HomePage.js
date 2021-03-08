@@ -1,7 +1,7 @@
 import React from "react"
 import './HomePage.css'
-import img from '../pictures/homepage2.JPG'
-import instegram from '../pictures/instegram.png'
+import img from '../pictures/house-real-estate-logo.jpg' //import img from '../pictures/homepage2.JPG'
+import instegram from '../pictures/house-real-estate-logo.jpg'// import instegram from '../pictures/instegram.png'
 
 
 class HomaPage extends React.Component{

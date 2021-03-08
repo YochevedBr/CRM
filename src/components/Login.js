@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import './Login.css'
-import img from '../pictures/Hero-Front.png'
+import img from '../pictures/house-real-estate-logo.jpg'//'../pictures/Hero-Front.png'
 import firebase from './../firebase.js';
 
 import { withRouter } from "react-router";
