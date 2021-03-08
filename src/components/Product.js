@@ -27,7 +27,7 @@ function Product(props){
         {console.log(product.images)}
         {
             product.images ?
-            <div key={product.id} style={{'borderStyle': 'solid'}}>
+            <div key={product.id} style={{'borderStyle': 'solid', background: "#ffffff"}}>
             <a style={{textDecoration: 'none', color: 'black'}} href={`/apt_details/${product.id}`}>
                 <Image src={product.images[0]} width={'320'} height={'320'}/>
                 <Location location={product.location}/>

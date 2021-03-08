@@ -67,7 +67,7 @@ function Products(){
     }, []);
 
     return ( 
-        <div>
+        <div style = {{background: "#f5f5f0"}}>
             <h3> Products </h3>
             <div className='wrapper'>
             {/* {console.log('before product component: ' + products)} */}
