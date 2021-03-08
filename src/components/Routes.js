@@ -22,7 +22,7 @@ import Login from './Login'
 import SignUp from './SignUp'
 import NumOfPurchases from './NumOfPurchases'
 import MonthlySales from './MonthlySales'
-
+import PrintPurchases from './PrintPurchases'
 
 function routing(){
     return(
@@ -102,6 +102,10 @@ function routing(){
                     <BootstrapNavbar/>
                     <UpdateOrAddApt/>
                 </Route>
+                <Route path="/print_purchases">
+                    <BootstrapNavbar/>
+                    <PrintPurchases/>
+                </Route>
                 <Route path="/call_details/:callID">
                     <BootstrapNavbar/>
                     <CallDetails/>
@@ -114,6 +118,7 @@ function routing(){
                     <BootstrapNavbar/>
                     <MonthlySales/>
                 </Route>
+                
                 
                 <Route path="/login" component={Login} />
                 <Route path="/sign_up" component={SignUp} />
