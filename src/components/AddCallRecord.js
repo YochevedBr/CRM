@@ -77,7 +77,6 @@ export default function FormDialog(props) {
     }
 
     for(var i=0; i<purchased.length; i++){
-        
       db.collection("products")
       .doc(purchased[i])
       .get()
@@ -91,6 +90,7 @@ export default function FormDialog(props) {
         }
         
         else{
+
           //if apartment is sold out
           if (doc.data().sold){
             setPurchaseSold(true)
@@ -108,7 +108,6 @@ export default function FormDialog(props) {
               })
             }
             setOpen(false);
-            
 
             // Create call_record Collection
             db.collection("call_records").doc().set({
@@ -121,23 +120,22 @@ export default function FormDialog(props) {
               return: checked
             })
             
-            
             setInterest('');
             setPurchased([]);
             setSupport('');
             setChecked(false)
             setPurchaseNotExist(false)
             setPurchaseSold(false)
-            
           }
         }
-        window.location.reload();
       });
     } 
   };
 
   function validateForm() {
-    return !PurchaseNotExist && /\s/.test(purchased) == false && !PurchaseSold;
+    // return interest.length > 0 && /\s/.test(purchased) == false;
+    return !PurchaseNotExist && /\s/.test(purchased) == false;
+    // return (!PurchaseNotExist && /\s/.test(purchased) == false) || (!PurchaseSold && /\s/.test(purchased) == false);
   }
   function handleChange(event) {
     setPurchaseNotExist(false)
@@ -150,7 +148,7 @@ export default function FormDialog(props) {
   const toggleChecked = () => {
     setChecked(prev => !prev);
   };
-
+  
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>Add Call Record</Button>
