@@ -1,13 +1,28 @@
-import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import './Login.css'
+// import img from '../pictures/house-real-estate-logo.jpg'//'../pictures/Hero-Front.png'
 import firebase from './../firebase.js';
-
+import {storage} from "./../firebase"
 import { withRouter } from "react-router";
 
-// import './Login.css';
+import { useState, useEffect } from "react";
+
+
 
 function Login(props) {
+  const [img, setImg] = useState('');
+
+    useEffect(() => {
+      storage
+      .ref('/image to design/Hero-Front.png')
+      .getDownloadURL()
+      .then((DownloadURL) => {
+          setImg(DownloadURL)
+      })
+    },[]);
+
+
 
   localStorage.clear()
 
@@ -15,6 +30,7 @@ function Login(props) {
   const [password, setPassword] = useState("");
   const [wrongEmail, setWrongEmail] = useState(false)
   const [wrongPassword, setWrongPassword] = useState(false)
+
 
   function validateForm() {
     return email.length > 0 && password.length > 0;
@@ -51,44 +67,60 @@ function Login(props) {
       }
     });
   }
-  
+
   // login form
+
+  const login =
+    <div className='container'>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+      <img style={{'display': 'block', 'marginLeft': 'auto', 'marginRight': 'auto'}} src={img} alt='' width='110%'/>
+      <div style={{opacity:'0.9'}}>
+          {/* style= {{backgroundImage: `url(${img})`, width: '100%', height: '100%', backgroundSize: 'cover', position: 'fixed', top: '0'}} */}
   
-  const login = 
-  <div class="container h-100 border border-primary">
-    <div class="row h-100 justify-content-center align-items-center">
-        <div class="col-10 col-md-8 col-lg-6">
-        {/* <div className="Login"> */}
-          <Form onSubmit={handleSubmit} onChange={handleChange}>
-          <h1>Login</h1>
-            <Form.Group size="lg" controlId="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                autoFocus
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </Form.Group>
-            <h6 style={{display: wrongEmail ? 'block' : 'none', color: 'red'}}>The email entered doesn’t match any account. <a href='/sign_up'>Sign up for an account.</a></h6>
-            <Form.Group size="lg" controlId="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </Form.Group>
-            <h6 style={{display: wrongPassword ? 'block' : 'none', color: 'red'}}>The password you’ve entered is incorrect. Forgot Password?‏</h6>
-            <Button block size="lg" type="submit" disabled={!validateForm()}>
-              Login
-            </Button>
-            <p class="copyright">Not a member?<a href='/sign_up'>sign up</a>.</p>
-          </Form>
-        {/* </div> */}
+        
+
+        <div class="row justify-content-center align-items-center" style={{position: "absolute", width: "450px",	left:"35%", 	top: "150px",alignItems:"center", border: "5px solid rgba(70, 70, 70, 0.16)", backgroundColor: 'white'}}>
+          <div class="col-lg-8">
+          <h4 style={{color: '#000066'}}>Login</h4>
+            <Form onSubmit={handleSubmit} onChange={handleChange}>
+              <br></br>
+              <Form.Group size="sm" controlId="email">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  autoFocus
+                  type="email"
+                  size="sm"
+                  borderColor="#000066"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </Form.Group>
+              <h6 style={{display: wrongEmail ? 'block' : 'none', color: 'red'}}>The email entered doesn’t match any account. <a href='/sign_up'>Sign up for an account.</a></h6>
+              <Form.Group size="sm" controlId="password">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  size="sm"
+                  type="password"
+                  borderColor="#000066"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </Form.Group>
+              <h6 style={{display: wrongPassword ? 'block' : 'none', color: 'red'}}>The password you’ve entered is incorrect. Forgot Password?‏</h6>
+              <br></br>
+              <Button block size="sm" type="submit" disabled={!validateForm()} style={{background:"#000066", borderColor: "#000066"}}>
+                Login
+              </Button>
+             
+              <p class="copyright" >Not a member?<a href='/sign_up'>sign up</a>.</p>
+            </Form>
+          </div>
         </div>
-        </div>
-        </div>  
+      </div>
+    </div>
 
   return (
     // display NavBar if submitted

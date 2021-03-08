@@ -1,3 +1,12 @@
-/* #HomePage {
-    background-image: url("../pictures/house-real-estate-logo.jpg");
-} */
+.social-container {
+    background: #ccccb3;
+    padding: 5px 5px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+a.instagram {
+    color: black;
+}

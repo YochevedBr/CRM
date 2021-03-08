@@ -100,6 +100,13 @@ export default function FormDialog(props) {
 
           // Checks if all the apartments exist => close dialog
           if(count == purchased.length && !flag){
+            for(var i=0; i<purchased.length; i++){
+              db.collection("products")
+              .doc(purchased[i])
+              .update({
+                sold: 'Yes'
+              })
+            }
             setOpen(false);
             
 

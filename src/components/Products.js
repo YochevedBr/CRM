@@ -51,7 +51,7 @@ function Products(){
     }, []);
 
     return ( 
-        <div>
+        <div style = {{background: "#f5f5f0"}}>
             <h3> Products </h3>
             <div className='wrapper'>
                 {products.map((product, i) => <Product key={i} product={product} />)}

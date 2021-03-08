@@ -20,10 +20,9 @@ import UpdateOrAddApt from './UpdateOrAddApt'
 import CallDetails from './CallDetails'
 import Login from './Login'
 import SignUp from './SignUp'
+import NumOfPurchases from './NumOfPurchases'
+import MonthlySales from './MonthlySales'
 import PrintPurchases from './PrintPurchases'
-
-
-
 
 function routing(){
     return(
@@ -110,6 +109,14 @@ function routing(){
                 <Route path="/call_details/:callID">
                     <BootstrapNavbar/>
                     <CallDetails/>
+                </Route>
+                <Route path="/num_of_purchases">
+                    <BootstrapNavbar/>
+                    <NumOfPurchases/>
+                </Route>
+                <Route path="/monthly_sales">
+                    <BootstrapNavbar/>
+                    <MonthlySales/>
                 </Route>
                 
                 

@@ -34,6 +34,16 @@ class Reports extends React.Component{
                         <br></br>
                         <Button style={{marginTop: '3%'}} variant="outlined" color="primary" onClick={() => this.props.history.push('/purchases')} >Purchases</Button>
                         </Col>
+                        <Col>
+                        <Image src={PurchasesPic} rounded />
+                        <br></br>
+                        <Button style={{marginTop: '3%'}} variant="outlined" color="primary" onClick={() => this.props.history.push('/num_of_purchases')} >Number Of Purchases</Button>
+                        </Col>
+                        <Col>
+                        <Image src={PurchasesPic} rounded />
+                        <br></br>
+                        <Button style={{marginTop: '3%'}} variant="outlined" color="primary" onClick={() => this.props.history.push('/monthly_sales')} >Monthly Sales</Button>
+                        </Col>
                     </Row>
                 </Container>
            
