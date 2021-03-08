@@ -95,7 +95,7 @@ function Login(props) {
                 Login
               </Button>
              
-              <p class="copyright" s>Not a member?<a href='/sign_up'>sign up</a>.</p>
+              <p class="copyright" >Not a member?<a href='/sign_up'>sign up</a>.</p>
             </Form>
           </div>
         </div>
