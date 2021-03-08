@@ -75,7 +75,8 @@ class UpdateCustomer extends React.Component {
             db.collection("customers").doc(this.state.currentId).set({
                 email: update_email,
                 name: update_name,
-                phoneNumber: update_phone
+                phoneNumber: update_phone,
+                deleted: false
             })
             .then(() => {
                 this.setState({showModal: true})

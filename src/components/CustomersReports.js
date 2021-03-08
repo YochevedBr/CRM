@@ -15,15 +15,11 @@ class CustomersReports extends React.Component{
 
         return(
             <div>
-                <Container>
-                    <h1 style={{margin:"0 auto"}}>Customers Report</h1>
-                    <Row className="spacing">
-                        <div style={{marginBottom: "4px", justifyContent: 'flex-end', float: "right", display: "flex"}}>
-                            <Button variant="outlined" color="primary" onClick={() => this.props.history.push('/print_customer')}>Print</Button>
-                        </div>
-                        <CustomersTable reports={true}/>
-                    </Row>
-                </Container>        
+                <h1 style={{margin:"0 auto"}}>Customers Report</h1>
+                    <div style={{marginBottom: "4px", justifyContent: 'flex-end', float: "right", display: "flex"}}>
+                        <Button variant="outlined" color="primary" onClick={() => this.props.history.push('/print_customer')}>Print</Button>
+                    </div>
+                <CustomersTable reports={true}/>
             </div>
         )
     }
