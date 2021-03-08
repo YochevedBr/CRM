@@ -4,7 +4,6 @@ import Button from "react-bootstrap/Button";
 import './Login.css'
 import img from '../pictures/Hero-Front.png'
 import firebase from './../firebase.js';
-import './Login.css';
 
 function Login(props) {
 
@@ -50,13 +49,11 @@ function Login(props) {
       }
     });
   }
-  
+
   // login form
 
-  const login = 
-      <div calss= "content">
-              {/* <div calss= {{backgroundImage: `url(${img})`, hight: "auto", width:"100%"}}> */}
-
+  const login =
+        <div calss= {{backgroundImage: `url(${img})`, hight: "auto", width:"100%"}}>
         <br></br>
         <br></br>
         <br></br>
