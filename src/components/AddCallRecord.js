@@ -184,9 +184,8 @@ export default function FormDialog(props) {
             <TextField
                 margin="dense"
                 id="name"
-                label="Products purchased (write each purchase in a new line)"
-                primary="Photos" 
-                secondary="Jan 9, 2014"
+                label="Products purchased"
+                helperText="write each purchase in a new line"
                 type="text"
                 fullWidth
                 multiline
