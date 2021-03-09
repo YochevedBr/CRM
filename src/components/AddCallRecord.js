@@ -100,6 +100,13 @@ export default function FormDialog(props) {
 
           // Checks if all the apartments exist => close dialog
           if(count == purchased.length && !flag){
+            for(var i=0; i<purchased.length; i++){
+              db.collection("products")
+              .doc(purchased[i])
+              .update({
+                sold: 'Yes'
+              })
+            }
             setOpen(false);
 
             // Create call_record Collection
@@ -119,6 +126,7 @@ export default function FormDialog(props) {
             setChecked(false)
             setPurchaseNotExist(false)
             setPurchaseSold(false)
+            window.location.reload();
           }
         }
       });
@@ -126,9 +134,7 @@ export default function FormDialog(props) {
   };
 
   function validateForm() {
-    // return interest.length > 0 && /\s/.test(purchased) == false;
-    return !PurchaseNotExist && /\s/.test(purchased) == false;
-    // return (!PurchaseNotExist && /\s/.test(purchased) == false) || (!PurchaseSold && /\s/.test(purchased) == false);
+    return !PurchaseNotExist && !PurchaseSold && /\s/.test(purchased) == false;
   }
   function handleChange(event) {
     setPurchaseNotExist(false)
@@ -145,7 +151,7 @@ export default function FormDialog(props) {
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>Add Call Record</Button>
-      <Dialog open={open} onClose={handleSubmit} onChange={handleChange} aria-labelledby="form-dialog-title">
+      <Dialog open={open} onClose={handleCancel} onChange={handleChange} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Call Record Details</DialogTitle>
         <DialogContent>            
             {/* <TextareaAutosize

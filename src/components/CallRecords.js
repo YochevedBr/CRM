@@ -24,8 +24,6 @@ function CallRecords() {
             
             callsData = callsData.sort(custom_sort);
             setCalls(callsData)
-            console.log(callsData)
-
         });
     },[]);
 
@@ -34,7 +32,6 @@ function CallRecords() {
         // return new Date(b.date).getTime() - new Date(a.date).getTime();
         let x = new Date(b.date).getTime()
         let y = new Date(a.date).getTime()
-        console.log(a.date + "-" + x, b.date +"-" + y)
         return new Date(b.date).getTime() > new Date(a.date).getTime() ? 1 : -1
     }
 
@@ -45,14 +42,16 @@ function CallRecords() {
     // copyCalls.sort(custom_sort);
     // setCalls(copyCalls)
 
-    return ( <div>
-            <h3> CallRecords </h3> 
-            <div> {
-                calls.map((call, i) => < CallRecord key = { i }
-                    call = { call }
-                    />)} 
+    return ( 
+        <div>
+            <h3 className='font'> Call Records </h3> 
+            <h5 className='font'> See your activity with our clients </h5> 
+            <div> 
+                {
+                    calls.map((call, i) => < CallRecord key = { i } call = { call }
+                />)} 
             </div> 
-            </div>
+        </div>
             )
     }
 

@@ -6,6 +6,8 @@ import AddCallRecord from "./AddCallRecord";
 import firebase from './../firebase.js';
 import $ from 'jquery';  
 import Modal from "react-bootstrap/Modal";
+import CallRecord from './CallRecord'
+
 
 class UpdateCustomer extends React.Component {
     constructor(props){
@@ -20,6 +22,7 @@ class UpdateCustomer extends React.Component {
             username:'',
             phonenumber:'',
             email:'',
+            calls:[],
         }
         this.updateState = this.updateState.bind(this);
         this.updateHandler = this.updateHandler.bind(this);
@@ -72,7 +75,8 @@ class UpdateCustomer extends React.Component {
             db.collection("customers").doc(this.state.currentId).set({
                 email: update_email,
                 name: update_name,
-                phoneNumber: update_phone
+                phoneNumber: update_phone,
+                deleted: false
             })
             .then(() => {
                 this.setState({showModal: true})
@@ -87,6 +91,23 @@ class UpdateCustomer extends React.Component {
     componentDidMount(){
         // Retrieve the contents of a single document 
         this.updateState(); 
+
+        // display the call-records of the customer
+        var db = firebase.firestore();
+        db.collection("call_records")
+        .where("customer_id", "==", this.state.currentId)
+        .get()
+        .then((snapshot)=>{
+            var callsData = [];
+            snapshot.forEach((doc) => {
+                let x = doc.data()
+                x.id = doc.id
+                callsData.push(x)
+
+            });
+            
+            this.setState({calls: callsData})
+        });
     }
 
     render(){
@@ -123,9 +144,24 @@ class UpdateCustomer extends React.Component {
                             <AddCallRecord dataFromParentId = {this.state.currentId} dataFromParentName ={this.state.username}/> 
                         </Form>
                     </Col>
+                    <Col>
+                    <div>
+                        <br></br>
+                        <h5> CallRecords </h5> 
+                        <br></br>
+                        <div> {
+                            this.state.calls.map((call, i) => < CallRecord key = { i }
+                                call = { call }
+                                />)} 
+                        </div> 
+                    </div>  
+                    </Col>
                 </Row>
-                <Modal show={this.state.showModal} onHide={this.updateHandler}>
-                    <Modal.Header closeButton><Modal.Title>Update</Modal.Title></Modal.Header>
+
+                <Modal show={this.state.showModal} onHide={this.handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Update</Modal.Title>
+                    </Modal.Header>
                     <Modal.Body>Customer details have been updated</Modal.Body>
                     <Modal.Footer>
                         <Button variant="primary" onClick={this.handleClose}>Close</Button>                   
