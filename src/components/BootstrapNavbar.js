@@ -16,7 +16,7 @@ class BootstrapNavbar extends React.Component{
         return(
             
                 <Router>                    
-                    <Navbar variant="dark" expand="lg" sticky="top" style={{background: '#ffffff', borderTop:"3px solid #00004d"}}>
+                    <Navbar callName = "navbar" variant="dark" expand="lg" sticky="top" style={{background: '#ffffff', borderTop:"3px solid #00004d"}}>
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse id= "basic-navbar-nav">
                             <Nav.Link className = "nav1" href="/home_page" style={{color: '#000066'}}>Home</Nav.Link>
