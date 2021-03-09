@@ -5,7 +5,7 @@ import { useHistory } from "react-router";
 import firebase from './../firebase.js';
 import {storage} from "./../firebase"
 import { useState, useEffect } from "react";
-
+import instegram from '../pictures/instegram.png'
 import './Products.css'
 
 
@@ -63,8 +63,9 @@ function Products(){
                 {products.map((product, i) => <Product key={i} product={product} />)}
             </div>
             <br></br>
-          
         </div>
+          
+        
     )
 }
 

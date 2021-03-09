@@ -12,7 +12,7 @@ function HomaPage() {
 	useEffect(() => {
 		// retriving from firebase storage the background image
 		storage
-		.ref('/image to design/yptb.PNG')
+		.ref('/image to design/real_estate.png')
 		.getDownloadURL()
 		.then((DownloadURL) => {
 			setImg_logo(DownloadURL)
@@ -29,12 +29,13 @@ function HomaPage() {
 		const homePage =
 			<div className="background">
 				<img style={{'display': 'block', 'marginLeft': 'auto', 'marginRight': 'auto'}} src={img_logo} alt='' width='100%'/>
+				{/* <img class = "img-responsive" src={img_logo}/> */}
+				
 				<div className="social-container">
 					<h7 style={{color: '#000066'}}>Agent - interest the customer on our Instagram :) &nbsp;</h7>
 					<a href=" https://www.instagram.com/yptb_real_estate" className="instagram social">
 					<img src={img_instegram} alt="instegram" height={30} width={30}/>
 					</a>
-					<br></br>
 					<br></br>
 				</div>
 			</div>

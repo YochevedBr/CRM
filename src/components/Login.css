@@ -4,19 +4,6 @@
 }
 
 .container {
-    /* border: 1px solid #DDDDDD; */
-    width: 100%;
-    height: 100%;
-    /* position: relative; */
- }
- /* .tag {
-    float: left;
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    z-index: 1000;
-    background-color: #92AD40;
-    padding: 5px;
-    color: #FFFFFF;
-    font-weight: bold;
- } */
+    display: flex;
+    flex-direction: column;
+}
