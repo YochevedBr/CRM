@@ -126,7 +126,7 @@ export default function FormDialog(props) {
             setChecked(false)
             setPurchaseNotExist(false)
             setPurchaseSold(false)
-            window.location.reload();
+            // window.location.reload();
           }
         }
       });
