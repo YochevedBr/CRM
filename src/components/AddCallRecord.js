@@ -54,6 +54,7 @@ export default function FormDialog(props) {
     
     // Check if the apartments exist
     var flag = false
+    var reloadFlag = false
     var count = 0
 
     if(purchased.length == 0){
@@ -68,69 +69,75 @@ export default function FormDialog(props) {
         purchased: purchased,
         support: support,
         return: checked
+      }).then(() => {
+        window.location.reload();
       })
-      
       setInterest('');
       setPurchased([]);
       setSupport('');
       setChecked(false)
     }
 
-    for(var i=0; i<purchased.length; i++){
-      db.collection("products")
-      .doc(purchased[i])
-      .get()
-      .then((doc) => {
-        // if apartment doesn't exist, 
-        count ++
-        if (!doc.exists){ 
-          setPurchaseNotExist(true)
-          setPurchaseSold(false)
-          flag = true
-        }
-        
-        else{
-
-          //if apartment is sold out
-          if (doc.data().sold){
-            setPurchaseSold(true)
-            setPurchaseNotExist(false)
+    // Checks if the customer did not purchase anything
+    // if(purchased.length != 0){
+    else{
+      for(var i=0; i<purchased.length; i++){
+        db.collection("products")
+        .doc(purchased[i])
+        .get()
+        .then((doc) => {
+          count ++
+          // if apartment doesn't exist, 
+          if (!doc.exists){ 
+            setPurchaseNotExist(true)
+            setPurchaseSold(false)
             flag = true
           }
-
-          // Checks if all the apartments exist => close dialog
-          if(count == purchased.length && !flag){
-            for(var i=0; i<purchased.length; i++){
-              db.collection("products")
-              .doc(purchased[i])
-              .update({
-                sold: 'Yes'
-              })
+          
+          else{
+            //if apartment is sold out
+            if (doc.data().sold){
+              setPurchaseSold(true)
+              setPurchaseNotExist(false)
+              flag = true
             }
-            setOpen(false);
+            // Checks if all the apartments exist => close dialog
+            if(count == purchased.length && !flag){
+              for(var i=0; i<purchased.length; i++){
+                db.collection("products")
+                .doc(purchased[i])
+                .update({
+                  sold: 'Yes'
+                })
+              }
+              setOpen(false);
 
-            // Create call_record Collection
-            db.collection("call_records").doc().set({
-              agent_id: agentId,
-              customer_id: customerId,
-              date: formatDate,
-              interested: interest,
-              purchased: purchased,
-              support: support,
-              return: checked
-            })
-            
-            setInterest('');
-            setPurchased([]);
-            setSupport('');
-            setChecked(false)
-            setPurchaseNotExist(false)
-            setPurchaseSold(false)
-            // window.location.reload();
+              // Create call_record Collection
+              db.collection("call_records").doc().set({
+                agent_id: agentId,
+                customer_id: customerId,
+                date: formatDate,
+                interested: interest,
+                purchased: purchased,
+                support: support,
+                return: checked
+              })
+              reloadFlag = true // need to reload the page
+              setInterest('');
+              setPurchased([]);
+              setSupport('');
+              setChecked(false)
+              setPurchaseNotExist(false)
+              setPurchaseSold(false)
+            }
           }
-        }
-      });
-    } 
+        }).then(() => {
+          if(reloadFlag){
+            window.location.reload();
+          }
+        });
+      } 
+    }
   };
 
   function validateForm() {

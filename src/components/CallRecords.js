@@ -44,8 +44,8 @@ function CallRecords() {
 
     return ( 
         <div>
-            <h3 style={{fontFamily: ["Lucida Console", "Courier New", 'monospace']}}> Call Records </h3> 
-            <h5 style={{fontFamily: ["Lucida Console", "Courier New", 'monospace']}}> See your activity with our clients </h5> 
+            <h3 className='font'> Call Records </h3> 
+            <h5 className='font'> See your activity with our clients </h5> 
             <div> 
                 {
                     calls.map((call, i) => < CallRecord key = { i } call = { call }

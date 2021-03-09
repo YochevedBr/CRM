@@ -1,5 +1,8 @@
-import 'date-fns';
 import React from 'react';
+import { useHistory } from "react-router";
+import { useState, useEffect } from "react";
+import 'date-fns';
+import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -7,15 +10,8 @@ import {
   KeyboardTimePicker,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
-import Button from '@material-ui/core/Button';
-import { useHistory } from "react-router";
-import { useState, useEffect } from "react";
-
-
-
 
 export default function MaterialUIPickers() {
-  // The first commit of Material-UI
   const [selectedDate, setSelectedDate] = React.useState(new Date());
   const [date, setDate] = React.useState(new Date());
 
@@ -34,8 +30,6 @@ export default function MaterialUIPickers() {
       setDate(date.getFullYear() + '/' + ""+(Number(date.getMonth())+1) + '/' + date.getDate())
       console.log("use effect")
     },[]);
-
-
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -71,7 +65,6 @@ export default function MaterialUIPickers() {
             history.push({pathname: "/print_purchases/" + date})}}>Search</Button>{' '}
                     
     </MuiPickersUtilsProvider>
-    
   );
 }
 

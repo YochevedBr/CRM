@@ -1,0 +1,45 @@
+        .nav1 {
+            border-bottom: 2px solid transparent;
+        }
+        
+        .nav1:hover {
+            border-bottom: 2px solid rgb(0, 0, 77);
+        }
+        
+        .nav2 {
+            border-bottom: 2px solid transparent;
+        }
+        
+        .nav2:hover {
+            border-bottom: 2px solid rgb(0, 0, 77);
+        }
+        
+        .nav3 {
+            border-bottom: 2px solid transparent;
+        }
+        
+        .nav3:hover {
+            border-bottom: 2px solid rgb(0, 0, 77);
+        }
+        
+        .nav4 {
+            border-bottom: 2px solid transparent;
+        }
+        
+        .nav4:hover {
+            border-bottom: 2px solid rgb(0, 0, 77);
+        }
+        
+        .nav5 {
+            border-bottom: 2px solid transparent;
+        }
+        
+        .nav5:hover {
+            border-bottom: 2px solid rgb(0, 0, 77);
+        }
+        
+        .navbar {
+            -webkit-box-shadow: 0 8px 6px -6px #999;
+            -moz-box-shadow: 0 8px 6px -6px #999;
+            box-shadow: 0 8px 6px -6px #999;
+        }
