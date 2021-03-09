@@ -51,6 +51,7 @@ function Products(){
 
     return ( 
         <div style = {{background: "#f5f5f0"}}>
+            <br></br>
             <h3 className='font'> All Our Properties </h3>
             <div className='wrapper'>
                 {products.map((product, i) => <Product key={i} product={product} />)}

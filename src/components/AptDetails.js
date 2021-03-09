@@ -68,13 +68,16 @@ function AptDetails(){
                 <Row>
                     <Col xs={4}>
                         <AptDescription class='flex-child' description={data}></AptDescription>
-                        <Button variant="outlined" color="primary" onClick={() => {history.push({pathname:  `/update_apt/${data.id}`})}}>Edit</Button>
+                        <Button variant="outlined" color="#000066" onClick={() => {history.push({pathname:  `/update_apt/${data.id}`})}} style={{marginTop:"5px"}}>Edit</Button>
+                  
                     </Col>
                     <Col xs={8}>
                         <Container>
                             <Row>
                                 <Col>
-                                    <Image src={data.image} width={'800'} height={'500'}></Image>
+                                    <br></br>
+                                    <br></br>
+                                    <Image src={data.image} width={'800'} height={'500'} borderRadius="4px"></Image>
                                 </Col>
                             </Row>
                             <br></br>

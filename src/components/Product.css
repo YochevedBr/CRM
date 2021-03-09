@@ -1,11 +1,11 @@
-.flex-container {
-    display: flex;
-}
-
-.flex-child {
-    flex: 1;
-}  
-
-a {
-    text-decoration: none;
-}
+    .flex-container {
+        display: flex;
+    }
+    
+    .flex-child {
+        flex: 1;
+    }
+    
+    a {
+        text-decoration: none;
+    }

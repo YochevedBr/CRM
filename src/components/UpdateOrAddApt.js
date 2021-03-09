@@ -136,51 +136,52 @@ function UpdateOrAddApt(){
 
  
     return (
+        <div class="row justify-content-center" style={{position: "absolute", width: "420px", left:"35%", hight: "600px", top:"70px",alignItems:"center", boxShadow: "0px 0px 3px 3px #999", backgroundColor: 'white'}}>
+        <br></br>
+        <h5 style={{marginTop: "5px"}}>Apartment {aptID}</h5>
         <Container>
             <Row>
-                <Col xs={6}>
-                    <h1>Apartment {aptID}</h1>
-                    <br></br>
+                <div class="col-sm-10" style={{marginLeft: "30px"}}>
                     <Form className="form" onSubmit={handleSubmit}> 
-                        <Form.Group controlId="formCategory1">
-                            <Form.Label>Price</Form.Label>
-                            <Form.Control type="text" value={price}
+                        <Form.Group controlId="formCategory1" style={{margin: "1px 0"}}>
+                            <Form.Label style = {{float: "left", marginLeft: "2%", margin: "0px 0"}}>Price</Form.Label>
+                            <Form.Control type="text" value={price} size="sm"
                                 onChange={(e) => setPrice(e.target.value)}
                             /> 
                         </Form.Group>
-                        <Form.Group controlId="formCategory1">
-                            <Form.Label>Location</Form.Label>
-                            <Form.Control type="text" value={location}
+                        <Form.Group controlId="formCategory1" style={{margin: "1px 0"}}>
+                            <Form.Label style = {{float: "left", marginLeft: "2%", margin: "0px 0"}}>Location</Form.Label>
+                            <Form.Control type="text" value={location} size="sm"
                                 onChange={(e) => setLocation(e.target.value)}
                             /> 
                         </Form.Group>
-                        <Form.Group controlId="formCategory2">
-                            <Form.Label>Floor</Form.Label>
-                            <Form.Control type="number" value={floor} 
+                        <Form.Group controlId="formCategory2" style={{margin: "1px 0"}}>
+                            <Form.Label style = {{float: "left", marginLeft: "2%", margin: "0px 0"}}>Floor</Form.Label>
+                            <Form.Control type="number" value={floor} size="sm" 
                                 onChange={(e) => setFloor(e.target.value)}
                             />          
                         </Form.Group>
-                        <Form.Group controlId="formCategory2">
-                            <Form.Label>Number of Floors</Form.Label>
-                            <Form.Control type="number" value={floors} 
+                        <Form.Group controlId="formCategory2" style={{margin: "1px 0"}}>
+                            <Form.Label style = {{float: "left", marginLeft: "2%", margin: "0px 0"}}>Number of Floors</Form.Label>
+                            <Form.Control type="number" value={floors} size="sm"
                                 onChange={(e) => setFloors(e.target.value)}
                             />          
                         </Form.Group>
-                        <Form.Group controlId="formCategory2">
-                            <Form.Label>Number of Rooms</Form.Label>
-                            <Form.Control type="number" value={rooms} 
+                        <Form.Group controlId="formCategory2" style={{margin: "1px 0"}}>
+                            <Form.Label style = {{float: "left", marginLeft: "2%", margin: "0px 0"}}>Number of Rooms</Form.Label>
+                            <Form.Control type="number" value={rooms} size="sm" 
                                 onChange={(e) => setRooms(e.target.value)}
                             />          
                         </Form.Group>
-                        <Form.Group controlId="formCategory2">
-                            <Form.Label>Condition</Form.Label>
-                            <Form.Control type="text" value={status}
+                        <Form.Group controlId="formCategory2" style={{margin: "1px 0"}}>
+                            <Form.Label style = {{float: "left", marginLeft: "2%", margin: "0px 0"}}>Condition</Form.Label>
+                            <Form.Control type="text" value={status} size="sm"
                                 onChange={(e) => setStatus(e.target.value)}
                             />          
                         </Form.Group>
                         <fieldset>
                             <Form.Group as={Row}>
-                                <Col sm={10}>
+                                <Col sm={2}>
                                     <Form.Check
                                         type="checkbox"
                                         label="pool"
@@ -216,9 +217,11 @@ function UpdateOrAddApt(){
                                 </Col>     
                             </Form.Group>
                         </fieldset>
-                        <Form.Group controlId="formCategory2">
+
+                        <Form.Group controlId="formCategory2" style={{float: "right", marginLeft: "20%"}}>
                             <Form.Control 
                                 type="file" 
+                                text="Select Image"
                                 multiple
                                 onChange={handleImageAsFile}
                             />          
@@ -226,9 +229,10 @@ function UpdateOrAddApt(){
                         <h6 style={{display: !correctDetails ? 'block' : 'none', color: 'red'}}>Please anter valid details.</h6>
                         <Button variant="outlined" type="submit" color="primary" disabled={!validateForm()}>{aptID ? 'Update' : 'Add' }</Button>
                     </Form>
-                </Col>
+                </div>
             </Row>
         </Container>
+        </div>
     )
 }
 

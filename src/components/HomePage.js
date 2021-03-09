@@ -1,29 +1,54 @@
 import React from "react"
 import './HomePage.css'
-import img from '../pictures/house-real-estate-logo.jpg' //import img from '../pictures/homepage2.JPG'
-import instegram from '../pictures/house-real-estate-logo.jpg'// import instegram from '../pictures/instegram.png'
+// import instegram from '../pictures/instegram.png'// import instegram from '../pictures/instegram.png'
+import {storage} from "./../firebase"
+import { useState, useEffect } from "react";
 
 
-class HomaPage extends React.Component{
-    componentDidMount(){
-    }
+function HomaPage() {
+	localStorage.clear()
+	const [img_logo, setImg_logo] = useState('');
+	const [img_instegram, setImg_instegram] = useState('');
 
-    render(){
-        return(
+	useEffect(() => {
+		// retriving from firebase storage the background image
+		storage
+		.ref('/image to design/yptb.PNG')
+		.getDownloadURL()
+		.then((DownloadURL) => {
+			setImg_logo(DownloadURL)
+		})
+		storage
+		.ref('/image to design/instegram.png')
+		.getDownloadURL()
+		.then((DownloadURL) => {
+			setImg_instegram(DownloadURL)
+		})
+	},[]);
+	
+
+		const homePage =
 			<div className="background">
-				<img src={img} alt="logo" height={530} width={1500}/>
+				<img style={{'display': 'block', 'marginLeft': 'auto', 'marginRight': 'auto'}} src={img_logo} alt='' width='100%'/>
 				<div className="social-container">
-					<h8>yptbrealestate@gmail.com</h8>
-					<br></br>
+					{/* <h8>yptbrealestate@gmail.com</h8> */}
+					{/* <br></br> */}
+					<h7 style={{color: '#000066'}}>Agent - interest the customer on our Instagram :) &nbsp;</h7>
 					<a href=" https://www.instagram.com/yptb_real_estate" className="instagram social">
-					<img src={instegram} alt="instegram" height={30} width={30}/>
+					<img src={img_instegram} alt="instegram" height={30} width={30}/>
 					</a>
+					<br></br>
+					<br></br>
 				</div>
 			</div>
           
            
           
-        )
-    }
+        return(
+			<>
+			{homePage}
+			</>
+		);
+    
 }
 export default HomaPage
