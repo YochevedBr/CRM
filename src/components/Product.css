@@ -1,11 +1,4 @@
-    .flex-container {
-        display: flex;
-    }
-    
-    .flex-child {
-        flex: 1;
-    }
-    
-    a {
-        text-decoration: none;
-    }
+.flex-child1 {
+    text-indent: 10px;
+    text-align: justify;
+}
