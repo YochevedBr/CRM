@@ -52,7 +52,7 @@ function Products(){
     return ( 
         <div style = {{background: "#f5f5f0"}}>
             <br></br>
-            <h3 className='font'> All Our Properties </h3>
+            <h3 className='font' style={{'color': '#000066'}}> All Our Properties </h3>
             <br></br>
             <Button variant="outlined" color="primary" onClick={() => {history.push({pathname:  `/add_apt`})}}>
                 Add Apartment
