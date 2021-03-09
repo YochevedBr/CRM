@@ -13,3 +13,8 @@
 a {
     text-decoration: none;
 }
+
+.oval {
+    border-radius: 50%;
+    margin-top: 5%;
+}

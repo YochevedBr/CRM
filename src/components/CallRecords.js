@@ -44,6 +44,7 @@ function CallRecords() {
 
     return ( 
         <div>
+            <br></br>
             <h3 className='font'> Call Records </h3> 
             <h5 className='font'> See your activity with our clients </h5> 
             <div> 
