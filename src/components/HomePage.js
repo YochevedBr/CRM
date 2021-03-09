@@ -6,7 +6,6 @@ import { useState, useEffect } from "react";
 
 
 function HomaPage() {
-	localStorage.clear()
 	const [img_logo, setImg_logo] = useState('');
 	const [img_instegram, setImg_instegram] = useState('');
 
