@@ -51,6 +51,7 @@ function NumOfPurchases(){
                         axisY: {
                             title: "Number of Sales",
                             includeZero: true,
+                            interval: 1,
                             // labelFormatter: props.addSymbols
                         },
                         data: [{

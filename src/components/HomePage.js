@@ -1,12 +1,11 @@
 import React from "react"
 import './HomePage.css'
-import instegram from '../pictures/instegram.png'// import instegram from '../pictures/instegram.png'
+// import instegram from '../pictures/instegram.png'// import instegram from '../pictures/instegram.png'
 import {storage} from "./../firebase"
 import { useState, useEffect } from "react";
 
 
 function HomaPage() {
-	localStorage.clear()
 	const [img_logo, setImg_logo] = useState('');
 	const [img_instegram, setImg_instegram] = useState('');
 
@@ -18,7 +17,13 @@ function HomaPage() {
 		.then((DownloadURL) => {
 			setImg_logo(DownloadURL)
 		})
-		},[]);
+		storage
+		.ref('/image to design/instegram.png')
+		.getDownloadURL()
+		.then((DownloadURL) => {
+			setImg_instegram(DownloadURL)
+		})
+	},[]);
 	
 
 		const homePage =
@@ -27,7 +32,7 @@ function HomaPage() {
 				<div className="social-container">
 					<h7 style={{color: '#000066'}}>Agent - interest the customer on our Instagram :) &nbsp;</h7>
 					<a href=" https://www.instagram.com/yptb_real_estate" className="instagram social">
-					<img src={instegram} alt="instegram" height={30} width={30}/>
+					<img src={img_instegram} alt="instegram" height={30} width={30}/>
 					</a>
 					<br></br>
 					<br></br>
