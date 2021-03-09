@@ -1,6 +1,7 @@
 
 import React from "react"
 import CustomersTable from "./CustomersTable"
+import PrintCustomersTable from "./PrintCustomersTable"
 import"../App.css"
 import {Container, Row, Col} from 'react-bootstrap';
 import Button from '@material-ui/core/Button';
@@ -16,10 +17,11 @@ class CustomersReports extends React.Component{
         return(
             <div>
                 <h1 style={{margin:"0 auto"}}>Customers Report</h1>
-                    <div style={{marginBottom: "4px", justifyContent: 'flex-end', float: "right", display: "flex"}}>
+                    {/* <div style={{marginBottom: "4px", justifyContent: 'flex-end', float: "right", display: "flex"}}>
                         <Button variant="outlined" color="primary" onClick={() => this.props.history.push('/print_customer')}>Print</Button>
-                    </div>
-                <CustomersTable reports={true}/>
+                    </div> */}
+                <PrintCustomersTable/>
+                {/* <CustomersTable reports={true}/> */}
             </div>
         )
     }
