@@ -17,8 +17,10 @@ function HomaPage() {
 	
 	// To open/close the form
 	const [flagToggle, setFlagToggle] = useState(false);
+
+	const [instagramIcon, setInstagramIcon] = useState('');
 	// To responsivy backgroun image
-	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+	const [, setWindowWidth] = useState(window.innerWidth);
 	const [backgroundDesktop, setBackgroundDesktop] = useState('');
 	const [backgroundMobile, setBackgroundMobile] = useState('');
 	const imageUrl = window.innerWidth >= 650 ? backgroundDesktop : backgroundMobile;
@@ -90,21 +92,18 @@ function HomaPage() {
             <div className="App-content">	
 				<div className='font' id= 'desc'>
 					<br></br>
-					<h1 className='title'>CityLights</h1>
+					<h1 className='titleHome'>CityLights</h1>
 					<h3 className='description'>‏A winning combination of experts and information in real estate‏</h3>
 					<h6 className='description'>The company's staff and managers are among the first line of business real estate people and have rich </h6>
 					<h6 className='description'>and professional experience in accompanying and executing many and varied real estate transactions.‏</h6>
 				</div>
 				<form >
-					<Button id="btnProfil" variant="outlined" color="primary" style={{marginTop: "4px", marginLeft: "0px"}}>Agent Profil</Button>
+					<Button id="btnProfil" variant="outlined" color="primary" style={{marginTop: "4px", marginLeft: "0px"}}>Agent Profile</Button>
 				</form>
 				<form class="font" id="form" style={{border:'4px solid  #00004d', borderStyle: 'inset', display:'none'}}>
 					<div class='key'>Name:</div><div class='value'>{agentName} </div>
 					<div class='key'>Email:</div><div class='value' >{agentEmail} </div>
 					<div class='key'>Phone Number:</div><div class='value'>{agentPhone} </div>
-					{/* <div class='Details'><div class='key'>Name: </div><div class='value' >{agentName}</div></div>
-					<div class='Details'><div class='key'>Email: </div><div class='value' >{agentEmail}</div></div>
-					<div class='Details'><div class='key'>Phone Number: </div><div class='value'>{agentPhone}</div></div> */}
 				</form>
 				<div className="social-container">
 					<h7 style={{color: '#000066'}}>Agent - interest the customer on our Instagram :) &nbsp;</h7>
@@ -118,7 +117,6 @@ function HomaPage() {
         </div>
 		</>
 	);
-    
 }
 
 export default HomaPage
