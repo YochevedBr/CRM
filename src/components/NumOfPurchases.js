@@ -1,16 +1,16 @@
 import React from "react"
-import Product from "./Product"
-import Button from '@material-ui/core/Button';
 import firebase from './../firebase.js';
 import { useState, useEffect } from "react";
-// var CanvasJSReact = require('./../canvasjs.react');
+import ReactLoading from 'react-loading'
 import CanvasJSReact from './../canvasjs.react'
-var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 function NumOfPurchases(){
     const [options, setOptions] = useState([]);
+    
     useEffect(() => {
+        // retrieving from firebase all the sales made by all agents 
+        // and map them by each agent
         var db = firebase.firestore();
         db.collection("agents")
         .get()
@@ -24,7 +24,9 @@ function NumOfPurchases(){
                     let purchases = 0
                     let counter = 0
                     calls.forEach(call => {
+                        // if there was purchase
                         if (call.data().purchased){
+                            // add to counter
                             purchases += call.data().purchased.length
                         }
                         counter += 1
@@ -37,6 +39,7 @@ function NumOfPurchases(){
                         }
                     })
                 }).then(() => {
+                    // bar chart
                     setOptions({
                         dataPointWidth: 35,
                         animationEnabled: true,
@@ -52,7 +55,6 @@ function NumOfPurchases(){
                             title: "Number of Sales",
                             includeZero: true,
                             interval: 1,
-                            // labelFormatter: props.addSymbols
                         },
                         data: [{
                             type: "bar",
@@ -66,14 +68,18 @@ function NumOfPurchases(){
 
     return (
         <>
-            {options ?
-            <div style={{alignItems: 'center', width: '85%', margin: 'auto'}}>
-                <h3 className='font'>Sales Amount</h3>
-                <h5 className='font'>Here you can compare yourself to the rest of our agents</h5>
-                <br></br>
-                <CanvasJSChart options = {options}/>
-            </div> 
-            : <h1>Loading...</h1>
+            {
+                options ?
+                    <div style={{alignItems: 'center', width: '85%', margin: 'auto'}}>
+                        <h3 className='font'>Sales Amount</h3>
+                        <h5 className='font'>Here you can compare yourself to the rest of our agents</h5>
+                        <br></br>
+                        <CanvasJSChart options = {options}/>
+                    </div> 
+                : 
+                    <div style={{display: 'flex', justifyContent: 'center'}}>
+                        <ReactLoading type='bubbles' color="#000066" />
+                    </div>
             } 
         </>
     )

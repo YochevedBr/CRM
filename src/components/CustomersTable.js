@@ -5,7 +5,7 @@ import { Table, InputGroup, FormControl } from 'react-bootstrap';
 import Button from '@material-ui/core/Button';
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
-import './CustomersTable.css';
+import ReactLoading from 'react-loading'
 import firebase from './../firebase.js';
 
 function CustomersTable(props) {
@@ -19,7 +19,7 @@ function CustomersTable(props) {
     const [id, setId] = React.useState("")
     const [name, setName] = React.useState("")
     const [phoneNumber, setPhoneNumber] = React.useState("")
-    const [email, setEmail] = React.useState("")
+    const [, setEmail] = React.useState("")
 
     useEffect(() => {
         if(Row != ""){
@@ -53,20 +53,20 @@ function CustomersTable(props) {
 
     // Handle with delete customer
     const handleDelete = () => {
-                setShow(false);
-                var db = firebase.firestore()
+        setShow(false);
+        var db = firebase.firestore()
 
-                // 'Delete' customer -> Changes the status
-                db.collection("customers").doc(id).set({
-                    name: name,
-                    phoneNumber: phoneNumber,
-                    email: "",
-                    deleted: true
-                }).then(() => {
-                    window.location.reload();
-                }).catch((error) => {
-                    console.error("Error removing document: ", error);
-                });               
+        // 'Delete' customer -> Changes the status
+        db.collection("customers").doc(id).set({
+            name: name,
+            phoneNumber: phoneNumber,
+            email: "",
+            deleted: true
+        }).then(() => {
+            window.location.reload();
+        }).catch((error) => {
+            console.error("Error removing document: ", error);
+        });               
     }
 
     // Actions buttons for each row
@@ -180,60 +180,70 @@ function CustomersTable(props) {
     )
         
     return(
-        <div>     
-            <Table striped bordered responsive bsStyle="default" {...getTableProps()}>
-                <thead>
-                    {headerGroups.map(headerGroup => (
-                        <tr {...headerGroup.getHeaderGroupProps()}>
-                            {headerGroup.headers.map(column => (
-                                <th {...column.getHeaderProps()}>
-                                    <div {...column.getSortByToggleProps()}>
-                                        {column.render('Header')}
-                                        <span>
-                                            {/* Render the columns sort UI */}
-                                            {column.isSorted ? (column.isSortedDesc ? ' ⬇️' : ' ⬆️') : ' ↕️'}
-                                        </span>
-                                    </div>
-                                    {/* Render the columns filter UI */}
-                                    <div>{column.canFilter ? column.render('Filter') : null}</div>
-                                </th>
-                            ))}
-                        </tr>
-                    ))}
-                </thead>
-                <tbody {...getTableBodyProps()}>
-                    {rows.map(row => {
-                        prepareRow(row)
-                        return (
-                            <tr 
-                                {...row.getRowProps()}>
-                                {
-                                    row.cells.map(cell => {
-                                        return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                                    })
-                                }
-                            </tr>
-                        )
-                    })}
-                </tbody>
-            </Table>
-            <>
-            <Modal show={showModal} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Delete</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Are you sure you want to delete {Row.name}?
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>Cancel</Button>
-                    <Button variant="primary" onClick={handleDelete}>Yes</Button>
-                </Modal.Footer>
-            </Modal>
-            </>
-        </div>
+        <>
+            {
+                data.length === 0 ? 
+                    <div style={{display: 'flex', justifyContent: 'center'}}>
+                        <ReactLoading type='bubbles' color="#000066" />
+                    </div>
+                :
+                    <div>
+                        <Table striped bordered responsive bsStyle="default" {...getTableProps()}>
+                            <thead>
+                                {headerGroups.map(headerGroup => (
+                                    <tr {...headerGroup.getHeaderGroupProps()}>
+                                        {headerGroup.headers.map(column => (
+                                            <th {...column.getHeaderProps()}>
+                                                <div {...column.getSortByToggleProps()}>
+                                                    {column.render('Header')}
+                                                    <span>
+                                                        {/* Render the columns sort UI */}
+                                                        {column.isSorted ? (column.isSortedDesc ? ' ⬇️' : ' ⬆️') : ' ↕️'}
+                                                    </span>
+                                                </div>
+                                                {/* Render the columns filter UI */}
+                                                <div>{column.canFilter ? column.render('Filter') : null}</div>
+                                            </th>
+                                        ))}
+                                    </tr>
+                                ))}
+                            </thead>
+                            <tbody {...getTableBodyProps()}>
+                                {rows.map(row => {
+                                    prepareRow(row)
+                                    return (
+                                        <tr {...row.getRowProps()}>
+                                            {row.cells.map(cell => {
+                                            return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+
+                                            })}
+                                        </tr>
+                                    )
+                                })}
+                            </tbody>
+                        </Table>
+                        <>
+                        <Modal show={showModal} onHide={handleClose}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Delete</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>Are you sure you want to delete {Row.name}?
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={handleClose}>
+                                Cancel
+                                </Button>
+                                <Button variant="primary" onClick={handleDelete}>
+                                Yes
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
+                        </>
+                    </div>
+            }
+        </>
     )
 }
-
 
 export default withRouter(CustomersTable);
 

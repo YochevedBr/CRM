@@ -9,15 +9,17 @@ import { useState, useEffect } from "react";
 
 function HomaPage() {
 
+	// Agent profile
 	const [instagramIcon, setInstagramIcon] = useState('');
-	// Agent profil
 	const [agentName, setAgentName] = useState('');
 	const [agentPhone, setAgentPhone] = useState('');
 	const [agentEmail, setAgentEmail] = useState('');
-	// To open/ close the form
+	
+	// To open/close the form
 	const [flagToggle, setFlagToggle] = useState(false);
+
 	// To responsivy backgroun image
-	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+	const [, setWindowWidth] = useState(window.innerWidth);
 	const [backgroundDesktop, setBackgroundDesktop] = useState('');
 	const [backgroundMobile, setBackgroundMobile] = useState('');
 	const imageUrl = window.innerWidth >= 650 ? backgroundDesktop : backgroundMobile;
@@ -41,6 +43,7 @@ function HomaPage() {
 			.then((DownloadURL) => {
 				setBackgroundMobile(DownloadURL)
 		})
+		// Retriving from firebase storage the instagram image
 		storage
 			.ref('/image to design/instegram.png')
 			.getDownloadURL()
@@ -48,7 +51,7 @@ function HomaPage() {
 				setInstagramIcon(DownloadURL)
 		})
 
-		// To agent profil form
+		// To agent profile form
 		var db = firebase.firestore();
 		if(!flagToggle){
 			// Opens the form
@@ -82,26 +85,24 @@ function HomaPage() {
 
 	},[]);
 	
-	
 	return(
 		<>
 		 <div className="App" style={{backgroundImage: `url(${imageUrl})`}}>
             <div className="App-content">	
 				<div className='font' id= 'desc'>
 					<br></br>
-					<h1 className='title'>CityLights</h1>
+					<h1 className='titleHome'>CityLights</h1>
 					<h3 className='description'>‏A winning combination of experts and information in real estate‏</h3>
 					<h6 className='description'>The company's staff and managers are among the first line of business real estate people and have rich </h6>
 					<h6 className='description'>and professional experience in accompanying and executing many and varied real estate transactions.‏</h6>
 				</div>
 				<form >
-					<Button id="btnProfil" variant="outlined" color="primary" style={{marginTop: "4px", marginLeft: "0px"}}>Agent Profil</Button>
+					<Button id="btnProfil" variant="outlined" color="primary" style={{marginTop: "4px", marginLeft: "0px"}}>Agent Profile</Button>
 				</form>
 				<form class="font" id="form" style={{border:'4px solid  #00004d', borderStyle: 'inset', display:'none'}}>
 					<div class='key'>Name:</div><div class='value'>{agentName} </div>
 					<div class='key'>Email:</div><div class='value' >{agentEmail} </div>
 					<div class='key'>Phone Number:</div><div class='value'>{agentPhone} </div>
-				
 				</form>
 				<div className="social-container">
 					<h7 style={{color: '#000066'}}>Agent - interest the customer on our Instagram :) &nbsp;</h7>
@@ -115,6 +116,6 @@ function HomaPage() {
         </div>
 		</>
 	);
-    
 }
+
 export default HomaPage

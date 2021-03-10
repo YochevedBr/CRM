@@ -4,7 +4,6 @@ import Location from './Location'
 import Price from './Price'
 import Sold from './Sold'
 import './Product.css'
-
 import { useState, useEffect } from "react";
 import ReactLoading from 'react-loading'
 

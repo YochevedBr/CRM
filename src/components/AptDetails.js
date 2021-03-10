@@ -14,18 +14,20 @@ import ReactLoading from 'react-loading'
 
 
 function AptDetails(){
+    // the apartment id
     let {aptID} = useParams()
-    // retrieve the correct apartment by query
-    
+ 
     const history = useHistory()
     const [data, setData] = useState([]);
 
     useEffect(() => {  
+        // retrieving the apartment details
         var db = firebase.firestore();
         db.collection("products")
         .doc(aptID)
         .get()
         .then((doc) => {
+            // retrieving the images related to the apartment
             storage
             .ref(aptID)
             .listAll()

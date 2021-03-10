@@ -7,5 +7,4 @@ function Price(props){
 
 }
 
-
 export default Price

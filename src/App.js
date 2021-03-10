@@ -1,14 +1,5 @@
-
-import { BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
-import Customers from './components/Customers'
-import Reports from './components/Reports'
-import Purchases from './components/Purchases'
-import CustomersReports from './components/CustomersReports'
-import CustomersDetails from './components/CustomersDetails'
-import React, { Component } from "react";
-import Login from './components/Login'
+import React from "react";
 import Routes from './components/Routes'
-
 import './components/GeneralStyle.css'
 
 function App() 
@@ -19,12 +10,5 @@ function App()
     </div>
   );
 }
-
-
-// const Home = () => (
-//   <div>
-//     <h1>Home Page</h1>
-//   </div>
-// )
 
 export default App;
