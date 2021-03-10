@@ -55,7 +55,7 @@ function HomaPage() {
 		var db = firebase.firestore();
 		if(!flagToggle){
 			// Opens the form
-			$("#btnProfil").click(function(){
+			$(".selectBtn").click(function(){
 				var agentId = localStorage.getItem("agent_id")
 				db.collection("agents")
 					.doc(agentId)
@@ -97,7 +97,7 @@ function HomaPage() {
 					<h6 className='description'>and professional experience in accompanying and executing many and varied real estate transactions.‏</h6>
 				</div>
 				<form >
-					<Button id="btnProfil" variant="outlined" color="primary" style={{marginTop: "4px", marginLeft: "0px"}}>Agent Profile</Button>
+					<Button className='selectBtn' id="btnProfil" variant="outlined" color="primary" style={{marginTop: "4px", marginLeft: "0px"}}>Agent Profile</Button>
 				</form>
 				<form class="font" id="form" style={{border:'4px solid  #00004d', borderStyle: 'inset', display:'none'}}>
 					<div class='key'>Name:</div><div class='value'>{agentName} </div>
