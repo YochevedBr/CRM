@@ -55,20 +55,25 @@ function CustomersTable(props) {
 
     // Handle with delete customer
     const handleDelete = () => {
-        setShow(false);
-        var db = firebase.firestore()
-    
-        // Delete customer => change 'deleted' status
-        db.collection("customers").doc(id).set({
-            name: name,
-            phoneNumber: phoneNumber,
-            email: email,
-            deleted: true
-        }).then(() => {
-            window.location.reload();
-        }).catch((error) => {
-            console.error("Error removing document: ", error);
-        });       
+                setShow(false);
+                var db = firebase.firestore()
+
+                    // Delete customer
+                    db.collection("customers").doc(id).set({
+                    name: name,
+                    phoneNumber: phoneNumber,
+                    email: "",
+                    deleted: true
+                }).then(() => {
+                    window.location.reload();
+                }).catch((error) => {
+                    console.error("Error removing document: ", error);
+                });               
+                // db.collection("customers").doc(currentId).delete().then(() => {
+                //     console.log("Document successfully deleted!");
+                // }).catch((error) => {
+                //     console.error("Error removing document: ", error);
+                // });    
     }
 
     // Actions buttons for each row
@@ -192,7 +197,7 @@ function CustomersTable(props) {
                                         {column.render('Header')}
                                         <span>
                                             {/* Render the columns sort UI */}
-                                            {column.isSorted ? (column.isSortedDesc ? ' 🔻' : ' 🔺') : ' ➖'}
+                                            {column.isSorted ? (column.isSortedDesc ? ' ⬇️' : ' ⬆️') : ' ↕️'}
                                         </span>
                                     </div>
                                     {/* Render the columns filter UI */}

@@ -8,10 +8,12 @@ class Customers extends React.Component{
         return(
             <div>
                 <h1 style={{margin:"0 auto"}}>Customers</h1>
-                <div style={{marginBottom: "4px", justifyContent: 'flex-end', float: "right", display: "flex"}}>
-                    <AddCustomer />
+                    <div style={{marginBottom: "4px", marginLeft: "4px", justifyContent: 'flex-end', float: "left", display: "flex"}}>
+                        <AddCustomer />
+                    </div>
+                <div style={{margin:"4px"}}>
+                    <CustomersTable  reports={false}/>
                 </div>
-                <CustomersTable reports={false}/>
             </div>
         )
     }

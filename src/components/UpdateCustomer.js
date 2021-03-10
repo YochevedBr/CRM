@@ -6,7 +6,7 @@ import AddCallRecord from "./AddCallRecord";
 import firebase from './../firebase.js';
 import $ from 'jquery';  
 import Modal from "react-bootstrap/Modal";
-import CallRecord from './CallRecord'
+import CustomerCallRecord from './CustomerCallRecord'
 
 class UpdateCustomer extends React.Component {
     constructor(props){
@@ -111,9 +111,9 @@ class UpdateCustomer extends React.Component {
             return (
             <Container>
                 <Row>
-                    <Col xs={6}>
+                    <Col sm>
                         <h1>Customer</h1>
-                        <Form>     
+                        <Form style={{width: "90%"}}>     
                             <p>{this.state.msg}</p>
                             <Form.Group controlId="formCategory1">
                                 <div className="label">
@@ -136,23 +136,25 @@ class UpdateCustomer extends React.Component {
                                 <Form.Control onChange={(e) => this.setState({emptyEmail: false})} className="txtEmail" type="email" defaultValue={this.state.email} />          
                             </Form.Group>
                             <h6 style={{display: this.state.emptyEmail ? 'block' : 'none', color: 'red'}}>Empty Field‏</h6>
-                            <Button variant="outlined" color="primary" onClick={this.updateHandler}>Update</Button>
+                            <Button className="btn-inline" variant="outlined" color="primary" onClick={this.updateHandler}>Update</Button>
                             {/* Pass Customer Id to child component - AddCallRecord */}
-                            <AddCallRecord dataFromParentId = {this.state.currentId} dataFromParentName ={this.state.username}/> 
+                            <div style={{margin: "4px"}}>
+                                <AddCallRecord className="btn-inline" dataFromParentId = {this.state.currentId} dataFromParentName ={this.state.username}/> 
+                            </div>
                         </Form>
                     </Col>
-                    <Col>
+                    <Col sm>
                     <div>
                         <br></br>
                         <h5> CallRecords </h5> 
                         <br></br>
                         <div> {
-                            this.state.calls.map((call, i) => < CallRecord key = { i }
+                            this.state.calls.map((call, i) => < CustomerCallRecord key = { i }
                                 call = { call }
                                 />)} 
                         </div> 
-                    </div>  
-                    </Col>
+                    </div> 
+                    </Col> 
                 </Row>
 
                 <Modal show={this.state.showModal} onHide={this.handleClose}>

@@ -55,10 +55,9 @@ function CallDetails(){
 
     return(
         <div>
-            {console.log(callID)}
-            <h2 style={{textAlign:'left', marginLeft: '52px'}}>{customerName}</h2>
+            <h2 className='responsive' style={{textAlign:'left', marginLeft: '52px'}}>{customerName}</h2>
             <Call data={call}></Call>
-            <h5 style={{textAlign:'left', marginLeft: '52px'}}>Agent: {agent_name}</h5>
+            <h5 className='responsive' style={{textAlign:'left', marginLeft: '52px'}}>Agent: {agent_name}</h5>
         </div>
     )
 }
