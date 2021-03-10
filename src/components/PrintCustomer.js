@@ -9,18 +9,19 @@ class ComponentToPrint extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            // Takes the current customer id from the path
             currentId: window.location.pathname.substring(16),
             fullName: '',
             phoneNumber: '',
             email: '',
-            // callRecordsList: ''
         };
         this.updateState = this.updateState.bind(this)
         this.updateCallRecords = this.updateCallRecords.bind(this)
-
     }
     
+    // Update the states
     updateState(){
+        // Retrive current customer data
         var docRef = firebase.firestore().collection("customers").doc(this.state.currentId)
         docRef.get().then((doc) => {
             if (doc.exists) {
@@ -38,45 +39,32 @@ class ComponentToPrint extends React.Component {
         });
     }
 
+    // Update the list of call records of current customer
     updateCallRecords(){
         var db = firebase.firestore()
         let call_record = []
         let call_records_list = []
         let count = 0
+        // Retrives all call records of current customer
         db.collection("call_records").where("customer_id", "==", this.state.currentId)
             .get()
             .then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
-                    // console.log(doc.id, " => ", doc.data());
+                    // Keeps the values of call record
                     call_record[0] = doc.data().date
                     call_record[1] = doc.data().interested
                     call_record[2] = doc.data().purchased
                     call_record[3] = doc.data().return
                     call_records_list[count] = call_record
-
+                    // Append call records list to 'callRecordsList' div by jquery
                     $( ".callRecordsList" ).append("<p class = 'callRecord' id='"+count+"' style={{border:'2px solid #0044cc',borderRadius: '8px', marginLeft:'50px', marginRight:'50px', borderStyle: 'inset'}}></p>")
                     $( "#" + count +"" ).append( "<div class='Details'><div class='key'>Date: </div><div class='value' style={{fontSize:'22px'}}>"+call_records_list[count][0]+"</div></div>" )
                     $( "#" + count +"" ).append( "<div class='Details'><div class='key'>Interested: </div><div class='value' style={{fontSize:'22px'}}>"+call_records_list[count][1]+"</div></div>" );
                     $( "#" + count +"" ).append( "<div class='Details'><div class='key'>Purchased: </div><div class='value' style={{fontSize:'22px'}}>"+call_records_list[count][2]+"</div></div>" );
                     $( "#" + count +"" ).append( "<div class='Details'><div class='key'>Return: </div><div class='value' style={{fontSize:'22px'}}>"+call_records_list[count][3]+"</div></div>" );
-                    
+                    // To list of call records
                     count = count + 1
                 });
-                // this.setState({
-                //     callRecordsList: call_records_list
-                //     }
-                // )
-
-                // var len =this.state.callRecordsList.length
-                // for(var i=0; i<len; i++){
-                //     console.log("#######i" + i)
-                //     $( ".try" ).append("<p class='"+i+"' style={{border:'2px solid #0044cc',borderRadius: '8px', marginLeft:'50px', marginRight:'50px', borderStyle: 'inset'}}></p>")
-                //     $( "." + i +"" ).append( "<div id='"+i*100+"'>Date: </div><div style={{fontSize:'22px'}}>"+this.state.callRecordsList[i][0]+"</div>" )
-                //     // $( "#" + i*100 +"" ).append( "<div id='"+i*100+"'>*********</div>" );
-                //     $( "." + i +"" ).append( "<div>Interested: </div><div style={{fontSize:'22px'}}>"+this.state.callRecordsList[i][1]+"</div>" );
-                //     $( "." + i +"" ).append( "<div>Purchased: </div><div style={{fontSize:'22px'}}>"+this.state.callRecordsList[i][2]+"</div>" );
-                //     $( "." + i +"" ).append( "<div>Return: </div><div style={{fontSize:'22px'}}>"+this.state.callRecordsList[i][3]+"</div>" );       
-                // }
             })
             .catch((error) => {
                 console.log("Error getting documents: ", error);
@@ -111,13 +99,12 @@ class ComponentToPrint extends React.Component {
     }
 }
 
-
+// To print the reports, print the component: 'ComponentToPrint'
 class Print extends React.Component {     
     render() {
         return (
             <div>    
                 <ReactToPrint
-                    // trigger={() => <a href="#">PRINT</a>}
                     trigger={() => <Button id="btnPrint" variant="outlined" color="primary">PRINT</Button>}
                     content={() => this.componentRef}
                 />   

@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from "react"
-import { useTable, useFilters, useSortBy,} from 'react-table';
-import { useHistory } from "react-router";
-import { Container ,Row ,Col, Table, InputGroup, FormControl} from 'react-bootstrap';
+import React, { useEffect } from "react"
+import { withRouter, useHistory } from 'react-router'
+import { useTable, useFilters, useSortBy } from 'react-table';
+import { Table, InputGroup, FormControl } from 'react-bootstrap';
 import Button from '@material-ui/core/Button';
-import './CustomersTable.css';
-import firebase from './../firebase.js';
-import { keys } from "@material-ui/core/styles/createBreakpoints";
-import { withRouter } from 'react-router'
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
-import ReactToPrint from "react-to-print";
 import ReactLoading from 'react-loading'
+import './CustomersTable.css';
+import firebase from './../firebase.js';
 
 
 function CustomersTable(props) {
@@ -28,37 +25,41 @@ function CustomersTable(props) {
 
     useEffect(() => {
         if(Row != ""){
-        var db = firebase.firestore()
-        // Get the current id
-        db.collection("customers").where("email", "==", Row.email)
-            .get()
-            .then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    setId(doc.id)
-                    setName(doc.data().name)
-                    setPhoneNumber(doc.data().phoneNumber)
-                    setEmail(doc.data().email)                
-                });
-            })
-            .catch((error) => {
-                console.log("Error getting documents: ", error);
-            }); 
-        }
+            var db = firebase.firestore()
+            // Get the current id
+            db.collection("customers").where("email", "==", Row.email)
+                .get()
+                .then((querySnapshot) => {
+                    querySnapshot.forEach((doc) => {
+                        setId(doc.id)
+                        setName(doc.data().name)
+                        setPhoneNumber(doc.data().phoneNumber)
+                        setEmail(doc.data().email)                
+                    });
+                })
+                .catch((error) => {
+                    console.log("Error getting documents: ", error);
+                }); 
+            }
     },[Row]);
 
+    // Close delete modal
     const handleClose = () => setShow(false)
 
+    // Open delete modal
     const handleShow = (data) => {
         setShow(true);
+        // Keeps the value of current row of the table
         setRow(data)
     }
 
+    // Handle with delete customer
     const handleDelete = () => {
                 setShow(false);
                 var db = firebase.firestore()
 
-                    // Delete customer
-                    db.collection("customers").doc(id).set({
+                // 'Delete' customer -> Changes the status
+                db.collection("customers").doc(id).set({
                     name: name,
                     phoneNumber: phoneNumber,
                     email: "",
@@ -68,11 +69,6 @@ function CustomersTable(props) {
                 }).catch((error) => {
                     console.error("Error removing document: ", error);
                 });               
-                // db.collection("customers").doc(currentId).delete().then(() => {
-                //     console.log("Document successfully deleted!");
-                // }).catch((error) => {
-                //     console.error("Error removing document: ", error);
-                // });    
     }
 
     // Actions buttons for each row
@@ -92,22 +88,26 @@ function CustomersTable(props) {
                 console.log("Error getting documents: ", error);
         });  
 
+        // In case of reports show 'print' button
         if(reports){
             return <Button variant="outlined" color="primary" onClick={() =>  {history.push({pathname:  "/print_customer/" + currentC})}}>Print</Button>
         }
+        // In case of not reports show 'Details' and 'Delete' buttons
         else{
             return(
                 <div>
-                    <Button variant="outlined" color="primary" 
-                    onClick={() => {history.push({pathname: "/update_customer/" + currentC})}}>Details</Button>{' '}
-                    <Button variant="outlined" color="primary" 
-                    onClick={() => handleShow(row.original)}>Delete</Button>
+                    <Button 
+                        variant="outlined" color="primary" onClick={() => {history.push({pathname: "/update_customer/" + currentC})}}>Details
+                    </Button>{' '}
+                    <Button 
+                        variant="outlined" color="primary" onClick={() => handleShow(row.original)}>Delete
+                    </Button>
                 </div>
             )
         }  
     }
 
-    function TextFilter({column: { filterValue, preFilteredRows, setFilter },})
+    function TextFilter({column: { filterValue, setFilter },})
     { 
         return (
             <InputGroup className="mb-3">
@@ -122,7 +122,7 @@ function CustomersTable(props) {
         )
     }
         
-    // get customers data
+    // Gets customers data
     React.useEffect(() => {
         var db = firebase.firestore();
         // Get all customers that exist
@@ -133,10 +133,12 @@ function CustomersTable(props) {
             querySnapshot.forEach((doc) => {
                 customersData.push(doc.data())
             });
+            // Set all customers
             setData(customersData);
         });
     }, []);        
 
+    // Defines culumns of table
     const columns = React.useMemo(() =>
     [
         {  
@@ -163,21 +165,21 @@ function CustomersTable(props) {
     )  
     
     const defaultColumn = React.useMemo(() => ({
-            Filter: TextFilter,
+        Filter: TextFilter,
     }),[])
-        
+       
+    // Defines the culumns and the data of the table
     const {
         getTableProps,
         getTableBodyProps,
         headerGroups,
         rows,
-        getRowProps,
         prepareRow,
     } = useTable(
-        { columns, data, defaultColumn}, 
+        { columns, data, defaultColumn }, 
         useFilters,
         useSortBy,
-        )
+    )
         
     return(
         <>
@@ -246,7 +248,6 @@ function CustomersTable(props) {
             }
         </>
     )
-
 }
 
 

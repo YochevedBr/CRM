@@ -6,7 +6,8 @@ import ReactLoading from 'react-loading'
 
 
 class Reports extends React.Component{
-    constructor(){
+
+    constructor() {
         super()
         // setting all existing reports
         this.state = {
@@ -20,9 +21,9 @@ class Reports extends React.Component{
     componentDidMount(){
         // retrieving from firebase storage images for each report
         storage
-		.ref('/image to design/reports/customers_table.png')
-		.getDownloadURL()
-		.then((DownloadURL) => {
+        .ref('/image to design/reports/customers_table.png')
+        .getDownloadURL()
+        .then((DownloadURL) => {
             console.log('hello')
             this.setState({customers: DownloadURL})
         }).then(() => {
