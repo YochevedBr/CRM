@@ -16,6 +16,8 @@ function HomaPage() {
 	
 	// To open/close the form
 	const [flagToggle, setFlagToggle] = useState(false);
+
+	const [instagramIcon, setInstagramIcon] = useState('');
 	// To responsivy backgroun image
 	const [, setWindowWidth] = useState(window.innerWidth);
 	const [backgroundDesktop, setBackgroundDesktop] = useState('');
