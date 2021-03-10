@@ -5,6 +5,7 @@ import { useHistory } from "react-router";
 import firebase from './../firebase.js';
 import {storage} from "./../firebase"
 import { useState, useEffect } from "react";
+import ReactLoading from 'react-loading'
 
 import './Products.css'
 
@@ -49,17 +50,27 @@ function Products(){
         })
     }, []);
 
-    return ( 
-        <div style = {{background: "#f5f5f0"}}>
-            <br></br>
-            <h3 className='font'> All Our Properties </h3>
-            <div className='wrapper'>
-                {products.map((product, i) => <Product key={i} product={product} />)}
-            </div>
-            <Button variant="outlined" color="primary" onClick={() => {history.push({pathname:  `/add_apt`})}}>
-                Add Apartment
-            </Button>
-        </div>
+    return (
+        <>
+            {
+                products.length != 0 ?
+                    <div style = {{background: "#f5f5f0"}}>
+                        <br></br>
+                        <h3 className='font'> All Our Properties </h3>
+                        <div className='wrapper'>
+                            {products.map((product, i) => <Product key={i} product={product} />)}
+                        </div>
+                        <Button variant="outlined" color="primary" onClick={() => {history.push({pathname:  `/add_apt`})}}>
+                            Add Apartment
+                        </Button>
+                    </div> 
+                :
+                    <div style={{display: 'flex', justifyContent: 'center'}}>
+                        <ReactLoading type='bubbles' color="#000066" />
+                    </div>
+            }
+        </> 
+        
     )
 }
 

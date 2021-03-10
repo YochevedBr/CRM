@@ -6,6 +6,8 @@ import PurchasesPic from '../pictures/Purchases.jpg';
 import { withRouter } from 'react-router-dom';
 import {storage} from "./../firebase"
 
+import ReactLoading from 'react-loading'
+
 import './Reports.css'
 
 class Reports extends React.Component{
@@ -82,7 +84,11 @@ class Reports extends React.Component{
                             <h5 className='font responsive' style={{color:'white'}}>View your achievements in this year</h5>
                         </ListGroup.Item>
                     </ListGroup>            
-                    : <h1>Loading...</h1> 
+                    // : 
+                    : 
+                        <div style={{display: 'flex', justifyContent: 'center'}}>
+                            <ReactLoading type='bubbles' color="#000066" />
+                        </div>
                 }
             </>     
         )

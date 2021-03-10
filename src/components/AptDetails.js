@@ -17,6 +17,7 @@ import {storage} from "./../firebase"
 
 import { useState, useEffect } from "react";
 
+import ReactLoading from 'react-loading'
 
 
 function AptDetails(){
@@ -62,7 +63,11 @@ function AptDetails(){
     return(
         <>
         {
-            !data.images ? <h1>Loading...</h1> :
+            !data.images ?
+                <div style={{display: 'flex', justifyContent: 'center'}}>
+                    <ReactLoading type='bubbles' color="#000066" />
+                </div>
+            :
         <div>
             <Container className='no-marginLR no-padding'>
                 <Row>
