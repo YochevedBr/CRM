@@ -132,7 +132,13 @@ class UpdateCustomer extends React.Component {
                                 <div className="label">
                                 <Form.Label>Phone Number</Form.Label>
                                 </div>
-                                <Form.Control onChange={(e) => this.setState({emptyPhone: false})} className="txtNumber" type="text" defaultValue={this.state.phonenumber}/> 
+                                <Form.Control 
+                                    placeholder="Format: 123-4567890 / 12-3456789"
+                                    pattern="[0-9]{2,3}-[0-9]{7}"
+                                    onChange={(e) => this.setState({emptyPhone: false})} 
+                                    className="txtNumber" 
+                                    type="text" 
+                                    defaultValue={this.state.phonenumber}/> 
                             </Form.Group>
                             <h6 style={{display: this.state.emptyPhone ? 'block' : 'none', color: 'red'}}>Empty Field‏</h6>
                             <Form.Group controlId="formCategory2">

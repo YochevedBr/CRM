@@ -1,55 +1,51 @@
 import React from "react"
 import './HomePage.css'
 import './GeneralStyle.css'
-// import './PrintCustomer.css'
-
-import desktopImage from './logo-desktop.jpg';
-import mobileImage from './logo-mobile.jpg';
-
 import $ from 'jquery';  
 import Button from '@material-ui/core/Button';
 import firebase from './../firebase.js';
-
-// import instegram from '../pictures/instegram.png'// import instegram from '../pictures/instegram.png'
-import {storage} from "./../firebase"
+import { storage } from "./../firebase"
 import { useState, useEffect } from "react";
 
-
 function HomaPage() {
-	const [img_logo, setImg_logo] = useState('');
-	const [img_instegram, setImg_instegram] = useState('');
 
+	const [instagramIcon, setInstagramIcon] = useState('');
 	// Agent profil
 	const [agentName, setAgentName] = useState('');
 	const [agentPhone, setAgentPhone] = useState('');
 	const [agentEmail, setAgentEmail] = useState('');
 	// To open/ close the form
 	const [flagToggle, setFlagToggle] = useState(false);
-
-	const imageUrl = window.innerWidth >= 650 ? desktopImage : mobileImage;
-
+	// To responsivy backgroun image
+	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+	const [backgroundDesktop, setBackgroundDesktop] = useState('');
+	const [backgroundMobile, setBackgroundMobile] = useState('');
+	const imageUrl = window.innerWidth >= 650 ? backgroundDesktop : backgroundMobile;
 
 	useEffect(() => {
-		// const handleWindowResize = () => {
-		// 	setWindowWidth(window.innerWidth);
-		//   }
-		//   window.addEventListener('resize', handleWindowResize);
-		//   return () => {            
-		// 	window.removeEventListener('resize', handleWindowResize);      
-		//   }  
-
-		// Retriving from firebase storage the background image
+		const handleWindowResize = () => {
+			setWindowWidth(window.innerWidth);
+		};
+		window.addEventListener('resize', handleWindowResize);
+		
+		// Retrive the images fron firestore storage
 		storage
-		.ref('/image to design/yptb.PNG')
-		.getDownloadURL()
-		.then((DownloadURL) => {
-			setImg_logo(DownloadURL)
+			.ref('/image to design/logo-desktop.jpg')
+			.getDownloadURL()
+			.then((DownloadURL) => {
+				setBackgroundDesktop(DownloadURL)
 		})
 		storage
-		.ref('/image to design/instegram.png')
-		.getDownloadURL()
-		.then((DownloadURL) => {
-			setImg_instegram(DownloadURL)
+			.ref('/image to design/logo-mobile.jpg')
+			.getDownloadURL()
+			.then((DownloadURL) => {
+				setBackgroundMobile(DownloadURL)
+		})
+		storage
+			.ref('/image to design/instegram.png')
+			.getDownloadURL()
+			.then((DownloadURL) => {
+				setInstagramIcon(DownloadURL)
 		})
 
 		// To agent profil form
@@ -70,7 +66,7 @@ function HomaPage() {
 						console.log("Error getting agent document:", error);
 					});
 				$("#form").toggle();
-				// Next time on press close the form
+				// Next time on press -> close the form
 				setFlagToggle(true)
 			})
 		}
@@ -79,26 +75,13 @@ function HomaPage() {
 			$("#form").toggle();
 			setFlagToggle(false)
 		}
-        
+		// Resize the page
+        return () => {            
+			window.removeEventListener('resize', handleWindowResize);      
+		}  
 
 	},[]);
-	
 
-	const homePage =
-		<div className="background">
-			<img style={{'display': 'block', 'marginLeft': 'auto', 'marginRight': 'auto'}} src={img_logo} alt='' width='100%'/>
-			<div className="social-container">
-				
-				{/* <h8>yptbrealestate@gmail.com</h8> */}
-				{/* <br></br> */}
-				<h7 style={{color: '#000066'}}>Agent - interest the customer on our Instagram :) &nbsp;</h7>
-				<a href=" https://www.instagram.com/yptb_real_estate" className="instagram social">
-					<img src={img_instegram} alt="instegram" height={30} width={30}/>
-				</a>
-				<br></br>
-				<br></br>
-			</div>
-		</div>
            
 	return(
 		<>
@@ -115,8 +98,8 @@ function HomaPage() {
 					<Button id="btnProfil" variant="outlined" color="primary" style={{marginTop: "4px", marginLeft: "0px"}}>Agent Profil</Button>
 				</form>
 				<form class="font" id="form" style={{border:'4px solid  #00004d', borderStyle: 'inset', display:'none'}}>
-					<div class='key'>Name:</div><div class='value' >{agentName} </div>
-					<div id='c' class='key'>Email:</div><div class='value'  >{agentEmail} </div>
+					<div class='key'>Name:</div><div class='value'>{agentName} </div>
+					<div class='key'>Email:</div><div class='value' >{agentEmail} </div>
 					<div class='key'>Phone Number:</div><div class='value'>{agentPhone} </div>
 					{/* <div class='Details'><div class='key'>Name: </div><div class='value' >{agentName}</div></div>
 					<div class='Details'><div class='key'>Email: </div><div class='value' >{agentEmail}</div></div>
@@ -125,22 +108,13 @@ function HomaPage() {
 				<div className="social-container">
 					<h7 style={{color: '#000066'}}>Agent - interest the customer on our Instagram :) &nbsp;</h7>
 					<a href=" https://www.instagram.com/yptb_real_estate" className="instagram social">
-						<img src={img_instegram} alt="instegram" height={30} width={30}/>
+						<img src={instagramIcon} alt="instegram" height={30} width={30}/>
 					</a>
 					<br></br>
 					<br></br>
 				</div>
             </div>
         </div>
-		{/* <form >
-			<Button id="btnProfil" variant="outlined" color="primary" style={{marginTop: "4px", marginLeft: "40px"}}>Agent Profil</Button>
-		</form>
-		<form class="font" id="form" style={{border:'4px solid  #00004d', borderStyle: 'inset', display:'none', marginLeft:'50px', marginRight:'50px'}}>
-			<div class='Details'><div class='key'>Name: </div><div class='value' style={{fontSize:'22px'}}>{agentName}</div></div>
-			<div class='Details'><div class='key'>Email: </div><div class='value' style={{fontSize:'22px'}}>{agentEmail}</div></div>
-			<div class='Details'><div class='key'>Phone Number: </div><div class='value' style={{fontSize:'22px'}}>{agentPhone}</div></div>
-		</form> */}
-		{/* {homePage} */}
 		</>
 	);
     
