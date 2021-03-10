@@ -8,7 +8,6 @@ import $ from 'jquery';
 import Modal from "react-bootstrap/Modal";
 import CallRecord from './CallRecord'
 
-
 class UpdateCustomer extends React.Component {
     constructor(props){
         super(props);
@@ -91,9 +90,9 @@ class UpdateCustomer extends React.Component {
     componentDidMount(){
         // Retrieve the contents of a single document 
         this.updateState(); 
+        var db = firebase.firestore();
 
         // display the call-records of the customer
-        var db = firebase.firestore();
         db.collection("call_records")
         .where("customer_id", "==", this.state.currentId)
         .get()
@@ -103,9 +102,7 @@ class UpdateCustomer extends React.Component {
                 let x = doc.data()
                 x.id = doc.id
                 callsData.push(x)
-
-            });
-            
+            });   
             this.setState({calls: callsData})
         });
     }

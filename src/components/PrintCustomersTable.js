@@ -17,7 +17,7 @@ class Print extends React.Component {
         return (
             <div>    
                 <ReactToPrint
-                    trigger={() => <Button id="btnPrint" variant="outlined" color="primary" style={{marginBottom: "4px", marginRight: "40px", justifyContent: 'flex-end', float: "right", display: "flex"}}>PRINT Table</Button>}
+                    trigger={() => <Button id="btnPrint" variant="outlined" color="primary" style={{marginBottom: "4px", marginLeft: "40px", justifyContent: 'flex-end', float: "right", display: "flex"}}>PRINT Table</Button>}
                     content={() => this.componentRef}
                 />   
                 <ComponentToPrint ref={el => (this.componentRef = el)} />       
