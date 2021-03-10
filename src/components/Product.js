@@ -6,6 +6,7 @@ import Sold from './Sold'
 import './Product.css'
 
 import { useState, useEffect } from "react";
+import ReactLoading from 'react-loading'
 
 
 function Product(props){
@@ -39,8 +40,10 @@ function Product(props){
 
                 
                 </div>
-                
-            : <h1>Loading...</h1>
+    
+            : <div style={{display: 'flex', justifyContent: 'center'}}>
+                    <ReactLoading type='bubbles' color="#000066" />
+                </div>
         }
         </>
         

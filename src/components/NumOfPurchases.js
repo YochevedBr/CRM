@@ -68,9 +68,10 @@ function NumOfPurchases(){
         <>
             {options ?
             <div style={{alignItems: 'center', width: '85%', margin: 'auto'}}>
-                <CanvasJSChart options = {options}
-                    /* onRef={ref => this.chart = ref} */
-                />
+                <h3 className='font'>Sales Amount</h3>
+                <h5 className='font'>Here you can compare yourself to the rest of our agents</h5>
+                <br></br>
+                <CanvasJSChart options = {options}/>
             </div> 
             : <h1>Loading...</h1>
             } 

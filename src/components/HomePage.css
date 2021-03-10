@@ -1,12 +1,130 @@
-.social-container {
-    padding: 5px 5px;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: fixed;
+        .social-container {
+            padding: 5px 5px;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            position: fixed;
+        }
+        /* =======
 }
 
-a.instagram {
-    color: black;
+.title{
+    font-size: 120px;
+    margin-bottom: 100px;
 }
+
+.details{
+    font-size: 220px;
+>>>>>>> 40819d3820d16373da1b6bd02c2d40558467c0c1
+} */
+        
+        a.instagram {
+            color: black;
+        }
+        
+        .App {
+            height: 100vh;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: top center;
+        }
+        
+        .App-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 40px;
+        }
+        
+        .description {
+            text-align: left;
+        }
+        
+        #form {
+            border: 4px solid #00004d;
+            border-style: inset;
+            display: none;
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+        
+        .key {
+            display: inline;
+        }
+        
+        .value {
+            display: inline;
+        }
+        
+        #btnProfil {
+            margin-top: 100px;
+        }
+        /* Galaxy */
+        
+        @media (min-device-width: 270px) and (max-device-width: 690px) {
+            .App {
+                background-position: center center;
+            }
+            .title {
+                font-size: 50px;
+                margin-bottom: 1px;
+            }
+            .description {
+                text-align: left;
+                display: none;
+            }
+            #btnProfil {}
+            .Details {
+                font-size: 1000px;
+            }
+            .key {
+                display: block;
+            }
+            .value {
+                display: block;
+            }
+            #form {
+                border: 4px solid #00004d;
+                border-style: inset;
+                display: none;
+                width: 110%;
+                text-align: left;
+            }
+        }
+        /* Ipad */
+        
+        @media (min-device-width: 700px) and (max-device-width: 1024px) {
+            .title {
+                font-size: 70px;
+                margin-bottom: 1px;
+            }
+            .App {
+                background-position: center center;
+            }
+            .description {
+                text-align: left;
+            }
+            #btnProfil {}
+            .Details {
+                font-size: 1000px;
+            }
+            .key {
+                display: block;
+            }
+            .value {
+                display: block;
+            }
+            #form {
+                border: 4px solid #00004d;
+                border-style: inset;
+                display: none;
+                width: 60%;
+                text-align: left;
+            }
+            /* .App-content {
+        align-items: flex-end;
+    } */
+        }
+        /* justify-content: center; */

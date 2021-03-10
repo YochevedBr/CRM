@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import firebase from './../firebase.js';
 import './Purchase.css'
 
-
-
+// Component to specific purchase
 function Purchase(props) {
     const [customerName, setCustomerName] = useState([]);
     const [agentName, setAgentName] = useState([]);
@@ -14,6 +11,7 @@ function Purchase(props) {
     const [location, setLocation] = useState('');
 
     useEffect(() => {
+        // Get the previous call record id from localStorage
         var prev_call_id = localStorage.getItem("prev_call_id")
         var index = 0
         var db = firebase.firestore();
@@ -55,7 +53,6 @@ function Purchase(props) {
         });  
     },[]);
     
-
     return(
         // <div class='purchase' key={props.purchase.customer_id} style={{borderBottom: '2px solid #0044cc',borderRadius: '4px', width:'30%', 'marginLeft': 'auto', 'marginRight': 'auto', marginBottom:'10px'}}>
         <div class='purchase' key={props.purchase.customer_id} style={{borderRadius: '8px', border: '2px solid #0044cc', borderStyle: 'inset', marginLeft: '50px', marginRight: '50px'}}>
