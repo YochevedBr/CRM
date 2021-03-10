@@ -6,7 +6,6 @@ import Reports from './Reports'
 import Purchases from './Purchases'
 import Products from './Products'
 import CustomersReports from './CustomersReports'
-import CustomersDetails from './CustomersDetails'
 import HomePage from './HomePage'
 import CallRecords from './CallRecords'
 import UpdateCustomer from './UpdateCustomer'
@@ -20,9 +19,7 @@ import SignUp from './SignUp'
 import NumOfPurchases from './NumOfPurchases'
 import MonthlySales from './MonthlySales'
 import PrintPurchases from './PrintPurchases'
-
 import Footer from './Footer'
-
 
 function routing(){
     return(
@@ -50,28 +47,18 @@ function routing(){
                     <BootstrapNavbar/>
                     <Purchases/>
                     <Footer/>
-
                 </Route>
 
                 <Route path="/products">
                     <BootstrapNavbar/>
                     <Products/>
                     <Footer/>
-
                 </Route>
 
                 <Route path="/customers_reports">
                     <BootstrapNavbar/>
                     <CustomersReports/>
                     <Footer/>
-
-                </Route>
-
-                <Route path="/customers_details">
-                    <BootstrapNavbar/>
-                    <CustomersDetails/>
-                    <Footer/>
-
                 </Route>
 
                 <Route path="/home_page">
@@ -83,84 +70,72 @@ function routing(){
                     <BootstrapNavbar/>
                     <CallRecords/>
                     <Footer/>
-
                 </Route>
 
                 <Route path="/bootstrap_navbar">
                     <BootstrapNavbar/>
                     <HomePage/>
                     <Footer/>
-                
                 </Route>
 
                 <Route path="/update_customer">
                     <BootstrapNavbar/>
                     <UpdateCustomer/>
                     <Footer/>
-
                 </Route>
 
                 <Route path="/print_customer">
                     <BootstrapNavbar/>
                     <PrintCustomer/>
                     <Footer/>
-
                 </Route>
 
                 <Route exact path="/apt_details">
                     <BootstrapNavbar/>
                     <AptDetails/>
                     <Footer/>
-
                 </Route>
 
                 <Route path="/apt_details/:aptID">
                     <BootstrapNavbar/>
                     <AptDetails/>
                     <Footer/>
-
                 </Route>
 
                 <Route path="/update_apt/:aptID">
                     <BootstrapNavbar/>
                     <UpdateOrAddApt/>
                     <Footer/>
-
                 </Route>
 
                 <Route path="/add_apt">
                     <BootstrapNavbar/>
                     <UpdateOrAddApt/>
                     <Footer/>
-
                 </Route>
 
                 <Route path="/print_purchases">
                     <BootstrapNavbar/>
                     <PrintPurchases/>
                     <Footer/>
-
                 </Route>
 
                 <Route path="/call_details/:callID">
                     <BootstrapNavbar/>
                     <CallDetails/>
                     <Footer/>
-
                 </Route>
 
                 <Route path="/num_of_purchases">
                     <BootstrapNavbar/>
                     <NumOfPurchases/>
                     <Footer/>
-
                 </Route>
 
                 <Route path="/monthly_sales">
                     <BootstrapNavbar/>
                     <MonthlySales/>
                     <Footer/>
-
                 </Route>
                 
                 <Route path="/login" component={Login} />
