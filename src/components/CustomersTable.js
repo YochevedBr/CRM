@@ -21,9 +21,9 @@ function CustomersTable(props) {
     const [data, setData] = React.useState([]);
 
     const [id, setId] = React.useState("")
-    const [name, setName] = React.useState("1")
-    const [phoneNumber, setPhoneNumber] = React.useState("2")
-    const [email, setEmail] = React.useState("3")
+    const [name, setName] = React.useState("")
+    const [phoneNumber, setPhoneNumber] = React.useState("")
+    const [email, setEmail] = React.useState("")
 
     useEffect(() => {
         if(Row != ""){
@@ -60,7 +60,7 @@ function CustomersTable(props) {
                     db.collection("customers").doc(id).set({
                     name: name,
                     phoneNumber: phoneNumber,
-                    email: email,
+                    email: "",
                     deleted: true
                 }).then(() => {
                     window.location.reload();
@@ -194,7 +194,7 @@ function CustomersTable(props) {
                                         {column.render('Header')}
                                         <span>
                                             {/* Render the columns sort UI */}
-                                            {column.isSorted ? (column.isSortedDesc ? ' 🔻' : ' 🔺') : ' ➖'}
+                                            {column.isSorted ? (column.isSortedDesc ? ' ⬇️' : ' ⬆️') : ' ↕️'}
                                         </span>
                                     </div>
                                     {/* Render the columns filter UI */}
