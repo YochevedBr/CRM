@@ -72,7 +72,7 @@ function Products(){
                             Add Apartment
                         </Button>
                         
-                        <div className='wrapper' style={{marginTop: '2%'}}>
+                        <div className='wrapper' style={{margin: '5%'}}>
                             {products.map((product, i) => <Product key={i} product={product} />)}
                         </div>
                        

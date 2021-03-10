@@ -101,9 +101,7 @@ function HomaPage() {
 					<div class='key'>Name:</div><div class='value'>{agentName} </div>
 					<div class='key'>Email:</div><div class='value' >{agentEmail} </div>
 					<div class='key'>Phone Number:</div><div class='value'>{agentPhone} </div>
-					{/* <div class='Details'><div class='key'>Name: </div><div class='value' >{agentName}</div></div>
-					<div class='Details'><div class='key'>Email: </div><div class='value' >{agentEmail}</div></div>
-					<div class='Details'><div class='key'>Phone Number: </div><div class='value'>{agentPhone}</div></div> */}
+				
 				</form>
 				<div className="social-container">
 					<h7 style={{color: '#000066'}}>Agent - interest the customer on our Instagram :) &nbsp;</h7>

@@ -22,12 +22,11 @@ function Product(props){
         {   
             product.images ?
                 <div>
-                <div className = "square" key={product.id} style={{ boxShadow: "1px 1px 2px 2px #999", background: "#ffffff"}}>
+                <div className = "square" key={product.id} style={{ border: "solid 4px #e0e0d1", background: "#ffffff", borderRadius: "1%"}}>
                     <br></br>
                     
                     <a style={{textDecoration: 'none', color: 'black'}} href={`/apt_details/${product.id}`}>
                         <Image style={{'width': '30px', 'hight': '30px'}} src={product.images[0]} />
-                        <br></br>
                         <h5 className='font' style={{'textIndent': "10px", 'textAlign': "justify", 'color': '#000066' }}>{product.location}</h5>
                         {/* <Location class='flex-child1' location={product.location}/> */}
                         <div className='flex-container' style={{'position': 'relative'}}>

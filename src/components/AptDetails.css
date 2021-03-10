@@ -1,0 +1,17 @@
+.bigimage {
+    margin-left: 10%;
+}
+
+@media screen and (max-width: 1024px) {
+    .bigimage {
+        padding: 0%;
+        margin-left: 0%;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .bigimage {
+        padding: 0%;
+        margin-left: 0%;
+    }
+}

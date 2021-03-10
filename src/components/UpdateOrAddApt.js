@@ -139,12 +139,13 @@ function UpdateOrAddApt(){
  
     return (
         
-        <div calssName=" apt justify-content-center" style={{position: "absolute", marginLeft: "35%", width: "420px", top: "70px",    alignItems: "center", backgroundColor: 'white', boxShadow: "0px 0px 3px 3px #999"}}>
+        <div className="apt1">
+        {/* <div calssName="apt" style={{position: "absolute",top: "70px", alignItems: "center", backgroundColor: 'white', boxShadow: "0px 0px 3px 3px #999"}}> */}
 
         <h6 style={{marginTop: "5px"}}>Apartment {aptID}</h6>
         <Container>
             <Row style={{width:"100%", margin:"0"}}>
-                <div class="col-sm-10" style={{marginLeft: "7%"}}>
+                <div className="col-sm-10" style={{marginLeft: "7%"}}>
                     <Form className="form" onSubmit={handleSubmit}> 
                         <Form.Group controlId="formCategory1" style={{margin: "1px 0"}}>
                             <Form.Label style = {{float: "left", marginLeft: "2%", margin: "0px 0"}}>Price</Form.Label>
