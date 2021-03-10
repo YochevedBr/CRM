@@ -20,12 +20,12 @@ function CallRecord(props) {
 
 
     return(
-        <div class='call' key={props.call.customer_id} style={{borderBottom: '2px solid #0044cc',borderRadius: '4px', width:'30%', 'marginLeft': 'auto', 'marginRight': 'auto', marginBottom:'10px'}}>
+        <div class='call' key={props.call.customer_id} style={{borderBottom: '2px solid #0044cc',borderRadius: '4px', width:'50%', 'marginLeft': 'auto', 'marginRight': 'auto', marginBottom:'10px'}}>
            {console.log(props.call)}
             <a style={{textDecoration: 'none', color: 'black'}} class="link-unstyled" href={`/call_details/${props.call.id}`}>  
                 <div className='flex-container' style={{'position': 'relative'}}>
-                    <h6 style={{color:'gray', 'position': 'absolute', 'right': '0'}}>{props.call.date}</h6>
-                    <h3 style={{textAlign:'left'}}>{name}</h3>
+                    <h6 className='responsive' style={{color:'gray', 'position': 'absolute', 'right': '0'}}>{props.call.date}</h6>
+                    <h3 className='responsive' style={{textAlign:'left'}}>{name}</h3>
                 </div>
             </a>
         </div>

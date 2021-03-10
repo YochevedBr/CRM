@@ -1,10 +1,12 @@
 import React from "react"
 import Button from '@material-ui/core/Button';
-import {Container, Row, Col, Image} from 'react-bootstrap';
+import {Container, Row, Col, Image, ListGroup} from 'react-bootstrap';
 import CustomersPic from '../pictures/CustomersReports2.jpg';
 import PurchasesPic from '../pictures/Purchases.jpg';
 import { withRouter } from 'react-router-dom';
 import {storage} from "./../firebase"
+
+import './Reports.css'
 
 class Reports extends React.Component{
     constructor(){
@@ -50,54 +52,39 @@ class Reports extends React.Component{
 
     render(){
         return(
-                <>
-                {console.log('1: ' + this.state.customers)}
-                {console.log('2: ' + this.state.purchases)}
-                {console.log('3: ' + this.state.monthly)}
-                {console.log('4: ' + this.state.sales)}
-                    {
-                        this.state.customers && this.state.purchases && this.state.monthly && this.state.sales ?
-                        
-                        <Container>
-                <br></br>
-                <h3 className='font'>Reports</h3>
-                <h5 className='font'>Here you can find dayly/monthly/yearly reports</h5>
-                <br></br>
-                <Row md={2} className='justify-content center'>
-                    <Col style={{backgroundColor: '#000077'}}>
-                        <a style={{textDecoration: 'none', color: 'black'}} href={`/customers_reports`}>
-                            <img className='oval' src={this.state.customers} width='30%' rounded />
+            <>
+
+                {
+                    this.state.customers && this.state.purchases && this.state.monthly && this.state.sales ?
+                    <ListGroup className='p-4' as="ul">
+                        <h3 className='font'> Reports </h3> 
+                        <h5 className='font'>Here you can find diverse reports on your contribution to our company</h5> 
+                        <ListGroup.Item className='my-3 rounded' action href={`/customers_reports`} style={{backgroundColor: '#072F5F'}}>
+                            <img className='oval' src={this.state.customers} style={{marginTop: '0', marginBottom: '2%'}} width='10%' rounded />
+                            <h5 className='font responsive' style={{color:'white', left: '0'}}>View our dedicated customers who use our servises to find their dream house</h5>
+                        </ListGroup.Item>
+                        <ListGroup.Item className='my-3 rounded' action href={`/purchases`} style={{backgroundColor: '#1261A0'}}>
+                            <img className='oval' src={this.state.purchases} style={{backgroundColor: 'white', marginTop: '0'}} width='10%' rounded />
                             <br></br>
-                            <h5 className='font' style={{color:'white'}}>View our dedicated customers who use our servises to fing their dream house</h5>
-                        </a>
-                    </Col>
-                    <Col style={{backgroundColor: '#000099'}}>
-                        <a style={{textDecoration: 'none', color: 'black'}} href={`/purchases`}>
-                            <img className='oval' src={this.state.purchases} style={{backgroundColor: 'white'}} width='30%' rounded />
                             <br></br>
-                            <h5 className='font' style={{color:'white'}}>All sales our wonderful agents did</h5>
-                        </a>
-                    </Col>
-                    <Col style={{backgroundColor: '#000099'}}>
-                        <a style={{textDecoration: 'none', color: 'black'}} href={`/num_of_purchases`}>
-                            <img className='oval' src={this.state.sales} width='30%' rounded />
+                            <h5 className='font responsive' style={{color:'white'}}>All sales our wonderful agents did</h5>
+                        </ListGroup.Item>
+                        <ListGroup.Item className='my-3 rounded' action href={`/num_of_purchases`} style={{backgroundColor: '#3895D3'}}>
+                            <img className='oval' src={this.state.sales} style={{backgroundColor: 'white', marginTop: '0'}} width='10%' rounded />
                             <br></br>
-                            <h5 className='font' style={{color:'white'}}>Compare your achivments to other agents</h5>
-                        </a>
-                    </Col>
-                    <Col style={{backgroundColor: '#0000cc'}}>
-                        <a style={{textDecoration: 'none', color: 'black'}} href={`/monthly_sales`}>
-                            <img className='oval' src={this.state.monthly} style={{backgroundColor: 'white'}} width='30%' rounded />
                             <br></br>
-                            <h5 className='font' style={{color:'white'}}>View your achivments in this year</h5>
-                        </a>
-                    </Col>
-                </Row>
-            </Container>
-            
-            : <h1>Loading...</h1> 
-                    }
-                </>     
+                            <h5 className='font responsive' style={{color:'white'}}>Compare your achievements to other agents</h5>
+                        </ListGroup.Item>
+                        <ListGroup.Item className='my-3 rounded' action href={`/monthly_sales`} style={{backgroundColor: '#58CCED'}}>
+                            <img className='oval' src={this.state.monthly} style={{backgroundColor: 'white', marginTop: '0'}} width='10%' rounded />
+                            <br></br>
+                            <br></br>
+                            <h5 className='font responsive' style={{color:'white'}}>View your achievements in this year</h5>
+                        </ListGroup.Item>
+                    </ListGroup>            
+                    : <h1>Loading...</h1> 
+                }
+            </>     
         )
     }
 }
