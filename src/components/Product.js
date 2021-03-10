@@ -21,22 +21,27 @@ function Product(props){
         <>
         {   
             product.images ?
-
-            // -webkit-box-shadow: 0 8px 6px -6px #999;
-            // -moz-box-shadow: 0 8px 6px -6px #999;
-          
+                <div>
                 <div className = "square" key={product.id} style={{ boxShadow: "1px 1px 2px 2px #999", background: "#ffffff"}}>
+                    <br></br>
+                    
                     <a style={{textDecoration: 'none', color: 'black'}} href={`/apt_details/${product.id}`}>
-                        <Image src={product.images[0]} width={'50'} height={'50'}/>
-                        <Location location={product.location}/>
+                        <Image style={{'width': '30px', 'hight': '30px'}} src={product.images[0]} />
+                        <br></br>
+                        <h5 className='font' style={{'textIndent': "10px", 'textAlign': "justify", 'color': '#000066' }}>{product.location}</h5>
+                        {/* <Location class='flex-child1' location={product.location}/> */}
                         <div className='flex-container' style={{'position': 'relative'}}>
-                            <Price class='flex-child' price={product.price}/>
+                            <h6 className='font' style={{'textIndent': "10px", 'textAlign': "justify", 'color': '#000066'}}>{product.price} ILS</h6>
                             <Sold class='flex-child' sold={product.sold}/>
+                           
                         </div>
                     </a>
+                    </div>
+
+                
                 </div>
-            : 
-                <div style={{display: 'flex', justifyContent: 'center'}}>
+    
+            : <div style={{display: 'flex', justifyContent: 'center'}}>
                     <ReactLoading type='bubbles' color="#000066" />
                 </div>
         }

@@ -81,8 +81,8 @@ function HomaPage() {
 		}  
 
 	},[]);
-
-           
+	
+	
 	return(
 		<>
 		 <div className="App" style={{backgroundImage: `url(${imageUrl})`}}>
