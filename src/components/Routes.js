@@ -55,11 +55,6 @@ function routing(){
                     <CustomersReports/>
                 </Route>
 
-                <Route path="/customers_details">
-                    <BootstrapNavbar/>
-                    <CustomersDetails/>
-                </Route>
-
                 <Route path="/home_page">
                     <BootstrapNavbar/>
                     <HomePage/>
