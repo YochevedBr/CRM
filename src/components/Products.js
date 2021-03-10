@@ -8,13 +8,23 @@ import { useState, useEffect } from "react";
 import ReactLoading from 'react-loading'
 import './Products.css'
 
-
 function Products(){
     const history = useHistory();
     const [products, setProducts] = useState([]);
 
+    const [img_instegram, setImg_instegram] = useState('');
+
     useEffect(() => {
+        // for instegram icon
+        storage
+		.ref('/image to design/instegram.png')
+		.getDownloadURL()
+		.then((DownloadURL) => {
+			setImg_instegram(DownloadURL)
+		})
+
         // retrieving the apartments from firestore
+
         var db = firebase.firestore();
         let allData = []
         db.collection("products")
@@ -56,12 +66,15 @@ function Products(){
                     <div style = {{background: "#f5f5f0"}}>
                         <br></br>
                         <h3 className='font'> All Our Properties </h3>
-                        <div className='wrapper'>
-                            {products.map((product, i) => <Product key={i} product={product} />)}
-                        </div>
+                        <br></br>
                         <Button variant="outlined" color="primary" onClick={() => {history.push({pathname:  `/add_apt`})}}>
                             Add Apartment
                         </Button>
+                        
+                        <div className='wrapper' style={{marginTop: '2%'}}>
+                            {products.map((product, i) => <Product key={i} product={product} />)}
+                        </div>
+                       
                     </div> 
                 :
                     <div style={{display: 'flex', justifyContent: 'center'}}>

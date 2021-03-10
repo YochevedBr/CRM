@@ -3,7 +3,9 @@ import { Container, Row, Col, Form, Button} from 'react-bootstrap';
 import { useHistory } from "react-router";
 import firebase from './../firebase';
 import {storage} from "./../firebase"
+import './UpdateOrAddApt.css'
 import { useParams } from 'react-router-dom';
+
 
 
 function UpdateOrAddApt(){
@@ -135,12 +137,13 @@ function UpdateOrAddApt(){
 
  
     return (
-        <div class="row justify-content-center" style={{position: "absolute", width: "420px", left:"35%", hight: "600px", top:"70px",alignItems:"center", boxShadow: "0px 0px 3px 3px #999", backgroundColor: 'white'}}>
-        <br></br>
-        <h5 style={{marginTop: "5px"}}>Apartment {aptID}</h5>
+        
+        <div calssName=" apt justify-content-center" style={{position: "absolute", marginLeft: "35%", width: "420px", top: "70px",    alignItems: "center", backgroundColor: 'white', boxShadow: "0px 0px 3px 3px #999"}}>
+
+        <h6 style={{marginTop: "5px"}}>Apartment {aptID}</h6>
         <Container>
-            <Row>
-                <div class="col-sm-10" style={{marginLeft: "30px"}}>
+            <Row style={{width:"100%", margin:"0"}}>
+                <div class="col-sm-10" style={{marginLeft: "7%"}}>
                     <Form className="form" onSubmit={handleSubmit}> 
                         <Form.Group controlId="formCategory1" style={{margin: "1px 0"}}>
                             <Form.Label style = {{float: "left", marginLeft: "2%", margin: "0px 0"}}>Price</Form.Label>
@@ -226,12 +229,14 @@ function UpdateOrAddApt(){
                             />          
                         </Form.Group>
                         <h6 style={{display: !correctDetails ? 'block' : 'none', color: 'red'}}>Please anter valid details.</h6>
-                        <Button variant="outlined" type="submit" color="primary" disabled={!validateForm()}>{aptID ? 'Update' : 'Add' }</Button>
+                        
+                        <Button variant="outlined" color="primary" type="submit"disabled={!validateForm()}>{aptID ? 'Update' : 'Add' }</Button>
                     </Form>
                 </div>
             </Row>
         </Container>
         </div>
+        
     )
 }
 

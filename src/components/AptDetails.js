@@ -64,22 +64,23 @@ function AptDetails(){
             :
         <div>
             <Container className='no-marginLR no-padding'>
-                <Row>
-                    <Col xs={4}>
+                <Row style={{width: '100%', pading: '3px', marginLeft: '15px'}}>
+                    <Col sm>
                         <AptDescription class='flex-child' description={data}></AptDescription>
                         <Button variant="outlined" color="#000066" onClick={() => {history.push({pathname:  `/update_apt/${data.id}`})}} style={{marginTop:"5px"}}>Edit</Button>
                     </Col>
                     <Col xs={8}>
-                        <Container>
-                            <Row>
+                        {/* <Col xs={8}> */}
+                        <Container className='ml-5' style={{width: '100%'}}>
+                            <Row style={{width: '100%', pading: '3px', margin: '3px'}}>
                                 <Col>
                                     <br></br>
                                     <br></br>
-                                    <Image src={data.image} width={'800'} height={'500'} borderRadius="4px"></Image>
+                                    <Image src={data.image} width={'1500'} height="auto" borderRadius="4px"></Image>
                                 </Col>
-                            </Row>
+                            </Row >
                             <br></br>
-                            <Row>
+                            <Row style={{width: '100%', pading: '3px', margin: '3px'}}>
                                 <SmallImages replaceImage={replaceImage} images={data.images}></SmallImages>
                             </Row>
                         </Container>
@@ -93,3 +94,4 @@ function AptDetails(){
 }
 
 export default AptDetails
+

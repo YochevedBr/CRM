@@ -82,7 +82,6 @@ function HomaPage() {
 		}  
 
 	},[]);
-
 	
 	return(
 		<>
