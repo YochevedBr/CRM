@@ -8,7 +8,7 @@ import $ from 'jquery';
 import Modal from "react-bootstrap/Modal";
 import CustomerCallRecord from './CustomerCallRecord'
 
-
+// Component to update customer details
 class UpdateCustomer extends React.Component {
     constructor(props){
         super(props);
@@ -29,15 +29,18 @@ class UpdateCustomer extends React.Component {
         this.handleClose = this.handleClose.bind(this);
     }
 
+    // Update the states
     updateState(){
+        // Retrives the customer with 'currentId'
         var docRef = firebase.firestore().collection("customers").doc(this.state.currentId)
         docRef.get().then((doc) => {
             if (doc.exists) {  
                 this.setState({
+                    // Keeps the values of customer
                     username : doc.data().name,
                     email : doc.data().email,
                     phonenumber : doc.data().phoneNumber
-                    }
+                }
                 )
             } else {
                 console.log("No such document!");
@@ -47,30 +50,32 @@ class UpdateCustomer extends React.Component {
         });
     }
 
+    // Close the modal of message
     handleClose(){
         this.setState({showModal: false})
     }
 
+    // On press on 'Update' button
     updateHandler(){
         var db = firebase.firestore()
-
+        // Retrives the value from the fields
         let update_name = $(".txtUser").val()
         let update_phone = $(".txtNumber").val()
         let update_email = $(".txtEmail").val()
 
         // In case of an empty field, leave the previous values 
-        if( update_name == '' ) {
+        if( update_name === '' ) {
             this.setState({emptyName: true})
         }
-        if( update_phone == '' ) {
+        if( update_phone === '' ) {
             this.setState({emptyPhone: true})
         }
-        if( update_email == '' ) {
+        if( update_email === '' ) {
             this.setState({emptyEmail: true})
         }
 
         // All the fields not empty
-        if(update_name!='' && update_phone!='' && update_email!='' ){
+        if(update_name!=='' && update_phone!=='' && update_email!=='' ){
             // Update exist document in collection "customers"
             db.collection("customers").doc(this.state.currentId).set({
                 email: update_email,
@@ -91,9 +96,9 @@ class UpdateCustomer extends React.Component {
     componentDidMount(){
         // Retrieve the contents of a single document 
         this.updateState(); 
+        var db = firebase.firestore();
 
         // display the call-records of the customer
-        var db = firebase.firestore();
         db.collection("call_records")
         .where("customer_id", "==", this.state.currentId)
         .get()
@@ -103,9 +108,9 @@ class UpdateCustomer extends React.Component {
                 let x = doc.data()
                 x.id = doc.id
                 callsData.push(x)
-
-            });
-            
+            }); 
+              
+            callsData = callsData.sort(custom_sort);
             this.setState({calls: callsData})
         });
     }
@@ -114,7 +119,7 @@ class UpdateCustomer extends React.Component {
             return (
             <Container>
                 <Row>
-                    <Col sm>
+                    <Col md>
                         <h1>Customer</h1>
                         <Form style={{width: "90%"}}>     
                             <p>{this.state.msg}</p>
@@ -129,7 +134,13 @@ class UpdateCustomer extends React.Component {
                                 <div className="label">
                                 <Form.Label>Phone Number</Form.Label>
                                 </div>
-                                <Form.Control onChange={(e) => this.setState({emptyPhone: false})} className="txtNumber" type="text" defaultValue={this.state.phonenumber}/> 
+                                <Form.Control 
+                                    placeholder="Format: 123-4567890 / 12-3456789"
+                                    pattern="[0-9]{2,3}-[0-9]{7}"
+                                    onChange={(e) => this.setState({emptyPhone: false})} 
+                                    className="txtNumber" 
+                                    type="text" 
+                                    defaultValue={this.state.phonenumber}/> 
                             </Form.Group>
                             <h6 style={{display: this.state.emptyPhone ? 'block' : 'none', color: 'red'}}>Empty Field‏</h6>
                             <Form.Group controlId="formCategory2">
@@ -146,15 +157,14 @@ class UpdateCustomer extends React.Component {
                             </div>
                         </Form>
                     </Col>
-                    <Col sm>
+                    <Col md>
                     <div>
                         <br></br>
                         <h5> CallRecords </h5> 
                         <br></br>
                         <div> {
-                            this.state.calls.map((call, i) => < CustomerCallRecord key = { i }
-                                call = { call }
-                                />)} 
+                            this.state.calls.map((call, i) => < CustomerCallRecord key = { i } call = { call }/>)
+                            } 
                         </div> 
                     </div> 
                     </Col> 
@@ -175,3 +185,10 @@ class UpdateCustomer extends React.Component {
 }
    
 export default UpdateCustomer
+
+
+function custom_sort(a, b) {
+     let x = new Date(b.date).getTime()
+     let y = new Date(a.date).getTime()
+     return new Date(b.date).getTime() > new Date(a.date).getTime() ? 1 : -1
+ }

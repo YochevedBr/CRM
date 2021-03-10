@@ -28,11 +28,11 @@ function CallRecord(props) {
 
 
     return(
-        <div class='call' key={props.call.customer_id} style={{borderBottom: '2px solid #0044cc',borderRadius: '4px', width:'65%', 'marginLeft': 'auto', 'marginRight': 'auto', marginBottom:'10px'}}>
+        <div class='call' key={props.call.customer_id} style={{borderBottom: '2px solid #0044cc',borderRadius: '4px', width:'75%', 'marginLeft': 'auto', 'marginRight': 'auto', marginBottom:'10px'}}>
             <a style={{textDecoration: 'none', color: 'black'}} class="link-unstyled" href={`/call_details/${props.call.id}`}>  
                 <div className='flex-container' style={{'position': 'relative'}}>
-                    <h8 className="side-title" style={{color:'gray', 'position': 'absolute', 'right': '0'}}>Interested: {interested}</h8>
-                    <h4 className="title" style={{textAlign:'left'}}>{props.call.date}</h4>
+                    <h8 id="side-title" className="responsive" style={{color:'gray', 'position': 'absolute', 'right': '0'}}>Interested: {interested}</h8>
+                    <h4 id="title" className="responsive" style={{textAlign:'left'}}>{props.call.date}</h4>
                 </div>
             </a>
         </div>

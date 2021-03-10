@@ -2,6 +2,7 @@ import React from "react"
 import CallRecord from './CallRecord'
 import { useState, useEffect } from "react";
 import firebase from './../firebase.js';
+import ReactLoading from 'react-loading'
 
 
 function CallRecords() {
@@ -46,17 +47,27 @@ function CallRecords() {
     // copyCalls.sort(custom_sort);
     // setCalls(copyCalls)
 
-    return ( 
-        <div>
-            <br></br>
-            <h3 className='font'> Call Records </h3> 
-            <h5 className='font'> See your activity with our clients </h5> 
-            <br></br>
-            <br></br>
-            <div> 
-                {calls.map((call, i) => < CallRecord key = { i } call = { call }/>)} 
-            </div> 
-        </div>
+    return (
+        <>
+            {
+                calls.length != 0 ?
+                    <div>
+                        <br></br>
+                        <h3 className='font'> Call Records </h3> 
+                        <h5 className='font'> See your activity with our clients </h5> 
+                        <br></br>
+                        <br></br>
+                        <div> 
+                            {calls.map((call, i) => < CallRecord key = { i } call = { call }/>)} 
+                        </div> 
+                    </div>
+                :
+                    <div style={{display: 'flex', justifyContent: 'center'}}>
+                        <ReactLoading type='bubbles' color="#000066" />
+                    </div>
+            }
+        </> 
+        
             )
     }
 

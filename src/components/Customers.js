@@ -2,14 +2,8 @@
 import React from "react"
 import CustomersTable from "./CustomersTable"
 import AddCustomer from "./AddCustomer"
-import {Container, Row, Col} from 'react-bootstrap';
-
-
 
 class Customers extends React.Component{
-    componentDidMount(){
-    }
-
     render(){
         return(
             <div>
@@ -25,5 +19,4 @@ class Customers extends React.Component{
     }
 }
    
-
 export default Customers
