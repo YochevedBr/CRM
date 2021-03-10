@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import "./CallRecord.css"
 import firebase from './../firebase.js';
 
 
 function CallRecord(props) {
-    console.log(props)
     const [name, setName] = useState('')
+    
     useEffect(() => {
+        // retrieving the client name that participated in the call
         var db = firebase.firestore();
         db.collection("customers")
         .doc(props.call.customer_id)
@@ -18,10 +17,8 @@ function CallRecord(props) {
         });
     },[]);
 
-
     return(
         <div class='call' key={props.call.customer_id} style={{borderBottom: '2px solid #0044cc',borderRadius: '4px', width:'50%', 'marginLeft': 'auto', 'marginRight': 'auto', marginBottom:'10px'}}>
-           {console.log(props.call)}
             <a style={{textDecoration: 'none', color: 'black'}} class="link-unstyled" href={`/call_details/${props.call.id}`}>  
                 <div className='flex-container' style={{'position': 'relative'}}>
                     <h6 className='responsive' style={{color:'gray', 'position': 'absolute', 'right': '0'}}>{props.call.date}</h6>
@@ -29,9 +26,7 @@ function CallRecord(props) {
                 </div>
             </a>
         </div>
-    )
-   
-
+    ) 
 }
 
 export default CallRecord
