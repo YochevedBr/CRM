@@ -3,9 +3,11 @@ import ReactToPrint, { useReactToPrint } from "react-to-print";
 import Button from '@material-ui/core/Button';
 import CustomersTable from './CustomersTable'
 
+// The component to print
 class ComponentToPrint extends React.Component {
     render() {
         return(
+            // 'true' to in case of 'print' button
             <div><CustomersTable reports={true}/></div>
         )
     }

@@ -8,6 +8,7 @@ import $ from 'jquery';
 import Modal from "react-bootstrap/Modal";
 import CustomerCallRecord from './CustomerCallRecord'
 
+// Component to update customer details
 class UpdateCustomer extends React.Component {
     constructor(props){
         super(props);
@@ -28,15 +29,18 @@ class UpdateCustomer extends React.Component {
         this.handleClose = this.handleClose.bind(this);
     }
 
+    // Update the states
     updateState(){
+        // Retrives the customer with 'currentId'
         var docRef = firebase.firestore().collection("customers").doc(this.state.currentId)
         docRef.get().then((doc) => {
             if (doc.exists) {  
                 this.setState({
+                    // Keeps the values of customer
                     username : doc.data().name,
                     email : doc.data().email,
                     phonenumber : doc.data().phoneNumber
-                    }
+                }
                 )
             } else {
                 console.log("No such document!");
@@ -46,30 +50,32 @@ class UpdateCustomer extends React.Component {
         });
     }
 
+    // Close the modal of message
     handleClose(){
         this.setState({showModal: false})
     }
 
+    // On press on 'Update' button
     updateHandler(){
         var db = firebase.firestore()
-
+        // Retrives the value from the fields
         let update_name = $(".txtUser").val()
         let update_phone = $(".txtNumber").val()
         let update_email = $(".txtEmail").val()
 
         // In case of an empty field, leave the previous values 
-        if( update_name == '' ) {
+        if( update_name === '' ) {
             this.setState({emptyName: true})
         }
-        if( update_phone == '' ) {
+        if( update_phone === '' ) {
             this.setState({emptyPhone: true})
         }
-        if( update_email == '' ) {
+        if( update_email === '' ) {
             this.setState({emptyEmail: true})
         }
 
         // All the fields not empty
-        if(update_name!='' && update_phone!='' && update_email!='' ){
+        if(update_name!=='' && update_phone!=='' && update_email!=='' ){
             // Update exist document in collection "customers"
             db.collection("customers").doc(this.state.currentId).set({
                 email: update_email,
@@ -149,9 +155,8 @@ class UpdateCustomer extends React.Component {
                         <h5> CallRecords </h5> 
                         <br></br>
                         <div> {
-                            this.state.calls.map((call, i) => < CustomerCallRecord key = { i }
-                                call = { call }
-                                />)} 
+                            this.state.calls.map((call, i) => < CustomerCallRecord key = { i } call = { call }/>)
+                            } 
                         </div> 
                     </div> 
                     </Col> 

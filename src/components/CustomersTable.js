@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react"
-import ReactToPrint from "react-to-print";
+import React, { useEffect } from "react"
 import { withRouter, useHistory } from 'react-router'
-import { useTable, useFilters, useSortBy,} from 'react-table';
-import { Container ,Row ,Col, Table, InputGroup, FormControl} from 'react-bootstrap';
-import { keys } from "@material-ui/core/styles/createBreakpoints";
+import { useTable, useFilters, useSortBy } from 'react-table';
+import { Table, InputGroup, FormControl } from 'react-bootstrap';
 import Button from '@material-ui/core/Button';
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -58,8 +56,8 @@ function CustomersTable(props) {
                 setShow(false);
                 var db = firebase.firestore()
 
-                    // Delete customer
-                    db.collection("customers").doc(id).set({
+                // 'Delete' customer -> Changes the status
+                db.collection("customers").doc(id).set({
                     name: name,
                     phoneNumber: phoneNumber,
                     email: "",
@@ -69,11 +67,6 @@ function CustomersTable(props) {
                 }).catch((error) => {
                     console.error("Error removing document: ", error);
                 });               
-                // db.collection("customers").doc(currentId).delete().then(() => {
-                //     console.log("Document successfully deleted!");
-                // }).catch((error) => {
-                //     console.error("Error removing document: ", error);
-                // });    
     }
 
     // Actions buttons for each row
@@ -143,6 +136,7 @@ function CustomersTable(props) {
         });
     }, []);        
 
+    // Defines culumns of table
     const columns = React.useMemo(() =>
     [
         {  
@@ -231,21 +225,13 @@ function CustomersTable(props) {
                 <Modal.Body>Are you sure you want to delete {Row.name}?
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                    Cancel
-                    </Button>
-                    <Button variant="primary" onClick={handleDelete}>
-                    Yes
-                    </Button>
+                    <Button variant="secondary" onClick={handleClose}>Cancel</Button>
+                    <Button variant="primary" onClick={handleDelete}>Yes</Button>
                 </Modal.Footer>
             </Modal>
             </>
-
         </div>
-        //  }
-        //  </>
     )
-
 }
 
 

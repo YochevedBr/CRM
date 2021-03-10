@@ -46,8 +46,8 @@ export default function FormDialog() {
     .then((snapshot) => {
         snapshot.forEach((doc) => {
           if(doc.exists){
-            if(!doc.data().deleted){//??????????????????????
-              console.log("222222222222222222")
+            // Check if the customer that return is on not delete status
+            if(!doc.data().deleted){
               flagExist = true
               setEmailExist(true)
             }   
@@ -56,6 +56,7 @@ export default function FormDialog() {
     }).catch((error) => {
         console.log("Error getting document:", error);
     }).then(() => {
+
       //Input integrity check - phone number
       if(!(/[0-9]{2,3}-[0-9]{7}/.test(phoneNumber))){
         setwrongPhone(true)
@@ -77,7 +78,7 @@ export default function FormDialog() {
           email: email,
           deleted: false,
         }).then(() => {
-          // After the entry refreshes the page
+          // After the entry -> refreshes the page
           window.location.reload();
         })
         setName('');
