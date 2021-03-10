@@ -1,38 +1,32 @@
 import React from 'react'
 import { useParams } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
-
-import img from '../pictures/house-real-estate-logo.jpg'
-import img1 from '../pictures/Purchases.jpg'
-
 import AptDescription from './AptDescription'
 import SmallImages from './SmallImages'
 import Image from './Image'
-
 import { useHistory } from "react-router";
-
 import { Container, Row, Col } from 'react-bootstrap'
 import firebase from './../firebase.js';
 import {storage} from "./../firebase"
-
 import { useState, useEffect } from "react";
-
 import ReactLoading from 'react-loading'
 
 
 function AptDetails(){
+    // the apartment id
     let {aptID} = useParams()
-    // retrieve the correct apartment by query
-    
+ 
     const history = useHistory()
     const [data, setData] = useState([]);
 
     useEffect(() => {  
+        // retrieving the apartment details
         var db = firebase.firestore();
         db.collection("products")
         .doc(aptID)
         .get()
         .then((doc) => {
+            // retrieving the images related to the apartment
             storage
             .ref(aptID)
             .listAll()
@@ -74,7 +68,6 @@ function AptDetails(){
                     <Col xs={4}>
                         <AptDescription class='flex-child' description={data}></AptDescription>
                         <Button variant="outlined" color="#000066" onClick={() => {history.push({pathname:  `/update_apt/${data.id}`})}} style={{marginTop:"5px"}}>Edit</Button>
-                  
                     </Col>
                     <Col xs={8}>
                         <Container>

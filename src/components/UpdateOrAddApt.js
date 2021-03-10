@@ -19,7 +19,6 @@ function UpdateOrAddApt(){
     const [private_house, setPrivate] = useState("")
     const [sold, setSold] = useState("")
     const [correctDetails, setCorrectDetails] = useState(true)
-    const allInputs = {imgUrl: ''}
     const [imageAsFile, setImageAsFile] = useState([])
     
     const history = useHistory();

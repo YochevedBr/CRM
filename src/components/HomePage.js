@@ -2,12 +2,9 @@ import React from "react"
 import './HomePage.css'
 import './GeneralStyle.css'
 import './PrintCustomer.css'
-
 import $ from 'jquery';  
 import Button from '@material-ui/core/Button';
 import firebase from './../firebase.js';
-
-// import instegram from '../pictures/instegram.png'// import instegram from '../pictures/instegram.png'
 import {storage} from "./../firebase"
 import { useState, useEffect } from "react";
 
@@ -16,11 +13,12 @@ function HomaPage() {
 	const [img_logo, setImg_logo] = useState('');
 	const [img_instegram, setImg_instegram] = useState('');
 
-	// Agent profil
+	// Agent profile
 	const [agentName, setAgentName] = useState('');
 	const [agentPhone, setAgentPhone] = useState('');
 	const [agentEmail, setAgentEmail] = useState('');
-	// To open/ close the form
+	
+	// To open/close the form
 	const [flagToggle, setFlagToggle] = useState(false);
 
 	useEffect(() => {
@@ -31,6 +29,7 @@ function HomaPage() {
 		.then((DownloadURL) => {
 			setImg_logo(DownloadURL)
 		})
+		// Retriving from firebase storage the instagram image
 		storage
 		.ref('/image to design/instegram.png')
 		.getDownloadURL()
@@ -38,7 +37,7 @@ function HomaPage() {
 			setImg_instegram(DownloadURL)
 		})
 
-		// To agent profil form
+		// To agent profile form
 		var db = firebase.firestore();
 		if(!flagToggle){
 			// Opens the form
@@ -74,8 +73,6 @@ function HomaPage() {
 		<div className="background">
 			<img style={{'display': 'block', 'marginLeft': 'auto', 'marginRight': 'auto'}} src={img_logo} alt='' width='100%'/>
 			<div className="social-container">
-				{/* <h8>yptbrealestate@gmail.com</h8> */}
-				{/* <br></br> */}
 				<h7 style={{color: '#000066'}}>Agent - interest the customer on our Instagram :) &nbsp;</h7>
 				<a href=" https://www.instagram.com/yptb_real_estate" className="instagram social">
 					<img src={img_instegram} alt="instegram" height={30} width={30}/>
@@ -87,17 +84,18 @@ function HomaPage() {
            
 	return(
 		<>
-		<form >
-			<Button id="btnProfil" variant="outlined" color="primary" style={{marginTop: "4px", marginLeft: "40px"}}>Agent Profil</Button>
-		</form>
-		<form class="font" id="form" style={{border:'4px solid  #00004d', borderStyle: 'inset', display:'none', marginLeft:'50px', marginRight:'50px'}}>
-			<div class='Details'><div class='key'>Name: </div><div class='value' style={{fontSize:'22px'}}>{agentName}</div></div>
-			<div class='Details'><div class='key'>Email: </div><div class='value' style={{fontSize:'22px'}}>{agentEmail}</div></div>
-			<div class='Details'><div class='key'>Phone Number: </div><div class='value' style={{fontSize:'22px'}}>{agentPhone}</div></div>
-		</form>
-		{homePage}
+			<form >
+				<Button id="btnProfil" variant="outlined" color="primary" style={{marginTop: "4px", marginLeft: "40px"}}>Agent Profil</Button>
+			</form>
+			<form class="font" id="form" style={{border:'4px solid  #00004d', borderStyle: 'inset', display:'none', marginLeft:'50px', marginRight:'50px'}}>
+				<div class='Details'><div class='key'>Name: </div><div class='value' style={{fontSize:'22px'}}>{agentName}</div></div>
+				<div class='Details'><div class='key'>Email: </div><div class='value' style={{fontSize:'22px'}}>{agentEmail}</div></div>
+				<div class='Details'><div class='key'>Phone Number: </div><div class='value' style={{fontSize:'22px'}}>{agentPhone}</div></div>
+			</form>
+			{homePage}
 		</>
 	);
     
 }
+
 export default HomaPage

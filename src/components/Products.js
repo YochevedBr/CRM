@@ -6,7 +6,6 @@ import firebase from './../firebase.js';
 import {storage} from "./../firebase"
 import { useState, useEffect } from "react";
 import ReactLoading from 'react-loading'
-
 import './Products.css'
 
 
@@ -69,8 +68,7 @@ function Products(){
                         <ReactLoading type='bubbles' color="#000066" />
                     </div>
             }
-        </> 
-        
+        </>     
     )
 }
 
