@@ -7,23 +7,22 @@
     margin-top: 20px;
 }
 
-.title {
+.main-title {
     font-size: 20px;
     margin-top: 30px;
-
 }
-
 
 @media screen and (max-width: 1024px) {
     .side-title {
         font-size: 15px;
         margin-bottom: 60px;
+        display: none;
     }
 
-    .title {
+    .main-title {
         font-size: 20px;
-        margin-top: 40px;
-
+        margin-top: 4px;
+        margin: auto;
     }
 }
 
@@ -31,5 +30,4 @@
     .side-title {
        display: none;
     }
-    
 }

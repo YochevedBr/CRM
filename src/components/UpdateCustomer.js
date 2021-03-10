@@ -108,7 +108,9 @@ class UpdateCustomer extends React.Component {
                 let x = doc.data()
                 x.id = doc.id
                 callsData.push(x)
-            });   
+            }); 
+              
+            callsData = callsData.sort(custom_sort);
             this.setState({calls: callsData})
         });
     }
@@ -116,9 +118,9 @@ class UpdateCustomer extends React.Component {
     render(){
             return (
             <Container>
-                <Row>
+                <Row style={{width: '100%', pading: '3px', marginLeft: '15px'}}>
                     <Col sm>
-                        <h1 className='font'>Customer</h1>
+                        <h1 className='font'>Client</h1>
                         <Form style={{width: "90%"}}>     
                             <p>{this.state.msg}</p>
                             <Form.Group controlId="formCategory1">
@@ -132,12 +134,12 @@ class UpdateCustomer extends React.Component {
                                 <div className="label">
                                 <Form.Label>Phone Number</Form.Label>
                                 </div>
-                                <Form.Control 
-                                    type="tel"
+                                <Form.Control
+                                    type="tel" 
                                     placeholder="Format: 123-4567890 / 12-3456789"
                                     pattern="[0-9]{2,3}-[0-9]{7}"
                                     onChange={(e) => this.setState({emptyPhone: false})} 
-                                    className="txtNumber"  
+                                    className="txtNumber" 
                                     defaultValue={this.state.phonenumber}/> 
                             </Form.Group>
                             <h6 style={{display: this.state.emptyPhone ? 'block' : 'none', color: 'red'}}>Empty Field‏</h6>
@@ -145,7 +147,12 @@ class UpdateCustomer extends React.Component {
                                 <div className="label">
                                 <Form.Label>Email</Form.Label>
                                 </div>
-                                <Form.Control onChange={(e) => this.setState({emptyEmail: false})} className="txtEmail" type="email" defaultValue={this.state.email} />          
+                                <Form.Control 
+                                    onChange={(e) => this.setState({emptyEmail: false})} 
+                                    className="txtEmail" 
+                                    placeholder="Please include an '@' in the email address"
+                                    type="email" 
+                                    defaultValue={this.state.email} />          
                             </Form.Group>
                             <h6 style={{display: this.state.emptyEmail ? 'block' : 'none', color: 'red'}}>Empty Field‏</h6>
                             <Button className="btn-inline" variant="outlined" color="primary" onClick={this.updateHandler}>Update</Button>
@@ -183,3 +190,7 @@ class UpdateCustomer extends React.Component {
 }
    
 export default UpdateCustomer
+
+function custom_sort(a, b) {
+    return new Date(b.date).getTime() > new Date(a.date).getTime() ? 1 : -1
+}

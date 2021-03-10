@@ -6,6 +6,7 @@ import firebase from './../firebase.js';
 import './PrintCustomer.css'
 
 class ComponentToPrint extends React.Component {
+    
     constructor(props) {
         super(props);
         this.state = {

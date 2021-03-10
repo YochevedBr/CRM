@@ -6,9 +6,7 @@ import Button from '@material-ui/core/Button';
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ReactLoading from 'react-loading'
-import './CustomersTable.css';
 import firebase from './../firebase.js';
-
 
 function CustomersTable(props) {
     const reports = props.reports;    
@@ -21,7 +19,7 @@ function CustomersTable(props) {
     const [id, setId] = React.useState("")
     const [name, setName] = React.useState("")
     const [phoneNumber, setPhoneNumber] = React.useState("")
-    const [email, setEmail] = React.useState("")
+    const [, setEmail] = React.useState("")
 
     useEffect(() => {
         if(Row != ""){
@@ -55,20 +53,20 @@ function CustomersTable(props) {
 
     // Handle with delete customer
     const handleDelete = () => {
-                setShow(false);
-                var db = firebase.firestore()
+        setShow(false);
+        var db = firebase.firestore()
 
-                // 'Delete' customer -> Changes the status
-                db.collection("customers").doc(id).set({
-                    name: name,
-                    phoneNumber: phoneNumber,
-                    email: "",
-                    deleted: true
-                }).then(() => {
-                    window.location.reload();
-                }).catch((error) => {
-                    console.error("Error removing document: ", error);
-                });               
+        // 'Delete' customer -> Changes the status
+        db.collection("customers").doc(id).set({
+            name: name,
+            phoneNumber: phoneNumber,
+            email: "",
+            deleted: true
+        }).then(() => {
+            window.location.reload();
+        }).catch((error) => {
+            console.error("Error removing document: ", error);
+        });               
     }
 
     // Actions buttons for each row
@@ -190,7 +188,6 @@ function CustomersTable(props) {
                     </div>
                 :
                     <div>
-                        
                         <Table striped bordered responsive bsStyle="default" {...getTableProps()}>
                             <thead>
                                 {headerGroups.map(headerGroup => (
@@ -223,7 +220,6 @@ function CustomersTable(props) {
                                         </tr>
                                     )
                                 })}
-
                             </tbody>
                         </Table>
                         <>
@@ -243,13 +239,11 @@ function CustomersTable(props) {
                             </Modal.Footer>
                         </Modal>
                         </>
-
                     </div>
             }
         </>
     )
 }
-
 
 export default withRouter(CustomersTable);
 

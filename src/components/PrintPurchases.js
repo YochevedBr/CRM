@@ -60,7 +60,6 @@ class ComponentToPrint extends React.Component {
     }
 }
 
-
 // Print the purchases report
 class Print extends React.Component {     
     render() {

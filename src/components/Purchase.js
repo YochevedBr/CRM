@@ -20,6 +20,7 @@ function Purchase(props) {
         if(props.purchase.id == prev_call_id){
             index ++ // Show the purchase in the 'index' place
         }
+
         // In case that purchased one products in the call record
         else{
             index = 0
@@ -54,14 +55,12 @@ function Purchase(props) {
     },[]);
     
     return(
-        // <div class='purchase' key={props.purchase.customer_id} style={{borderBottom: '2px solid #0044cc',borderRadius: '4px', width:'30%', 'marginLeft': 'auto', 'marginRight': 'auto', marginBottom:'10px'}}>
         <div class='purchase' key={props.purchase.customer_id} style={{borderRadius: '8px', border: '2px solid #0044cc', borderStyle: 'inset', marginLeft: '50px', marginRight: '50px'}}>
             <div style={{textDecoration: 'none', color: 'black'}} class="link-unstyled">
-                {/* <div style={{color:'gray', textAlign:'left'}}>{props.purchase.purchased}</div> */}
                 <div className='Details' ><div className='key' style={{}}>Apartment ID: </div><div className='value'>{apartmentId}</div></div>
                 <div className='Details' ><div className='key' style={{}}>Location:  </div><div className='value'>{location}</div></div>
                 <div className='Details' ><div className='key' style={{}}>Price: </div><div className='value'>{price}</div></div>
-                <div className='Details' ><div className='key' style={{}}>Customer: </div><div className='value'>{customerName}</div></div>
+                <div className='Details' ><div className='key' style={{}}>Client: </div><div className='value'>{customerName}</div></div>
                 <div className='Details' ><div className='key' style={{}}>Agent: </div><div className='value'>{agentName}</div></div>
             </div>
         </div>
