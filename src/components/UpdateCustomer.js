@@ -132,12 +132,12 @@ class UpdateCustomer extends React.Component {
                                 <div className="label">
                                 <Form.Label>Phone Number</Form.Label>
                                 </div>
-                                <Form.Control 
+                                <Form.Control
+                                    type="tel" 
                                     placeholder="Format: 123-4567890 / 12-3456789"
                                     pattern="[0-9]{2,3}-[0-9]{7}"
                                     onChange={(e) => this.setState({emptyPhone: false})} 
                                     className="txtNumber" 
-                                    type="text" 
                                     defaultValue={this.state.phonenumber}/> 
                             </Form.Group>
                             <h6 style={{display: this.state.emptyPhone ? 'block' : 'none', color: 'red'}}>Empty Field‏</h6>
@@ -145,7 +145,12 @@ class UpdateCustomer extends React.Component {
                                 <div className="label">
                                 <Form.Label>Email</Form.Label>
                                 </div>
-                                <Form.Control onChange={(e) => this.setState({emptyEmail: false})} className="txtEmail" type="email" defaultValue={this.state.email} />          
+                                <Form.Control 
+                                    onChange={(e) => this.setState({emptyEmail: false})} 
+                                    className="txtEmail" 
+                                    placeholder="Please include an '@' in the email address"
+                                    type="email" 
+                                    defaultValue={this.state.email} />          
                             </Form.Group>
                             <h6 style={{display: this.state.emptyEmail ? 'block' : 'none', color: 'red'}}>Empty Field‏</h6>
                             <Button className="btn-inline" variant="outlined" color="primary" onClick={this.updateHandler}>Update</Button>

@@ -6,7 +6,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize'
 import Switch from '@material-ui/core/Switch';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -16,12 +15,11 @@ export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false);
 
   // Customer ID
-  const [customerId, setCustomerId] = useState(props.dataFromParentId);
-  const [customerName, setCustomerName] = useState(props.dataFromParentName);
-  const [agentId, setAgentId] = useState(localStorage.getItem("agent_id"));
+  const [customerId,] = useState(props.dataFromParentId);
+  const [agentId,] = useState(localStorage.getItem("agent_id"));
 
   // Current Date
-  const [currentDate, setCurrentDate] = useState(new Date())
+  const [currentDate,] = useState(new Date())
 
   // Keep the value of the TextField
   const [interest, setInterest] = useState('');
@@ -37,6 +35,12 @@ export default function FormDialog(props) {
   const [PurchaseNotExist, setPurchaseNotExist] = useState(false);
   const [PurchaseSold, setPurchaseSold] = useState(false);
 
+  // For Switch
+  const [checked, setChecked] = React.useState(false);
+
+  const toggleChecked = () => {
+    setChecked(prev => !prev);
+  };
   
   const handleCancel = (event) => {
     event.preventDefault();
@@ -46,10 +50,21 @@ export default function FormDialog(props) {
   }
 
   const handleSubmit = (event) => {
+
+    var flagex = false
+    console.log('*******submit')
+    console.log('purchase\n' + purchased+'******')
+    console.log('purchased len:\n' + purchased.length)
+    console.log('purchase' + purchased+'****')
+    console.log('purchased len:\n' + purchased.length)
+    
+    console.log('Object len:\n' + Object.keys(purchased).length)
+
+
+
+
     event.preventDefault();
     let formatDate = currentDate.getFullYear() + '/' + ""+(Number(currentDate.getMonth())+1) + '/' + currentDate.getDate()
-
-    
     var db = firebase.firestore();
     
     // Check if the apartments exist
@@ -57,7 +72,12 @@ export default function FormDialog(props) {
     var reloadFlag = false
     var count = 0
 
-    if(purchased.length == 0){
+    // Checks if the customer did not purchase anything
+
+    // if(purchased==' '){
+    // if(purchased.length == 0){
+    if (Object.keys(purchased).length == 0) {
+
       setOpen(false);
 
       // Create call_record Collection
@@ -73,14 +93,16 @@ export default function FormDialog(props) {
         window.location.reload();
       })
       setInterest('');
-      setPurchased([]);
+      setPurchased([])
       setSupport('');
       setChecked(false)
     }
-
-    // Checks if the customer did not purchase anything
-    // if(purchased.length != 0){
     else{
+      console.log("in else\n" + purchased[0])
+      console.log("type\n" + typeof(purchased[0]))
+      console.log("type\n" + typeof(purchased))
+
+
       for(var i=0; i<purchased.length; i++){
         db.collection("products")
         .doc(purchased[i])
@@ -91,6 +113,7 @@ export default function FormDialog(props) {
           if (!doc.exists){ 
             setPurchaseNotExist(true)
             setPurchaseSold(false)
+            setPurchased([])
             flag = true
           }
           
@@ -99,6 +122,7 @@ export default function FormDialog(props) {
             if (doc.data().sold){
               setPurchaseSold(true)
               setPurchaseNotExist(false)
+              setPurchased([])
               flag = true
             }
             // Checks if all the apartments exist => close dialog
@@ -124,7 +148,7 @@ export default function FormDialog(props) {
               })
               reloadFlag = true // need to reload the page
               setInterest('');
-              setPurchased([]);
+              setPurchased([])
               setSupport('');
               setChecked(false)
               setPurchaseNotExist(false)
@@ -143,17 +167,11 @@ export default function FormDialog(props) {
   function validateForm() {
     return !PurchaseNotExist && !PurchaseSold && /\s/.test(purchased) == false && interest != '';
   }
-  function handleChange(event) {
+
+  function handleChange() {
     setPurchaseNotExist(false)
     setPurchaseSold(false)
   }
-
-  // For Switch
-  const [checked, setChecked] = React.useState(false);
-
-  const toggleChecked = () => {
-    setChecked(prev => !prev);
-  };
   
   return (
     <div>
@@ -161,22 +179,12 @@ export default function FormDialog(props) {
       <Dialog open={open} onClose={handleCancel} onChange={handleChange} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Call Record Details</DialogTitle>
         <DialogContent>            
-            {/* <TextareaAutosize
-                autoFocus
-                rowsMax	= "2"
-                rowsMin = "2"
-                margin="dense"
-                id="name"
-                label="Interested in ..."
-                type="text"
-                required
-                fullWidth>
-            </TextareaAutosize> */}
             <TextField
                 autoFocus
                 margin="dense"
                 id="name"
                 label="Interested in ..."
+                helperText="Required field *"
                 type="text"
                 fullWidth
                 onChange={(event) => setInterest(event.target.value)}
@@ -185,21 +193,20 @@ export default function FormDialog(props) {
                 margin="dense"
                 id="name"
                 label="Products purchased"
-                helperText="write each purchase in a new line"
+                error={PurchaseNotExist || PurchaseSold}
+                helperText={PurchaseNotExist ? 'The purchase entered doesn’t match any apartment id.' : PurchaseSold? 'The purchase entered is sold out.':'Write each purchase in a new line'}
                 type="text"
                 fullWidth
                 multiline
                 onChange={(event) => {
-                  var res = event.target.value
-                  res = res.split("\n")
-                  setPurchased(res)}
+                    var res = event.target.value
+                    res = res.split("\n")
+                    setPurchased(res)
+                    setPurchaseNotExist(false)
+                    setPurchaseSold(false)
+                  }
                 }
             />
-            {/* In case of wrong not responsive  !!!!!!!!!!!!!!!! */}
-            <h6 style={{display: PurchaseNotExist ? 'block' : 'none', color: 'red', width: '500px'}}>The purchase entered doesn’t match any apartment id.</h6>
-            <h6 style={{display: PurchaseSold ? 'block' : 'none', color: 'red', width: '500px'}}>The purchase entered is sold out.</h6>
-
-
             <TextField
                 margin="dense"
                 id="name"
@@ -228,4 +235,3 @@ export default function FormDialog(props) {
     </div>
   );
 }
-
