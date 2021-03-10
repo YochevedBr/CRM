@@ -85,7 +85,7 @@ function SignUp(props) {
 			<br></br>
 			<br></br>
 			<img style={{'display': 'block', 'marginLeft': 'auto', 'marginRight': 'auto'}} src={img} alt='' width='110%'/>
-			<div class="row justify-content-center align-items-center" style={{position: "absolute", 	top: "70px",alignItems:"center", border: "5px solid rgba(70, 70, 70, 0.16)", backgroundColor: 'white', opacity:'0.9'}}>
+			<div class="row justify-content-center align-items-center" style={{position: "absolute", justifyContent: "center", top: "150px", border: "5px solid rgba(70, 70, 70, 0.16)", backgroundColor: 'white', opacity:'0.9', left: '50%', top: '50%', transform: 'translate(-50%,-50%)', margin: '0'}}>
 				<div class="col-sm-8">
 					<h4 style={{color: '#000066'}}>Sign Up</h4>
 					<Form onSubmit={handleSubmit} onChange={handleChange}>
