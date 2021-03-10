@@ -61,7 +61,7 @@ function Purchase(props) {
                 <div className='Details' ><div className='key' style={{}}>Apartment ID: </div><div className='value'>{apartmentId}</div></div>
                 <div className='Details' ><div className='key' style={{}}>Location:  </div><div className='value'>{location}</div></div>
                 <div className='Details' ><div className='key' style={{}}>Price: </div><div className='value'>{price}</div></div>
-                <div className='Details' ><div className='key' style={{}}>Customer: </div><div className='value'>{customerName}</div></div>
+                <div className='Details' ><div className='key' style={{}}>Client: </div><div className='value'>{customerName}</div></div>
                 <div className='Details' ><div className='key' style={{}}>Agent: </div><div className='value'>{agentName}</div></div>
             </div>
         </div>

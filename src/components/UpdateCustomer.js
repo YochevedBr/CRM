@@ -120,7 +120,7 @@ class UpdateCustomer extends React.Component {
             <Container>
                 <Row>
                     <Col sm>
-                        <h1 className='font'>Customer</h1>
+                        <h1 className='font'>C</h1>
                         <Form style={{width: "90%"}}>     
                             <p>{this.state.msg}</p>
                             <Form.Group controlId="formCategory1">
@@ -157,7 +157,7 @@ class UpdateCustomer extends React.Component {
                             </div>
                         </Form>
                     </Col>
-                    <Col md>
+                    <Col sm>
                     <div>
                         <br></br>
                         <h5 className='font'> CallRecords </h5> 

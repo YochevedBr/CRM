@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 function HomaPage() {
 
 	// Agent profile
+	const [instagramIcon, setInstagramIcon] = useState('');
 	const [agentName, setAgentName] = useState('');
 	const [agentPhone, setAgentPhone] = useState('');
 	const [agentEmail, setAgentEmail] = useState('');

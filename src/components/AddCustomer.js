@@ -103,7 +103,7 @@ export default function FormDialog() {
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Add Customer
+        Add Client
       </Button>
       <Dialog open={open} onClose={handleCancel} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Customer Details</DialogTitle>
