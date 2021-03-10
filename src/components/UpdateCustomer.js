@@ -118,9 +118,9 @@ class UpdateCustomer extends React.Component {
     render(){
             return (
             <Container>
-                <Row>
+                <Row style={{width: '100%', pading: '3px', marginLeft: '15px'}}>
                     <Col sm>
-                        <h1 className='font'>C</h1>
+                        <h1 className='font'>Client</h1>
                         <Form style={{width: "90%"}}>     
                             <p>{this.state.msg}</p>
                             <Form.Group controlId="formCategory1">
@@ -191,9 +191,6 @@ class UpdateCustomer extends React.Component {
    
 export default UpdateCustomer
 
-
 function custom_sort(a, b) {
-     let x = new Date(b.date).getTime()
-     let y = new Date(a.date).getTime()
-     return new Date(b.date).getTime() > new Date(a.date).getTime() ? 1 : -1
- }
+    return new Date(b.date).getTime() > new Date(a.date).getTime() ? 1 : -1
+}

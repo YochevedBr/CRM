@@ -12,7 +12,7 @@ class CustomersReports extends React.Component{
     render(){
         return(
             <div>
-                <h1 style={{margin:"0 auto"}}>Clients Report</h1>
+                <h1 className='font' style={{margin:"0 auto"}}>Clients Report</h1>
                 {/* Show the customers table with button to print table */}
                 <PrintCustomersTable/>
             </div>

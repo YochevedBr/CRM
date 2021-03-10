@@ -51,18 +51,6 @@ export default function FormDialog(props) {
 
   const handleSubmit = (event) => {
 
-    var flagex = false
-    console.log('*******submit')
-    console.log('purchase\n' + purchased+'******')
-    console.log('purchased len:\n' + purchased.length)
-    console.log('purchase' + purchased+'****')
-    console.log('purchased len:\n' + purchased.length)
-    
-    console.log('Object len:\n' + Object.keys(purchased).length)
-
-
-
-
     event.preventDefault();
     let formatDate = currentDate.getFullYear() + '/' + ""+(Number(currentDate.getMonth())+1) + '/' + currentDate.getDate()
     var db = firebase.firestore();
@@ -73,11 +61,7 @@ export default function FormDialog(props) {
     var count = 0
 
     // Checks if the customer did not purchase anything
-
-    // if(purchased==' '){
-    // if(purchased.length == 0){
     if (Object.keys(purchased).length == 0) {
-
       setOpen(false);
 
       // Create call_record Collection
@@ -98,10 +82,6 @@ export default function FormDialog(props) {
       setChecked(false)
     }
     else{
-      console.log("in else\n" + purchased[0])
-      console.log("type\n" + typeof(purchased[0]))
-      console.log("type\n" + typeof(purchased))
-
 
       for(var i=0; i<purchased.length; i++){
         db.collection("products")
@@ -125,6 +105,7 @@ export default function FormDialog(props) {
               setPurchased([])
               flag = true
             }
+
             // Checks if all the apartments exist => close dialog
             if(count == purchased.length && !flag){
               for(var i=0; i<purchased.length; i++){
@@ -219,7 +200,6 @@ export default function FormDialog(props) {
             <br></br>
             <DialogContentText>Do return to customer?</DialogContentText>
             <FormGroup>
-                {/* <FormControlLabel control={<Switch size="small" checked={checked} onChange={toggleChecked} />} label="Small" /> */}
                 <FormControlLabel control={<Switch checked={checked} onChange={toggleChecked} />} label="YES" />
             </FormGroup>
         </DialogContent>
