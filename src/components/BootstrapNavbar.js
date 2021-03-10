@@ -10,9 +10,9 @@ class BootstrapNavbar extends React.Component{
     render(){
         return(
             <Router>                    
-                <Navbar callName = "navbar" variant="dark" expand="lg" sticky="top" style={{background: '#ffffff', borderTop:"3px solid #00004d"}}>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse id= "basic-navbar-nav">
+                <Navbar variant='light' callName="navbar" expand="lg" sticky="top" style={{background: '#ffffff', borderTop:"3px solid #00004d"}}>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+                    <Navbar.Collapse id="basic-navbar-nav">
                         <Nav.Link className = "nav1" href="/home_page" style={{color: '#000066'}}>Home</Nav.Link>
                         <Nav.Link className = "nav2" href="/products" style={{color: '#000066'}}>Properties</Nav.Link>
                         <Nav.Link className = "nav3" href="/Customers" style={{color: '#000066'}}>Customers</Nav.Link>
