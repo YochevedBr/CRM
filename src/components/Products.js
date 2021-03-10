@@ -67,12 +67,15 @@ function Products(){
                     <div style = {{background: "#f5f5f0"}}>
                         <br></br>
                         <h3 className='font'> All Our Properties </h3>
-                        <div className='wrapper'>
-                            {products.map((product, i) => <Product key={i} product={product} />)}
-                        </div>
+                        <br></br>
                         <Button variant="outlined" color="primary" onClick={() => {history.push({pathname:  `/add_apt`})}}>
                             Add Apartment
                         </Button>
+                        
+                        <div className='wrapper' style={{marginTop: '2%'}}>
+                            {products.map((product, i) => <Product key={i} product={product} />)}
+                        </div>
+                       
                     </div> 
                 :
                     <div style={{display: 'flex', justifyContent: 'center'}}>

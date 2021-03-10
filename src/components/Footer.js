@@ -20,13 +20,13 @@ function Footer(){
 
     return(
 
-        <div className="social-container" style={{ backgroundColor: "#000033"}}>
+        <footer className="footer" style={{ backgroundColor: "#000033"}}>
         <h7 style={{color: '#ffffff'}}>Agent - interest the customer on our Instagram :) &nbsp;</h7>
         <a href=" https://www.instagram.com/yptb_real_estate" className="instagram social">
         <img src={img_instegram} alt="instegram" height={30} width={30}/>
         </a>
         <br></br>
-        </div>
+        </footer>
 
    )
      

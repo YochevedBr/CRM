@@ -8,8 +8,6 @@ import { useParams } from 'react-router-dom';
 
 
 
-
-
 function UpdateOrAddApt(){
     const[price, setPrice] = useState("");
     const [location, setLocation] = useState("");
@@ -140,9 +138,10 @@ function UpdateOrAddApt(){
 
  
     return (
-        <div class=" con justify-content-center">
-        <br></br>
-        <h5 style={{marginTop: "5px"}}>Apartment {aptID}</h5>
+        
+        <div calssName=" apt justify-content-center" style={{position: "absolute", marginLeft: "35%", width: "420px", top: "70px",    alignItems: "center", backgroundColor: 'white', boxShadow: "0px 0px 3px 3px #999"}}>
+
+        <h6 style={{marginTop: "5px"}}>Apartment {aptID}</h6>
         <Container>
             <Row style={{width:"100%", margin:"0"}}>
                 <div class="col-sm-10" style={{marginLeft: "7%"}}>
@@ -238,6 +237,7 @@ function UpdateOrAddApt(){
             </Row>
         </Container>
         </div>
+        
     )
 }
 

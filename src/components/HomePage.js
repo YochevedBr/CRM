@@ -36,17 +36,10 @@ function HomaPage() {
 				setBackgroundDesktop(DownloadURL)
 		})
 		storage
-<<<<<<< HEAD
-		.ref('/image to design/real_estate.png')
-		.getDownloadURL()
-		.then((DownloadURL) => {
-			setImg_logo(DownloadURL)
-=======
 			.ref('/image to design/logo-mobile.jpg')
 			.getDownloadURL()
 			.then((DownloadURL) => {
 				setBackgroundMobile(DownloadURL)
->>>>>>> 40819d3820d16373da1b6bd02c2d40558467c0c1
 		})
 		storage
 			.ref('/image to design/instegram.png')
