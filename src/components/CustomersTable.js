@@ -10,6 +10,7 @@ import { withRouter } from 'react-router'
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ReactToPrint from "react-to-print";
+import ReactLoading from 'react-loading'
 
 
 function CustomersTable(props) {
@@ -179,67 +180,71 @@ function CustomersTable(props) {
         )
         
     return(
-        // <>
-        // {
-        // !data ? <h1>Loading...</h1> :
-        <div>
-            
-            <Table striped bordered responsive bsStyle="default" {...getTableProps()}>
-                <thead>
-                    {headerGroups.map(headerGroup => (
-                        <tr {...headerGroup.getHeaderGroupProps()}>
-                            {headerGroup.headers.map(column => (
-                                <th {...column.getHeaderProps()}>
-                                    <div {...column.getSortByToggleProps()}>
-                                        {column.render('Header')}
-                                        <span>
-                                            {/* Render the columns sort UI */}
-                                            {column.isSorted ? (column.isSortedDesc ? ' ⬇️' : ' ⬆️') : ' ↕️'}
-                                        </span>
-                                    </div>
-                                    {/* Render the columns filter UI */}
-                                    <div>{column.canFilter ? column.render('Filter') : null}</div>
-                                </th>
-                            ))}
-                        </tr>
-                    ))}
-                </thead>
-                <tbody {...getTableBodyProps()}>
-                    {rows.map(row => {
-                        prepareRow(row)
-                        return (
-                            <tr {...row.getRowProps()}>
-                                {row.cells.map(cell => {
-                                return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+        <>
+            {
+                data.length === 0 ? 
+                    <div style={{display: 'flex', justifyContent: 'center'}}>
+                        <ReactLoading type='bubbles' color="#000066" />
+                    </div>
+                :
+                    <div>
+                        
+                        <Table striped bordered responsive bsStyle="default" {...getTableProps()}>
+                            <thead>
+                                {headerGroups.map(headerGroup => (
+                                    <tr {...headerGroup.getHeaderGroupProps()}>
+                                        {headerGroup.headers.map(column => (
+                                            <th {...column.getHeaderProps()}>
+                                                <div {...column.getSortByToggleProps()}>
+                                                    {column.render('Header')}
+                                                    <span>
+                                                        {/* Render the columns sort UI */}
+                                                        {column.isSorted ? (column.isSortedDesc ? ' ⬇️' : ' ⬆️') : ' ↕️'}
+                                                    </span>
+                                                </div>
+                                                {/* Render the columns filter UI */}
+                                                <div>{column.canFilter ? column.render('Filter') : null}</div>
+                                            </th>
+                                        ))}
+                                    </tr>
+                                ))}
+                            </thead>
+                            <tbody {...getTableBodyProps()}>
+                                {rows.map(row => {
+                                    prepareRow(row)
+                                    return (
+                                        <tr {...row.getRowProps()}>
+                                            {row.cells.map(cell => {
+                                            return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
 
+                                            })}
+                                        </tr>
+                                    )
                                 })}
-                            </tr>
-                        )
-                    })}
 
-                </tbody>
-            </Table>
-            <>
-            <Modal show={showModal} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Delete</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Are you sure you want to delete {Row.name}?
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                    Cancel
-                    </Button>
-                    <Button variant="primary" onClick={handleDelete}>
-                    Yes
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-            </>
+                            </tbody>
+                        </Table>
+                        <>
+                        <Modal show={showModal} onHide={handleClose}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Delete</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>Are you sure you want to delete {Row.name}?
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={handleClose}>
+                                Cancel
+                                </Button>
+                                <Button variant="primary" onClick={handleDelete}>
+                                Yes
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
+                        </>
 
-        </div>
-        //  }
-        //  </>
+                    </div>
+            }
+        </>
     )
 
 }

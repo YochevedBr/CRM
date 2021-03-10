@@ -13,7 +13,7 @@ class Customers extends React.Component{
     render(){
         return(
             <div>
-                <h1 style={{margin:"0 auto"}}>Customers</h1>
+                <h1 className='font' style={{margin:"0 auto"}}>Customers</h1>
                     <div style={{marginBottom: "4px", marginLeft: "4px", justifyContent: 'flex-end', float: "left", display: "flex"}}>
                         <AddCustomer />
                     </div>
