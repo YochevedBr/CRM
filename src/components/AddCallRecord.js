@@ -141,7 +141,7 @@ export default function FormDialog(props) {
   };
 
   function validateForm() {
-    return !PurchaseNotExist && !PurchaseSold && /\s/.test(purchased) == false;
+    return !PurchaseNotExist && !PurchaseSold && /\s/.test(purchased) == false && interest != '';
   }
   function handleChange(event) {
     setPurchaseNotExist(false)
