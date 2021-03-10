@@ -9,15 +9,19 @@ function CallRecords() {
     const [calls, setCalls] = useState([]);
 
     useEffect(() => {
+        console.log('useEffect')
+        console.log(localStorage.getItem("agent_id"))
         var db = firebase.firestore();
         db.collection("call_records")
         .where("agent_id", "==", localStorage.getItem("agent_id"))
         .get()
         .then((snapshot)=>{
+            console.log(snapshot.docs)
             var callsData = [];
             snapshot.forEach((doc) => {
                 let x = doc.data()
                 x.id = doc.id
+                console.log(x)
                 callsData.push(x)
 
             });
@@ -44,12 +48,13 @@ function CallRecords() {
 
     return ( 
         <div>
+            <br></br>
             <h3 className='font'> Call Records </h3> 
             <h5 className='font'> See your activity with our clients </h5> 
+            <br></br>
+            <br></br>
             <div> 
-                {
-                    calls.map((call, i) => < CallRecord key = { i } call = { call }
-                />)} 
+                {calls.map((call, i) => < CallRecord key = { i } call = { call }/>)} 
             </div> 
         </div>
             )
