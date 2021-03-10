@@ -1,38 +1,32 @@
 import React from 'react'
 import { useParams } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
-
-import img from '../pictures/house-real-estate-logo.jpg'
-import img1 from '../pictures/Purchases.jpg'
-
 import AptDescription from './AptDescription'
 import SmallImages from './SmallImages'
 import Image from './Image'
-
 import { useHistory } from "react-router";
-
 import { Container, Row, Col } from 'react-bootstrap'
 import firebase from './../firebase.js';
 import {storage} from "./../firebase"
-
 import { useState, useEffect } from "react";
-
 import ReactLoading from 'react-loading'
 
 
 function AptDetails(){
+    // the apartment id
     let {aptID} = useParams()
-    // retrieve the correct apartment by query
-    
+ 
     const history = useHistory()
     const [data, setData] = useState([]);
 
     useEffect(() => {  
+        // retrieving the apartment details
         var db = firebase.firestore();
         db.collection("products")
         .doc(aptID)
         .get()
         .then((doc) => {
+            // retrieving the images related to the apartment
             storage
             .ref(aptID)
             .listAll()
@@ -70,23 +64,23 @@ function AptDetails(){
             :
         <div>
             <Container className='no-marginLR no-padding'>
-                <Row>
-                    <Col xs={4}>
+                <Row style={{width: '100%', pading: '3px', marginLeft: '15px'}}>
+                    <Col sm>
                         <AptDescription class='flex-child' description={data}></AptDescription>
                         <Button variant="outlined" color="#000066" onClick={() => {history.push({pathname:  `/update_apt/${data.id}`})}} style={{marginTop:"5px"}}>Edit</Button>
-                  
                     </Col>
                     <Col xs={8}>
-                        <Container>
-                            <Row>
+                        {/* <Col xs={8}> */}
+                        <Container className='ml-5' style={{width: '100%'}}>
+                            <Row style={{width: '100%', pading: '3px', margin: '3px'}}>
                                 <Col>
                                     <br></br>
                                     <br></br>
-                                    <Image src={data.image} width={'800'} height={'500'} borderRadius="4px"></Image>
+                                    <Image src={data.image} width={'1500'} height="auto" borderRadius="4px"></Image>
                                 </Col>
-                            </Row>
+                            </Row >
                             <br></br>
-                            <Row>
+                            <Row style={{width: '100%', pading: '3px', margin: '3px'}}>
                                 <SmallImages replaceImage={replaceImage} images={data.images}></SmallImages>
                             </Row>
                         </Container>
@@ -100,3 +94,4 @@ function AptDetails(){
 }
 
 export default AptDetails
+

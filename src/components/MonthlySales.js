@@ -1,11 +1,8 @@
 import React from "react"
-import Product from "./Product"
-import Button from '@material-ui/core/Button';
 import firebase from './../firebase.js';
 import { useState, useEffect } from "react";
-// var CanvasJSReact = require('./../canvasjs.react');
+import ReactLoading from 'react-loading'
 import CanvasJSReact from './../canvasjs.react'
-var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 function MonthlySales(){
@@ -14,6 +11,7 @@ function MonthlySales(){
     useEffect(() => {
         var db = firebase.firestore();
         let dataPoints = []
+        // initializing the amount of sales in each month
         let dates = {
             "0": 0, 
             "1": 0, 
@@ -28,6 +26,7 @@ function MonthlySales(){
             "10": 0, 
             "11": 0, 
         }
+        // retrieve from firebase all the sales of the current year the agent did and map them by month
         db.collection("call_records")
         .where("agent_id", "==", localStorage.getItem('agent_id')) 
         .get()
@@ -35,8 +34,11 @@ function MonthlySales(){
             let counter = 0
             let today = new Date()
             calls.forEach(call => {
-                if (call.data().purchased){  
+                // if some sale occured
+                if (call.data().purchased){
+                    // get the transaction date 
                     let date = new Date(call.data().date)
+                    // if the sale occured this year
                     if (date.getUTCFullYear() == today.getUTCFullYear()){
                         date = date.getUTCMonth()
                         dates[date] += call.data().purchased.length
@@ -51,28 +53,23 @@ function MonthlySales(){
                         }
                         dataPoints.push(point)
                     }
-                    
                 }
             })
         }).then(() => {
+            // line chart 
             setOptions({
-                // dataPointWidth: 35,
                 animationEnabled: true,
-                // theme: "light2",
                 title:{
                     text: "Sales Per Month"
                 },
                 axisX: {
                     title: "timeline",
                     valueFormatString: "MMM",
-                    // gridThickness: 2
                     interval: 1,
                     intervalType: "month"
                 },
                 axisY: {
                     title: "Number of Sales",
-                    // includeZero: true,
-                    // labelFormatter: props.addSymbols
                 },
                 data: [{
                     type: "area",
@@ -85,20 +82,23 @@ function MonthlySales(){
 
     return (
         <>
-            {options ?
-            <div style={{alignItems: 'center', width: '85%', margin: 'auto'}}>
-                <h3 className='font'>Monthly Sales</h3>
-                <h5 className='font'>Here you can your sales per month</h5>
-                <h5 className='font'>always strive to do better!</h5>
-                <h5 className='font'>we count on you:)</h5>
-                <br></br>
-                <CanvasJSChart options = {options}/>
-            </div> 
-            : <h1>Loading...</h1>
+            {
+                options ?
+                    <div style={{alignItems: 'center', width: '85%', margin: 'auto'}}>
+                        <h3 className='font'>Monthly Sales</h3>
+                        <h5 className='font'>Here you can your sales per month</h5>
+                        <h5 className='font'>always strive to do better!</h5>
+                        <h5 className='font'>we count on you:)</h5>
+                        <br></br>
+                        <CanvasJSChart options = {options}/>
+                    </div> 
+                : 
+                    <div style={{display: 'flex', justifyContent: 'center'}}>
+                        <ReactLoading type='bubbles' color="#000066" />
+                    </div>
             } 
         </>
     )
 }
-
 
 export default MonthlySales

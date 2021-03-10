@@ -1,30 +1,28 @@
 import React from "react"
 import SmallImage from './SmallImage'
-
-import img from '../pictures/house-real-estate-logo.jpg'
-import img1 from '../pictures/Purchases.jpg'
-
 import { Col } from 'react-bootstrap'
-import { useState, useEffect, useRef } from "react";
-
-
 import './SmallImages.css'
+import ReactLoading from 'react-loading'
+
 
 class SmallImages extends React.Component{
 
     render(){
-
         return ( 
             <>
-            {this.props.images === undefined ? 
-            <h1>Loading...</h1> :  
-            <Col className='col-md' key={this.props.images}>
+                {
+                    this.props.images === undefined ? 
+                        <div style={{display: 'flex', justifyContent: 'center'}}>
+                            <ReactLoading type='bubbles' color="#000066" />
+                        </div>
+                    :  
+                        <Col className='col-md' key={this.props.images}>
 
-                <div className='wrapper1' width='700'>
-                    {this.props.images.map((image, i) => <SmallImage replaceImage={this.props.replaceImage} key={i} src={image} />)}
-                </div>
-            </Col>  
-            }
+                            <div className='wrapper1' width='700'>
+                                {this.props.images.map((image, i) => <SmallImage replaceImage={this.props.replaceImage} key={i} src={image} />)}
+                            </div>
+                        </Col>  
+                }
             </> 
         )
     }

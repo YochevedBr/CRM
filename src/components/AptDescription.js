@@ -41,7 +41,7 @@ class AptDescription extends React.Component {
         }
      
         return (
-            <div style={{border: "2px solid", borderColor: '#000066', borderRadius: '8px', marginLeft: '5%' , marginTop: "10%"}}>
+            <div style={{border: "2px solid", borderColor: '#000066', borderRadius: '8px', marginLeft: '0%' , marginTop: "10%"}}>
                 <div style={{textAlign:'center',paddingTop:'5%', fontSize:'24px',color:'#000066', fontFamily: "bold"}}>Apartment Details:</div>
                 <div style={{display:'flex',paddingLeft: "40px", paddingTop: "15px"}} >
                     <div style={{color:'#000066',paddingRight:'10px',fontSize:'16px', fontFamily: "bold"}}>ID:</div><div style={{fontSize:'16px'}}>{this.state.description.id}</div>
@@ -83,3 +83,4 @@ class AptDescription extends React.Component {
 
 
 export default AptDescription;
+

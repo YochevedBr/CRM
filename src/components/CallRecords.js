@@ -6,12 +6,10 @@ import ReactLoading from 'react-loading'
 
 
 function CallRecords() {
-
     const [calls, setCalls] = useState([]);
 
     useEffect(() => {
-        console.log('useEffect')
-        console.log(localStorage.getItem("agent_id"))
+        // retrieving all the calls the agent did
         var db = firebase.firestore();
         db.collection("call_records")
         .where("agent_id", "==", localStorage.getItem("agent_id"))
@@ -25,27 +23,18 @@ function CallRecords() {
                 console.log(x)
                 callsData.push(x)
 
-            });
-            
+            });    
             callsData = callsData.sort(custom_sort);
             setCalls(callsData)
         });
     },[]);
 
+    // sort the calls by the dates 
     function custom_sort(a, b) {
-       //  console.log(new Date(b.date).getTime() - new Date(a.date).getTime())
-        // return new Date(b.date).getTime() - new Date(a.date).getTime();
         let x = new Date(b.date).getTime()
         let y = new Date(a.date).getTime()
         return new Date(b.date).getTime() > new Date(a.date).getTime() ? 1 : -1
     }
-
-    // data.sort(function (a, b) {
-    //     return a.date.localeCompare(b.date);
-    // });
-    // let copyCalls = calls
-    // copyCalls.sort(custom_sort);
-    // setCalls(copyCalls)
 
     return (
         <>
@@ -68,8 +57,7 @@ function CallRecords() {
             }
         </> 
         
-            )
-    }
-
+    )
+}
 
 export default CallRecords

@@ -118,7 +118,7 @@ class UpdateCustomer extends React.Component {
             <Container>
                 <Row>
                     <Col sm>
-                        <h1>Customer</h1>
+                        <h1 className='font'>Customer</h1>
                         <Form style={{width: "90%"}}>     
                             <p>{this.state.msg}</p>
                             <Form.Group controlId="formCategory1">
@@ -128,7 +128,7 @@ class UpdateCustomer extends React.Component {
                                 <Form.Control onChange={(e) => this.setState({emptyName: false})} className="txtUser" type="text" defaultValue={this.state.username}/> 
                             </Form.Group>
                             <h6 style={{display: this.state.emptyName ? 'block' : 'none', color: 'red'}}>Empty Field‏</h6>
-                            <Form.Group controlId="formCategory1">
+                            <Form.Group controlId="formCategory2">
                                 <div className="label">
                                 <Form.Label>Phone Number</Form.Label>
                                 </div>
@@ -141,7 +141,7 @@ class UpdateCustomer extends React.Component {
                                     defaultValue={this.state.phonenumber}/> 
                             </Form.Group>
                             <h6 style={{display: this.state.emptyPhone ? 'block' : 'none', color: 'red'}}>Empty Field‏</h6>
-                            <Form.Group controlId="formCategory2">
+                            <Form.Group controlId="formCategory3">
                                 <div className="label">
                                 <Form.Label>Email</Form.Label>
                                 </div>
@@ -163,7 +163,7 @@ class UpdateCustomer extends React.Component {
                     <Col sm>
                     <div>
                         <br></br>
-                        <h5> CallRecords </h5> 
+                        <h5 className='font'> CallRecords </h5> 
                         <br></br>
                         <div> {
                             this.state.calls.map((call, i) => < CustomerCallRecord key = { i } call = { call }/>)

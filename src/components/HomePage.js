@@ -9,12 +9,12 @@ import { useState, useEffect } from "react";
 
 function HomaPage() {
 
-	const [instagramIcon, setInstagramIcon] = useState('');
-	// Agent profil
+	// Agent profile
 	const [agentName, setAgentName] = useState('');
 	const [agentPhone, setAgentPhone] = useState('');
 	const [agentEmail, setAgentEmail] = useState('');
-	// To open/ close the form
+	
+	// To open/close the form
 	const [flagToggle, setFlagToggle] = useState(false);
 	// To responsivy backgroun image
 	const [, setWindowWidth] = useState(window.innerWidth);
@@ -41,6 +41,7 @@ function HomaPage() {
 			.then((DownloadURL) => {
 				setBackgroundMobile(DownloadURL)
 		})
+		// Retriving from firebase storage the instagram image
 		storage
 			.ref('/image to design/instegram.png')
 			.getDownloadURL()
@@ -48,7 +49,7 @@ function HomaPage() {
 				setInstagramIcon(DownloadURL)
 		})
 
-		// To agent profil form
+		// To agent profile form
 		var db = firebase.firestore();
 		if(!flagToggle){
 			// Opens the form
@@ -81,8 +82,7 @@ function HomaPage() {
 		}  
 
 	},[]);
-
-           
+	
 	return(
 		<>
 		 <div className="App" style={{backgroundImage: `url(${imageUrl})`}}>
