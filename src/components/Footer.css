@@ -1,12 +1,8 @@
 .social-container {
-    padding: 5px 5px;
     position: absolute;
+    margin-top: 10%;
     left: 0;
     bottom: 0;
     right: 0;
     position: fixed;
-}
-
-a.instagram {
-    color: black;
 }

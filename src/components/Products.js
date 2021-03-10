@@ -5,7 +5,6 @@ import { useHistory } from "react-router";
 import firebase from './../firebase.js';
 import {storage} from "./../firebase"
 import { useState, useEffect } from "react";
-import instegram from '../pictures/instegram.png'
 import './Products.css'
 
 
@@ -13,8 +12,19 @@ function Products(){
     const history = useHistory();
     const [products, setProducts] = useState([]);
 
+    const [img_instegram, setImg_instegram] = useState('');
+
     useEffect(() => {
+        // for instegram icon
+        storage
+		.ref('/image to design/instegram.png')
+		.getDownloadURL()
+		.then((DownloadURL) => {
+			setImg_instegram(DownloadURL)
+		})
+
         // retrieving the apartments from firestore
+
         var db = firebase.firestore();
         let allData = []
         db.collection("products")
@@ -50,6 +60,7 @@ function Products(){
     }, []);
 
     return ( 
+        <div>
         <div style = {{background: "#f5f5f0"}}>
             <br></br>
             <h3 className='font' style={{'color': '#000066'}}> All Our Properties </h3>
@@ -63,6 +74,8 @@ function Products(){
                 {products.map((product, i) => <Product key={i} product={product} />)}
             </div>
             <br></br>
+        </div>
+
         </div>
           
         

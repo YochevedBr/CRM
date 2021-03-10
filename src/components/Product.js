@@ -20,7 +20,7 @@ function Product(props){
         <>
         {   
             product.images ?
-          
+                <div>
                 <div className = "square" key={product.id} style={{ boxShadow: "1px 1px 2px 2px #999", background: "#ffffff"}}>
                     <br></br>
                     
@@ -35,7 +35,11 @@ function Product(props){
                            
                         </div>
                     </a>
+                    </div>
+
+                
                 </div>
+                
             : <h1>Loading...</h1>
         }
         </>

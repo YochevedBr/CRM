@@ -13,7 +13,7 @@ function SmallImage(props) {
         }
         src = { props.src }
         alt = ''
-        width = "192"
+        width = "190"
         height = "100" / >
     )
 }
