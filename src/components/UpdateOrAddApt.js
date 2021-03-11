@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 
 
 function UpdateOrAddApt(){
-    const[price, setPrice] = useState("");
+    const [price, setPrice] = useState("");
     const [location, setLocation] = useState("");
     const [floor, setFloor] = useState("");
     const [floors, setFloors] = useState("");
@@ -113,11 +113,19 @@ function UpdateOrAddApt(){
                 }
                 // saving the apartment new images in firebase storage
                 for (let i = 0; i < imageAsFile.length; i ++){
-                    storage.ref(`${aptID}/${imageAsFile[i].name}`).put(imageAsFile[i])
-                }
-                
-                // go back to view all apartments
-                history.push('/products')
+                    if (imageAsFile[i] !== 0){
+                        storage.ref(`${aptID}/${imageAsFile[i].name}`).put(imageAsFile[i]).then(() => {
+                            if (i === imageAsFile.length - 1){
+                                // go back to view all apartments
+                                history.push('/products')
+                            }
+                        })
+                    }
+                    else if (imageAsFile[i] === 0){
+                        // go back to view all apartments
+                                history.push('/products')
+                    }
+                }  
             })
             .catch((error) => {
                 console.error("Error writing document: ", error);
@@ -138,13 +146,12 @@ function UpdateOrAddApt(){
  
     return (
         
-        <div className="apt1">
-        {/* <div calssName="apt" style={{position: "absolute",top: "70px", alignItems: "center", backgroundColor: 'white', boxShadow: "0px 0px 3px 3px #999"}}> */}
+        <div calssName="apt1 justify-content-center" style={{position: "absolute", marginLeft: "35%", width: "420px", top: "70px",    alignItems: "center", backgroundColor: 'white', boxShadow: "0px 0px 3px 3px #999"}}>
 
         <h6 style={{marginTop: "5px"}}>Apartment {aptID}</h6>
         <Container>
             <Row style={{width:"100%", margin:"0"}}>
-                <div className="col-sm-10" style={{marginLeft: "7%"}}>
+                <div class="col-sm-10" style={{marginLeft: "7%"}}>
                     <Form className="form" onSubmit={handleSubmit}> 
                         <Form.Group controlId="formCategory1" style={{margin: "1px 0"}}>
                             <Form.Label style = {{float: "left", marginLeft: "2%", margin: "0px 0"}}>Price</Form.Label>
