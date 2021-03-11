@@ -1,5 +1,4 @@
 import React from "react"
-
 import './SmallImage.css'
 
 function SmallImage(props) {
@@ -13,6 +12,5 @@ function SmallImage(props) {
         />
     )
 }
-
 
 export default SmallImage

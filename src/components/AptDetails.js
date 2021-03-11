@@ -6,12 +6,11 @@ import SmallImages from './SmallImages'
 import Image from './Image'
 import { useHistory } from "react-router";
 import { Container, Row, Col } from 'react-bootstrap'
-import firebase from './../firebase.js';
-import {storage} from "./../firebase"
+import { storage } from "./../firebase"
 import { useState, useEffect } from "react";
 import './AptDetails.css'
 import ReactLoading from 'react-loading'
-
+import firebase from './../firebase.js';
 
 function AptDetails(){
     // the apartment id

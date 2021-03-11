@@ -1,11 +1,5 @@
-
-
-
 /* ---------------add customer--------------- */
 
-/* {box-sizing: border-box;} */
-
-/* Button used to open the contact form - fixed at the bottom of the page */
 .open-button {
   background-color: #555;
   color: white;
@@ -72,37 +66,6 @@
 .form-container .btn:hover, .open-button:hover {
   opacity: 1;
 }
-/* ------------------------------------------- */
-
-
-/* ---------customers table------- */
-/* th {
-  background-color: rgb(200, 217, 231);
-  border-bottom: 'solid 3px blue';
-  background: 'gray';
-  color: 'red';
-  font-weight: 'bold';
-} */
-
-/* table {
-  border-spacing: 0;
-  border: 1px solid black;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-
-td {
-  border-bottom: 0;
-}
-  
-th, td {
-  padding: 0.5rem;
-  border-bottom: 1px solid black;
-  border-right: 1px solid black;
-} */
-
-/* ------------------------------------- */
  
 /* -----------------layout---------------- */
 
@@ -111,9 +74,7 @@ th, td {
   margin-top: 6%;
 }
 
-/* -------------------------------------------- */
-
-
+/* --------------------------------------- */
 
 .App {
   text-align: center;

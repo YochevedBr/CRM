@@ -28,5 +28,4 @@ class SmallImages extends React.Component{
     }
 }
 
-
 export default SmallImages

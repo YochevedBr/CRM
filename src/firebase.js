@@ -1,7 +1,6 @@
 import firebase from 'firebase'
 import 'firebase/storage'
 
-
 var firebaseConfig = {
     apiKey: "AIzaSyCiBqJSKrWyAXkJmj5Tl6i_ruxNp2IO8MY",
     authDomain: "crm-db-38a1f.firebaseapp.com",
@@ -12,14 +11,14 @@ var firebaseConfig = {
     appId: "1:1001011822098:web:4f008e9de8c37abbdba2cb",
     measurementId: "G-9CT5FZFHP1"
   };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 
-  const storage = firebase.storage()
+const storage = firebase.storage()
 
-  firebase.analytics();
+firebase.analytics();
 
-  // export default firebase;
-  export  {
-    storage, firebase as default
-  }
+// export default firebase;
+export  {
+  storage, firebase as default
+}

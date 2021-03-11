@@ -59,8 +59,7 @@ function CallDetails(){
                         <ReactLoading type='bubbles' color="#000066" />
                     </div>
             }
-        </>
-        
+        </>    
     )
 }
 

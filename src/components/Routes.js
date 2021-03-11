@@ -24,8 +24,7 @@ function routing(){
     return(
         <Router>
             <Switch>
-                <Route path="/" component={Login} exact />
-            
+                <Route path="/" component={Login} exact />            
                 <Route path="/logout">
                     <Login/>
                 </Route>
