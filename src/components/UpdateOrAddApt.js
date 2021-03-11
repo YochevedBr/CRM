@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 
 
 function UpdateOrAddApt(){
-    const[price, setPrice] = useState("");
+    const [price, setPrice] = useState("");
     const [location, setLocation] = useState("");
     const [floor, setFloor] = useState("");
     const [floors, setFloors] = useState("");
@@ -112,7 +112,7 @@ function UpdateOrAddApt(){
                 }
                 // saving the apartment new images in firebase storage
                 for (let i = 0; i < imageAsFile.length; i ++){
-                    if(imageAsFile[i] !== 0){
+                    if (imageAsFile[i] !== 0){
                         storage.ref(`${aptID}/${imageAsFile[i].name}`).put(imageAsFile[i]).then(() => {
                             if (i === imageAsFile.length - 1){
                                 // go back to view all apartments
@@ -120,11 +120,11 @@ function UpdateOrAddApt(){
                             }
                         })
                     }
-                    else if(imageAsFile[i] === 0){
+                    else if (imageAsFile[i] === 0){
                         // go back to view all apartments
                         history.push('/products')
                     }
-                }
+                }  
             })
             .catch((error) => {
                 console.error("Error writing document: ", error);
@@ -133,7 +133,6 @@ function UpdateOrAddApt(){
 
     function handleSubmit(event) {
         event.preventDefault();
-    
         // generate id in case of new apartment
         generateID
         .then(
@@ -142,105 +141,106 @@ function UpdateOrAddApt(){
         )  
     }
 
+ 
     return (
         
-        <div className="apt1">
-            <h6 style={{marginTop: "5px"}}>Apartment {aptID}</h6>
-            <Container>
-                <Row style={{width:"100%", margin:"0"}}>
-                    <div className="col-sm-10" style={{marginLeft: "7%"}}>
-                        <Form className="form" onSubmit={handleSubmit}> 
-                            <Form.Group controlId="formCategory1" style={{margin: "1px 0"}}>
-                                <Form.Label style = {{float: "left", marginLeft: "2%", margin: "0px 0"}}>Price</Form.Label>
-                                <Form.Control type="text" value={price} size="sm"
-                                    onChange={(e) => setPrice(e.target.value)}
-                                /> 
+        <div calssName="apt1 justify-content-center" style={{position: "absolute", marginLeft: "35%", width: "420px", top: "70px",    alignItems: "center", backgroundColor: 'white', boxShadow: "0px 0px 3px 3px #999"}}>
+        <h6 style={{marginTop: "5px"}}>Apartment {aptID}</h6>
+        <Container>
+            <Row style={{width:"100%", margin:"0"}}>
+                <div class="col-sm-10" style={{marginLeft: "7%"}}>
+                    <Form className="form" onSubmit={handleSubmit}> 
+                        <Form.Group controlId="formCategory1" style={{margin: "1px 0"}}>
+                            <Form.Label style = {{float: "left", marginLeft: "2%", margin: "0px 0"}}>Price</Form.Label>
+                            <Form.Control type="text" value={price} size="sm"
+                                onChange={(e) => setPrice(e.target.value)}
+                            /> 
+                        </Form.Group>
+                        <Form.Group controlId="formCategory1" style={{margin: "1px 0"}}>
+                            <Form.Label style = {{float: "left", marginLeft: "2%", margin: "0px 0"}}>Location</Form.Label>
+                            <Form.Control type="text" value={location} size="sm"
+                                onChange={(e) => setLocation(e.target.value)}
+                            /> 
+                        </Form.Group>
+                        <Form.Group controlId="formCategory2" style={{margin: "1px 0"}}>
+                            <Form.Label style = {{float: "left", marginLeft: "2%", margin: "0px 0"}}>Floor</Form.Label>
+                            <Form.Control type="number" value={floor} size="sm" 
+                                onChange={(e) => setFloor(e.target.value)}
+                            />          
+                        </Form.Group>
+                        <Form.Group controlId="formCategory2" style={{margin: "1px 0"}}>
+                            <Form.Label style = {{float: "left", marginLeft: "2%", margin: "0px 0"}}>Number of Floors</Form.Label>
+                            <Form.Control type="number" value={floors} size="sm"
+                                onChange={(e) => setFloors(e.target.value)}
+                            />          
+                        </Form.Group>
+                        <Form.Group controlId="formCategory2" style={{margin: "1px 0"}}>
+                            <Form.Label style = {{float: "left", marginLeft: "2%", margin: "0px 0"}}>Number of Rooms</Form.Label>
+                            <Form.Control type="number" value={rooms} size="sm" 
+                                onChange={(e) => setRooms(e.target.value)}
+                            />          
+                        </Form.Group>
+                        <Form.Group controlId="formCategory2" style={{margin: "1px 0"}}>
+                            <Form.Label style = {{float: "left", marginLeft: "2%", margin: "0px 0"}}>Condition</Form.Label>
+                            <Form.Control type="text" value={status} size="sm"
+                                onChange={(e) => setStatus(e.target.value)}
+                            />          
+                        </Form.Group>
+                        <fieldset>
+                            <Form.Group as={Row}>
+                                <Col sm={2}>
+                                    <Form.Check
+                                        type="checkbox"
+                                        label="pool"
+                                        name="formHorizontalRadios"
+                                        id="formHorizontalRadios1"
+                                        defaultChecked={isChecked(pool) ? 'checked' : ''}
+                                        onClick={() => isChecked(pool) ? setPool('') : setPool('Yes')}
+                                    />  
+                                    <Form.Check
+                                        type="checkbox"
+                                        label="yard"
+                                        name="formHorizontalRadios"
+                                        id="formHorizontalRadios2"
+                                        defaultChecked={isChecked(yard) ? 'checked' : ''}
+                                        onClick={() => isChecked(yard) ? setYard('') : setYard('Yes')}
+                                    /> 
+                                    <Form.Check
+                                        type="checkbox"
+                                        label="porch"
+                                        name="formHorizontalRadios"
+                                        id="formHorizontalRadios3"
+                                        defaultChecked={isChecked(porch) ? 'checked' : ''}
+                                        onClick={() => isChecked(porch) ? setPorch('') : setPorch('Yes')}
+                                    />  
+                                    <Form.Check
+                                        type="checkbox"
+                                        label="private"
+                                        name="formHorizontalRadios"
+                                        id="formHorizontalRadios4"
+                                        defaultChecked={isChecked(private_house) ? 'checked' : ''}
+                                        onClick={() => isChecked(private_house) ? setPrivate('') : setPrivate('Yes')}
+                                    />   
+                                </Col>     
                             </Form.Group>
-                            <Form.Group controlId="formCategory1" style={{margin: "1px 0"}}>
-                                <Form.Label style = {{float: "left", marginLeft: "2%", margin: "0px 0"}}>Location</Form.Label>
-                                <Form.Control type="text" value={location} size="sm"
-                                    onChange={(e) => setLocation(e.target.value)}
-                                /> 
-                            </Form.Group>
-                            <Form.Group controlId="formCategory2" style={{margin: "1px 0"}}>
-                                <Form.Label style = {{float: "left", marginLeft: "2%", margin: "0px 0"}}>Floor</Form.Label>
-                                <Form.Control type="number" value={floor} size="sm" 
-                                    onChange={(e) => setFloor(e.target.value)}
-                                />          
-                            </Form.Group>
-                            <Form.Group controlId="formCategory2" style={{margin: "1px 0"}}>
-                                <Form.Label style = {{float: "left", marginLeft: "2%", margin: "0px 0"}}>Number of Floors</Form.Label>
-                                <Form.Control type="number" value={floors} size="sm"
-                                    onChange={(e) => setFloors(e.target.value)}
-                                />          
-                            </Form.Group>
-                            <Form.Group controlId="formCategory2" style={{margin: "1px 0"}}>
-                                <Form.Label style = {{float: "left", marginLeft: "2%", margin: "0px 0"}}>Number of Rooms</Form.Label>
-                                <Form.Control type="number" value={rooms} size="sm" 
-                                    onChange={(e) => setRooms(e.target.value)}
-                                />          
-                            </Form.Group>
-                            <Form.Group controlId="formCategory2" style={{margin: "1px 0"}}>
-                                <Form.Label style = {{float: "left", marginLeft: "2%", margin: "0px 0"}}>Condition</Form.Label>
-                                <Form.Control type="text" value={status} size="sm"
-                                    onChange={(e) => setStatus(e.target.value)}
-                                />          
-                            </Form.Group>
-                            <fieldset>
-                                <Form.Group as={Row}>
-                                    <Col sm={2}>
-                                        <Form.Check
-                                            type="checkbox"
-                                            label="pool"
-                                            name="formHorizontalRadios"
-                                            id="formHorizontalRadios1"
-                                            defaultChecked={isChecked(pool) ? 'checked' : ''}
-                                            onClick={() => isChecked(pool) ? setPool('') : setPool('Yes')}
-                                        />  
-                                        <Form.Check
-                                            type="checkbox"
-                                            label="yard"
-                                            name="formHorizontalRadios"
-                                            id="formHorizontalRadios2"
-                                            defaultChecked={isChecked(yard) ? 'checked' : ''}
-                                            onClick={() => isChecked(yard) ? setYard('') : setYard('Yes')}
-                                        /> 
-                                        <Form.Check
-                                            type="checkbox"
-                                            label="porch"
-                                            name="formHorizontalRadios"
-                                            id="formHorizontalRadios3"
-                                            defaultChecked={isChecked(porch) ? 'checked' : ''}
-                                            onClick={() => isChecked(porch) ? setPorch('') : setPorch('Yes')}
-                                        />  
-                                        <Form.Check
-                                            type="checkbox"
-                                            label="private"
-                                            name="formHorizontalRadios"
-                                            id="formHorizontalRadios4"
-                                            defaultChecked={isChecked(private_house) ? 'checked' : ''}
-                                            onClick={() => isChecked(private_house) ? setPrivate('') : setPrivate('Yes')}
-                                        />   
-                                    </Col>     
-                                </Form.Group>
-                            </fieldset>
+                        </fieldset>
 
-                            <Form.Group controlId="formCategory2" style={{float: "right", marginLeft: "20%"}}>
-                                <Form.Control 
-                                    type="file" 
-                                    text="Select Image"
-                                    multiple
-                                    onChange={handleImageAsFile}
-                                />          
-                            </Form.Group>
-                            <h6 style={{display: !correctDetails ? 'block' : 'none', color: 'red'}}>Please anter valid details.</h6>
-                            
-                            <Button variant="outlined" color="primary" type="submit"disabled={!validateForm()}>{aptID ? 'Update' : 'Add' }</Button>
-                        </Form>
-                    </div>
-                </Row>
-            </Container>
-        </div>
+                        <Form.Group controlId="formCategory2" style={{float: "right", marginLeft: "20%"}}>
+                            <Form.Control 
+                                type="file" 
+                                text="Select Image"
+                                multiple
+                                onChange={handleImageAsFile}
+                            />          
+                        </Form.Group>
+                        <h6 style={{display: !correctDetails ? 'block' : 'none', color: 'red'}}>Please anter valid details.</h6>
+                        
+                        <Button variant="outlined" color="primary" type="submit"disabled={!validateForm()}>{aptID ? 'Update' : 'Add' }</Button>
+                    </Form>
+                </div>
+            </Row>
+        </Container>
+        </div>  
     )
 }
 
