@@ -50,7 +50,6 @@ export default function FormDialog(props) {
   }
 
   const handleSubmit = (event) => {
-
     event.preventDefault();
     let formatDate = currentDate.getFullYear() + '/' + ""+(Number(currentDate.getMonth())+1) + '/' + currentDate.getDate()
     var db = firebase.firestore();
@@ -61,10 +60,10 @@ export default function FormDialog(props) {
     var count = 0
 
     // Checks if the customer did not purchase anything
-    if (Object.keys(purchased).length == 0) {
+    if (purchased[0].length === 0) {
       setOpen(false);
 
-      // Create call_record Collection
+      // Create call_records Collection
       db.collection("call_records").doc().set({
         agent_id: agentId,
         customer_id: customerId,
@@ -81,8 +80,7 @@ export default function FormDialog(props) {
       setSupport('');
       setChecked(false)
     }
-    else{
-
+    else{    
       for(var i=0; i<purchased.length; i++){
         db.collection("products")
         .doc(purchased[i])
