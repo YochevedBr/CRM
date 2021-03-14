@@ -43,7 +43,7 @@ function CallRecords() {
             {
                 calls.length !== 0 ?
                     calls[0] === 0 ?
-                        <h1 className='font'>You havn't done any calls yet</h1>
+                        <h1 className='font'>You haven't done any calls yet</h1>
                     :
                         <div>
                             <br></br>
