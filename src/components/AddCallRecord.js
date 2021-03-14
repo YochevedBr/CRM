@@ -23,7 +23,7 @@ export default function FormDialog(props) {
 
   // Keep the value of the TextField
   const [interest, setInterest] = useState('');
-  const [purchased, setPurchased] = useState([]);
+  const [purchased, setPurchased] = useState([0]);
   const [support, setSupport] = useState('');
 
   // Handle on click button
@@ -60,7 +60,8 @@ export default function FormDialog(props) {
     var count = 0
 
     // Checks if the customer did not purchase anything
-    if (purchased[0].length === 0) {
+    
+    if (!purchased[0]) {
       setOpen(false);
 
       // Create call_records Collection
@@ -76,11 +77,14 @@ export default function FormDialog(props) {
         window.location.reload();
       })
       setInterest('');
-      setPurchased([])
+      setPurchased([0])
       setSupport('');
       setChecked(false)
     }
-    else{    
+    else{  
+      console.log(purchased)
+      console.log(purchased[0])
+      console.log(typeof purchased[0])
       for(var i=0; i<purchased.length; i++){
         db.collection("products")
         .doc(purchased[i])
@@ -91,7 +95,7 @@ export default function FormDialog(props) {
           if (!doc.exists){ 
             setPurchaseNotExist(true)
             setPurchaseSold(false)
-            setPurchased([])
+            setPurchased([0])
             flag = true
           }
           
@@ -100,7 +104,7 @@ export default function FormDialog(props) {
             if (doc.data().sold){
               setPurchaseSold(true)
               setPurchaseNotExist(false)
-              setPurchased([])
+              setPurchased([0])
               flag = true
             }
 
@@ -127,7 +131,7 @@ export default function FormDialog(props) {
               })
               reloadFlag = true // need to reload the page
               setInterest('');
-              setPurchased([])
+              setPurchased([0])
               setSupport('');
               setChecked(false)
               setPurchaseNotExist(false)
