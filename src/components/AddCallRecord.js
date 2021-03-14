@@ -81,7 +81,7 @@ export default function FormDialog(props) {
       setSupport('');
       setChecked(false)
     }
-    else{  
+    else{ 
       for(var i=0; i<purchased.length; i++){
         db.collection("products")
         .doc(purchased[i])
@@ -107,15 +107,6 @@ export default function FormDialog(props) {
 
             // Checks if all the apartments exist => close dialog
             if(count == purchased.length && !flag){
-              for(var i=0; i<purchased.length; i++){
-                db.collection("products")
-                .doc(purchased[i])
-                .update({
-                  sold: 'Yes'
-                })
-              }
-              setOpen(false);
-
               // Create call_record Collection
               db.collection("call_records").doc().set({
                 agent_id: agentId,
@@ -125,14 +116,25 @@ export default function FormDialog(props) {
                 purchased: purchased,
                 support: support,
                 return: checked
-              })
-              reloadFlag = true // need to reload the page
-              setInterest('');
-              setPurchased([0])
-              setSupport('');
-              setChecked(false)
-              setPurchaseNotExist(false)
-              setPurchaseSold(false)
+              }).then(() => {
+                for(var i=0; i<purchased.length; i++){
+                  db.collection("products")
+                  .doc(purchased[i])
+                  .update({
+                    sold: 'Yes'
+                  }).then(() =>{
+                    window.location.reload();
+                  })
+                }
+                setOpen(false);
+                setInterest('')
+                setPurchased([0])
+                setSupport('');
+                setChecked(false)
+                setPurchaseNotExist(false)
+                setPurchaseSold(false)
+              }   
+              )
             }
           }
         }).then(() => {

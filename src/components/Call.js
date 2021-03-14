@@ -11,7 +11,7 @@ function Call(props){
                 <div style={{display: props.data.interested ? 'flex' : 'none', padding:'10px 20px 10px 20px '}}>
                     <div className='p-responsive' style={{color:'#0044cc',paddingRight:'10px'}}>Interested in:</div><div className='p-responsive'>{props.data.interested}</div>
                 </div >
-                <div style={{display: props.data.purchased == [] ? 'flex' : 'none', padding:'10px 20px 10px 20px '}}>
+                <div style={{display: props.data.purchased !== [] ? 'flex' : 'none', padding:'10px 20px 10px 20px '}}>
                     <div className='p-responsive' style={{color:'#0044cc',paddingRight:'10px'}}>Purchases:</div><div className='p-responsive'>{props.data.purchased ? props.data.purchased.join(', ') : props.data.purchased}</div>
                 </div>
                 <div style={{display: props.data.return ? 'flex' : 'none', padding:'10px 20px 10px 20px '}}>

@@ -10,12 +10,14 @@ class AptDescription extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        // update description
         if (nextProps.description !== this.props.description) {
             this.state.description = nextProps.description
         }
     }
 
     yesOrNo(state){
+        // check id state is checked
         return state ? 'Yes' : 'No'
     }
   
