@@ -70,7 +70,7 @@ export default function FormDialog(props) {
         customer_id: customerId,
         date: formatDate,
         interested: interest,
-        purchased: purchased,
+        purchased: [],
         support: support,
         return: checked
       }).then(() => {
@@ -82,9 +82,6 @@ export default function FormDialog(props) {
       setChecked(false)
     }
     else{  
-      console.log(purchased)
-      console.log(purchased[0])
-      console.log(typeof purchased[0])
       for(var i=0; i<purchased.length; i++){
         db.collection("products")
         .doc(purchased[i])
